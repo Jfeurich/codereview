@@ -6,7 +6,7 @@ public class ConnectDBBusinessRule {
 	public void ConectDBBusinessRule(){
 		
 	}
-	public void getBusinessRule(BusinessRule.getruleNaam r){
+	public void getBusinessRule(BusinessRule r){
 		
 	}
 }
