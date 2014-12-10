@@ -1,6 +1,6 @@
-package domain;
+package nl.hu.tho4.domain;
 
-import template.Language;
+import nl.hu.tho4.template.Language;
 
 public class Generator {
 	public void Generate(BusinessRule rule, Language l){

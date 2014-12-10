@@ -1,4 +1,4 @@
-package domain;
+package nl.hu.tho4.domain;
 
 public class BusinessRuleBuilder {
 	public BusinessRule attCompareRule(String ruleNaam,String error,Operator o, String errorType,Attribute a,Attribute a2) {

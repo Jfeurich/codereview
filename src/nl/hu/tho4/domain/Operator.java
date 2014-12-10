@@ -1,4 +1,4 @@
-package domain;
+package nl.hu.tho4.domain;
 
 public class Operator {
 	private String naam;

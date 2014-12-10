@@ -1,6 +1,6 @@
-package database;
+package nl.hu.tho4.database;
 
-import domain.BusinessRule;
+import nl.hu.tho4.domain.BusinessRule;
 
 public class ConnectDBBusinessRule {
 	public void ConectDBBusinessRule(){
