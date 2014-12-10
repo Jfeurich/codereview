@@ -4,6 +4,12 @@ public class Value {
 	private String waardeNaam;
 	private String valueType;
 	private String value;
+	public Value(){}
+	public Value(String waardeNaam, String valueType, String value){
+		this.waardeNaam = waardeNaam;
+		this.valueType = valueType;
+		this.value = value;
+	}
 	public String getWaardeNaam() {
 		return waardeNaam;
 	}

@@ -3,6 +3,11 @@ package nl.hu.tho4.domain;
 public class Operator {
 	private String naam;
 	private String operatorType;
+	public Operator(){}
+	public Operator(String naam, String operatorType){
+		this.naam = naam;
+		this.operatorType = operatorType;
+	}
 	public String getNaam() {
 		return naam;
 	}

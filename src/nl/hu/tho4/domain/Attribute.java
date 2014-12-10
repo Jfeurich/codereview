@@ -5,6 +5,13 @@ public class Attribute {
 	private String dbSchema;
 	private String tabel;
 	private String kolom;
+	public Attribute(){}
+	public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom){
+		this.attributeNaam = attributeNaam;
+		this.dbSchema = dbSchema;
+		this.tabel = tabel;
+		this.kolom = kolom;
+	}
 	public String getAttributeNaam() {
 		return attributeNaam;
 	}
