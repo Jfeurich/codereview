@@ -1,11 +1,12 @@
 package nl.hu.tho4.template;
 
+import java.util.ArrayList;
+
 public class PLSQL extends Language{
 	private String name;
-	private
+	private ArrayList<Template> templates = new ArrayList<>();
 	public void addTemplate(Template t) {
-	
-		
+		templates.add(t);		
 	}
 
 	public String getName() {
@@ -14,5 +15,13 @@ public class PLSQL extends Language{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public ArrayList<Template> getLanguages() {
+		return templates;
+	}
+
+	public void setLanguages(ArrayList<Template> templates) {
+		this.templates = templates;
 	}
 }
