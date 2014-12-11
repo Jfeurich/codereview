@@ -1,4 +1,4 @@
-public class RangeBusinessRule extends BusinessRule {
+/*public class RangeBusinessRule extends BusinessRule {
   public RangeBusinessRule(Attribute a1, Value v1, Value v2) {
     super()
   }
@@ -12,3 +12,4 @@ public class RangeBusinessRule extends BusinessRule {
     return null;
   }
 }
+*/

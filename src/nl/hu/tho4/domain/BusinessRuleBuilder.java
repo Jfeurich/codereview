@@ -14,7 +14,6 @@ public class BusinessRuleBuilder {
 		return rule;
 	}
 	public BusinessRule attRangeRule(String ruleNaam, String error, Operator o,String errorType, Attribute a, Value v1, Value v2,BusinessRuleType businessruletype) {
-		return new RangeBusinessRule(ruleNaam, error, o, errorType, a, v1, v2);
 		BusinessRule rule = new BusinessRule();
 		rule.setRuleNaam(ruleNaam);
 		rule.setError(error);

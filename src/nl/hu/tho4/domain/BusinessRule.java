@@ -2,7 +2,7 @@ package nl.hu.tho4.domain;
 
 import java.util.ArrayList;
 
-public abstract class BusinessRule {
+public class BusinessRule {
 	private String ruleNaam;
 	private String error;
 	private String errorType;

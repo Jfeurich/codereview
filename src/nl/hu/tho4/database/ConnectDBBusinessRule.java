@@ -11,8 +11,8 @@ public class ConnectDBBusinessRule {
 	}
 
 	public void parseStrings() {
-		for (String string : businessRuleStrings) {
+	/*	for (String string : businessRuleStrings) {
 			
-		}
+		} */
 	}
 }
