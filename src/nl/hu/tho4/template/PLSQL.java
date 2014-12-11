@@ -2,7 +2,7 @@ package nl.hu.tho4.template;
 
 public class PLSQL extends Language{
 	private String name;
-
+	private
 	public void addTemplate(Template t) {
 	
 		
