@@ -7,11 +7,11 @@ public class Generator {
 		
 	}
 
-	public void getBusinessRules() {
+	public void getBusinessRule(String s) {
 
 	}
 
-	public void getLanguages() {
+	public void getTemplate(String s) {
 
 	}
 }
