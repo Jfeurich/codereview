@@ -2,7 +2,7 @@ package nl.hu.tho4.domain;
 
 import java.util.ArrayList;
 
-public class BusinessRule {
+public abstract class BusinessRule {
 	private String ruleNaam;
 	private String error;
 	private String errorType;
@@ -11,6 +11,7 @@ public class BusinessRule {
 	private ArrayList<Operator> operators = new ArrayList<>();
 	private ArrayList<Attribute> attributes = new ArrayList<>();
 	private ArrayList<Value> values = new ArrayList<>();
+
 	public void addAttribute(Attribute a){
 		attributes.add(a);
 	}
@@ -47,6 +48,9 @@ public class BusinessRule {
 	public String getCode() {
 		return code;
 	}
+
+	public BusinessRule parseStringRepresentation;
+	
 	public void setCode(String code) {
 		this.code = code;
 	}
