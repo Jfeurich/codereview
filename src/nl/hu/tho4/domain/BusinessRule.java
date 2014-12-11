@@ -2,7 +2,7 @@ package nl.hu.tho4.domain;
 
 import java.util.ArrayList;
 
-public class BusinessRule {
+public abstract class BusinessRule {
 	private String ruleNaam;
 	private String error;
 	private String errorType;
@@ -50,7 +50,7 @@ public class BusinessRule {
 	}
 
 	public BusinessRule parseStringRepresentation;
-	
+
 	public void setCode(String code) {
 		this.code = code;
 	}
