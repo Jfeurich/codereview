@@ -1,4 +1,4 @@
-package nl.hu.tho4.template;
+package nl.hu.tho4.domain.template;
 
 public class Template {
 	private String templateNaam;

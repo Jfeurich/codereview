@@ -1,4 +1,4 @@
-package nl.hu.tho4.template;
+package nl.hu.tho4.domain.template;
 
 public abstract class Language {
 	public String name;
