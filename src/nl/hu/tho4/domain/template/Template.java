@@ -31,6 +31,35 @@ public class Template {
 		return sqlbusinessruletemplate;
 
 	}
+	public String createTriggerName(){
+		String trigger_name = null;
+		return trigger_name;
+	}
+	
+	public String col_name(){
+		String col_name = null;
+		return col_name;
+	}
+	
+	public String table_name(){
+		String table_name = null;
+		return table_name;
+	}
+	
+	public String declaration_statements(){
+		String declaration_statements = null;
+		return declaration_statements;
+	}
+	
+	public String executable_statements(){
+		String executable_statements = null;
+		return executable_statements;
+	}
+	
+	public String exception_statements(){
+		String exception_statements = null;
+		return exception_statements;
+	}
 	public String getTemplateNaam() {
 		return templateNaam;
 	}

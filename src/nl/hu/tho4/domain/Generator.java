@@ -1,13 +1,9 @@
 package nl.hu.tho4.domain;
 
-import java.util.ArrayList;
-
-import nl.hu.tho4.domain.template.Language;
+import nl.hu.tho4.domain.template.Template;
 
 public class Generator {
-	private ArrayList<Language> languages = new ArrayList<>();
-
-	public void Generate(BusinessRule rule, Language l) {
+	public void Generate(BusinessRule rule, Template t) {
 		
 	}
 
@@ -18,5 +14,4 @@ public class Generator {
 	public void getLanguages() {
 
 	}
-
 }
