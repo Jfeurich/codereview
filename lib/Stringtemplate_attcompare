@@ -1,4 +1,4 @@
-StringTemplate attCompareRule = new StringTemplate(
+StringTemplate sqlbusinessruletemplate = new StringTemplate(
 "CREATE OR REPLACE TRIGGER $trigger_name$ "+
 "BEFORE INSERT OR UPDATE "+
 "OF $col_name$ " +
