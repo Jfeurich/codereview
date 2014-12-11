@@ -1,0 +1,19 @@
+StringTemplate attCompareRule = new StringTemplate(
+"CREATE OR REPLACE TRIGGER $trigger_name$ "+
+"BEFORE INSERT OR UPDATE "+
+"OF $col_name$ " +
+"ON $table_name$ " +
+" WHEN $condition$ " +
+" $declaration_statements$ " +
+"BEGIN " +
+" $executable_statements$ " +
+"EXCEPTION " +
+" $exception_statements$ " +
+"END;"
+)
+add("trigger_name","");
+add("col_name","");
+add("table_name","");
+add("declaration_statements","");
+add("executable_statements","");
+add("exception_statements","");

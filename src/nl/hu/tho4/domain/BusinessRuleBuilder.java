@@ -1,7 +1,8 @@
 package nl.hu.tho4.domain;
 
 public class BusinessRuleBuilder {
-	public BusinessRule attCompareRule(String ruleNaam,String error,Operator o, String errorType,Attribute a,Attribute a2,BusinessRuleType businessruletype) {
+	public BusinessRule attCompareRule(String ruleNaam,
+	String error,Operator o, String errorType,Attribute a,Attribute a2,BusinessRuleType businessruletype) {
 		BusinessRule rule = new BusinessRule();
 		rule.setRuleNaam(ruleNaam);
 		rule.setError(error);
