@@ -1,4 +1,4 @@
-package nl.hu.tho4.domain;
+package nl.hu.tho4.domain.tempdel;
 
 public class BusinessRuleType {
     private String toelichting;

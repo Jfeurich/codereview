@@ -1,5 +1,7 @@
 package nl.hu.tho4.domain;
 
+import nl.hu.tho4.domain.tempdel.BusinessRuleType;
+
 import java.util.ArrayList;
 
 public abstract class BusinessRule {
