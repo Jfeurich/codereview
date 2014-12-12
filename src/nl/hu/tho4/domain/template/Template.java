@@ -1,5 +1,4 @@
 package nl.hu.tho4.domain.template;
-
 import org.stringtemplate.v4.ST;
 
 public class Template {
@@ -8,12 +7,11 @@ public class Template {
 	private String businessRuleType;
 	public Template() {
 	}
-	public ST sqlbusinessruletemplate(){ 
+	public String sqlbusinessruletemplate(String trigger_name, String col_name, String table_name, String declaration_statements, String executable_statements, String exception_statements){ 
 		ST sqlbusinessruletemplate = new ST(
 			"CREATE OR REPLACE TRIGGER $trigger_name$ "+
 			"BEFORE INSERT OR UPDATE "+
-			"OF $col_name$ " +
-			"ON $table_name$ " +
+			"OF $col_name$ ON $table_name$ " +
 			" WHEN $condition$ " +
 			" $declaration_statements$ " +
 			"BEGIN " +
@@ -22,13 +20,13 @@ public class Template {
 			" $exception_statements$ " +
 			"END;"
 		);
-		sqlbusinessruletemplate.add("trigger_name","");
-		sqlbusinessruletemplate.add("col_name","");
-		sqlbusinessruletemplate.add("table_name","");
-		sqlbusinessruletemplate.add("declaration_statements","");
-		sqlbusinessruletemplate.add("executable_statements","");
-		sqlbusinessruletemplate.add("exception_statements","");
-		return sqlbusinessruletemplate;
+		sqlbusinessruletemplate.add("trigger_name",trigger_name);
+		sqlbusinessruletemplate.add("col_name",col_name);
+		sqlbusinessruletemplate.add("table_name",table_name);
+		sqlbusinessruletemplate.add("declaration_statements",declaration_statements);
+		sqlbusinessruletemplate.add("executable_statements",executable_statements);
+		sqlbusinessruletemplate.add("exception_statements",exception_statements);
+		return sqlbusinessruletemplate.render();
 
 	}
 	public String createTriggerName(){

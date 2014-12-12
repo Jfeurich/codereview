@@ -1,14 +1,14 @@
 StringTemplate sqlbusinessruletemplate = new StringTemplate(
 "CREATE OR REPLACE TRIGGER $trigger_name$ "+
-"BEFORE INSERT OR UPDATE "+
-"OF $col_name$ " +
-"ON $table_name$ " +
-" WHEN $condition$ " +
-" $declaration_statements$ " +
-"BEGIN " +
-" $executable_statements$ " +
-"EXCEPTION " +
-" $exception_statements$ " +
+"BEFORE INSERT OR UPDATE "		+
+" OF $col_name$ "				+
+" ON $table_name$ " 			+
+" WHEN $condition$ " 			+
+" $declaration_statements$ " 	+
+" BEGIN "						+
+" $executable_statements$ "		+
+" EXCEPTION "					+
+" $exception_statements$ " 		+
 "END;"
 )
 add("trigger_name","");
@@ -17,4 +17,4 @@ add("table_name","");
 add("declaration_statements","");
 add("executable_statements","");
 add("exception_statements","");
-return attCompareRule;
+return attCompareRule.render();
