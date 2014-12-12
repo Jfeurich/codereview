@@ -18,6 +18,7 @@ public class Main {
 		rule.setRuleNaam("regel1");
 		rule.setError("dit is een error");
 		rule.setErrorType("Custom");
+		Generator.Generate(rule, null); 
 		// TODO Auto-generated method stub
 
 	}
