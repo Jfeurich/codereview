@@ -14,10 +14,12 @@ public class Main {
 		v2.setValue("4");
 		v2.setValueType("int");
 		Attribute a = new Attribute("Ietsuitdedatabase","uitschema1","kolom1","tabel1");
-		BusinessRule rule = new attRangeBusinessRule(a,v,v2);
+		Attribute a2 = new Attribute("Nogietsuitdedatabase","uitschema1","kolom1","tabel1");
+		BusinessRule rule = new attCompareBusinessRule(a,a2);
 		rule.setRuleNaam("regel1");
 		rule.setError("dit is een error");
 		rule.setErrorType("Custom");
+		Template t = new Template();
 		Generator.Generate(rule, null); 
 		// TODO Auto-generated method stub
 
