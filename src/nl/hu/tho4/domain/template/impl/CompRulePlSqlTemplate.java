@@ -1,5 +1,6 @@
-package nl.hu.tho4.domain.template;
+package nl.hu.tho4.domain.template.impl;
 
+import nl.hu.tho4.domain.template.Template;
 import org.stringtemplate.v4.ST;
 
 /**

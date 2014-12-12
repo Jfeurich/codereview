@@ -1,4 +1,4 @@
-package nl.hu.tho4.domain.template;
+package nl.hu.tho4.domain.tempdel;
 
 public class PLSQL extends Language{
 	private String name;

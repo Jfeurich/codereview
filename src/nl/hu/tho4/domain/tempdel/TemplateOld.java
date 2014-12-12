@@ -1,4 +1,4 @@
-package nl.hu.tho4.domain.template;
+package nl.hu.tho4.domain.tempdel;
 
 import nl.hu.tho4.domain.BusinessRule;
 import org.stringtemplate.v4.ST;
