@@ -3,7 +3,7 @@ package nl.hu.tho4.domain.template;
 public class PLSQL extends Language{
 	private String name;
 
-	public void addTemplate(Template t) {
+	public void addTemplate(TemplateOld t) {
 	
 		
 	}
