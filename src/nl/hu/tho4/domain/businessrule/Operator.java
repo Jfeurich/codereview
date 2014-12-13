@@ -1,11 +1,8 @@
-package nl.hu.tho4.domain;
+package nl.hu.tho4.domain.businessrule;
 
 public class Operator {
     private String naam;
     private String operatorType;
-
-    public Operator() {
-    }
 
     public Operator(String naam, String operatorType) {
         this.naam = naam;

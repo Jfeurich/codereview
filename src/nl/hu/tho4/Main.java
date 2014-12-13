@@ -1,7 +1,13 @@
-package nl.hu.tho4.domain;
+package nl.hu.tho4;
 
+import nl.hu.tho4.domain.businessrule.Attribute;
+import nl.hu.tho4.domain.businessrule.BusinessRule;
+import nl.hu.tho4.domain.Generator;
+import nl.hu.tho4.domain.businessrule.Value;
 import nl.hu.tho4.domain.businessrules.attCompareBusinessRule;
 import nl.hu.tho4.domain.businessrules.attRangeBusinessRule;
+import nl.hu.tho4.domain.template.Template;
+import nl.hu.tho4.domain.template.impl.CompRulePlSqlTemplate;
 
 public class Main {
 	public static void main(String[] args) {
@@ -19,8 +25,9 @@ public class Main {
 		rule.setRuleNaam("regel1");
 		rule.setError("dit is een error");
 		rule.setErrorType("Custom");
-		Template t = new Template();
-		Generator.Generate(rule, null); 
+		Template t = new CompRulePlSqlTemplate();
+		Generator generator = new Generator();
+		generator.Generate(rule, t);
 		// TODO Auto-generated method stub
 
 	}

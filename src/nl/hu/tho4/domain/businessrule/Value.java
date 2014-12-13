@@ -1,12 +1,9 @@
-package nl.hu.tho4.domain;
+package nl.hu.tho4.domain.businessrule;
 
 public class Value {
     private String waardeNaam;
     private String valueType;
     private String value;
-
-    public Value() {
-    }
 
     public Value(String waardeNaam, String valueType, String value) {
         this.waardeNaam = waardeNaam;

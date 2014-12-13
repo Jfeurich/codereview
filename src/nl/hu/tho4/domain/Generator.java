@@ -1,5 +1,6 @@
 package nl.hu.tho4.domain;
 
+import nl.hu.tho4.domain.businessrule.BusinessRule;
 import nl.hu.tho4.domain.template.Template;
 import org.stringtemplate.v4.ST;
 

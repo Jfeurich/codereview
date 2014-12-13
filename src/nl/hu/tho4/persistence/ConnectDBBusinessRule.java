@@ -1,6 +1,6 @@
-package nl.hu.tho4.database;
+package nl.hu.tho4.persistence;
 
-import nl.hu.tho4.domain.BusinessRule;
+import nl.hu.tho4.domain.businessrule.BusinessRule;
 
 public class ConnectDBBusinessRule {
 	public void ConectDBBusinessRule(){

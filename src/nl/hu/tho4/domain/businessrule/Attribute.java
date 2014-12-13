@@ -1,4 +1,4 @@
-package nl.hu.tho4.domain;
+package nl.hu.tho4.domain.businessrule;
 
 public class Attribute {
     private String attributeNaam;
@@ -7,10 +7,7 @@ public class Attribute {
     private String kolom;
     private String value;
 
-    public Attribute() {
-    }
-
-    public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom,String value) {
+    public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom, String value) {
         this.attributeNaam = attributeNaam;
         this.dbSchema = dbSchema;
         this.tabel = tabel;
@@ -48,5 +45,13 @@ public class Attribute {
 
     public void setKolom(String kolom) {
         this.kolom = kolom;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
