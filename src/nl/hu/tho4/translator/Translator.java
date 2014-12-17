@@ -23,9 +23,22 @@ public class Translator {
 		return query.render();
 	}
 	
+	public ST translate(ST st, String language) {
+		ST query = new ST(Translatorlanguage(language));
+		System.out.println(query.toString());
+		/*query.add("$trigger_name$",generateTriggerName());
+		query.add("$table_name$",businessrule.getAttribute1().getTabel());
+		for(int i = 0;i<4;i++){
+			query.add("$value_declarations$","declareval");
+		}
+		query.add("$trigger_code$",generateTriggerCode());
+		query.add("$exception_code$",generateExceptionCode());*/
+		return query;
+	}
+	
 	private String generateTriggerName(){
 		//applicatienaam_entiteit_typerestrictie_soortrule
-		String s ="";
+		String s ="applicatienaam_entiteit_typerestrictie_soortrule";
 		return s;
 	}
 	
@@ -40,20 +53,18 @@ public class Translator {
 	}
 	
 	private final String Translatorlanguage(String language) {
-//		String languagetemplate = null;
-//		try{
-//		switch (language){
-//			case "plsql" : languagetemplate = readFileToString("Stringtemplates/plsql.st");break;
-//			case "mysql" : languagetemplate = readFileToString("Stringtemplates/mysql.st");break;
-//			}
-//		}
-//		catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return languagetemplate;
-		return "";
+		String languagetemplate = null;
+		try{
+		switch (language){
+			case "plsql" : languagetemplate = readFileToString("lib/plsql.st");break;
+			case "mysql" : languagetemplate = readFileToString("lib/mysql.st");break;
+			}
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return languagetemplate;
 	}
 	
 	private String readFileToString(String pathname) throws IOException {
@@ -87,9 +98,5 @@ public class Translator {
 
 	public void setBusinessrule(BusinessRule businessrule) {
 		this.businessrule = businessrule;
-	}
-
-	public ST translate(ST st, String language) {
-		return null;
 	}
 }

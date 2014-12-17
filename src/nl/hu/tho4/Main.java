@@ -1,6 +1,8 @@
 package nl.hu.tho4;
 
 
+import java.nio.file.Files;
+
 import nl.hu.tho4.controller.generator.Generator;
 import nl.hu.tho4.domain.businessrule.Attribute;
 import nl.hu.tho4.domain.businessrule.BusinessRule;
@@ -15,7 +17,7 @@ public class Main {
         BusinessRule br = new BusinessRule("AttCompareRule", "Error", "ErrorType", "Code", op, null, null, att1, att2);
 
         Generator generator = Generator.getInstance();
-        generator.generateCode(br, "plsql");
+        generator.generateCode("plsql", br);
     }
 
 }

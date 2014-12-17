@@ -8,7 +8,9 @@ public class BusinessRule {
     private Operator operator;
     private Value    value1, value2;
     private Attribute attribute1, attribute2;
-
+    
+    public BusinessRule(){
+    } 
     public BusinessRule(String ruleNaam, String error, String errorType, String code, Operator operator, Value value1, Value value2, Attribute attribute1, Attribute attribute2) {
         this.ruleNaam = ruleNaam;
         this.error = error;

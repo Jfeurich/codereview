@@ -17,7 +17,7 @@ public class Generator {
         return ourInstance;
     }
 
-    public void generateCode(BusinessRule br, String language){
+    public void generateCode(String language, BusinessRule br){
         ST st = new ST("hier zo normaal de pseudocode komen te staan");
         ST result = translator.translate(st, language);
         writeFile(result.render());
@@ -25,7 +25,7 @@ public class Generator {
 
     private void writeFile(String s){
         try{
-            PrintWriter out = new PrintWriter("testfile.txt");
+            PrintWriter out = new PrintWriter("lib/testfile.txt");
             out.println(s);
             out.close();
         } catch (Exception e){
