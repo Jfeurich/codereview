@@ -1,11 +1,6 @@
 package nl.hu.tho4;
 
-import nl.hu.tho4.domain.businessrule.Attribute;
-import nl.hu.tho4.domain.businessrule.BusinessRule;
-import nl.hu.tho4.domain.Generator;
-import nl.hu.tho4.domain.businessrule.Value;
-import nl.hu.tho4.domain.template.Template;
-import nl.hu.tho4.domain.template.impl.CompRulePlSqlTemplate;
+
 
 @SuppressWarnings("unused")
 public class Main {
