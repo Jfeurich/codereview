@@ -24,6 +24,7 @@ public class Translator {
 	}
 	
 	private String generateTriggerName(){
+		//applicatienaam_entiteit_typerestrictie_soortrule
 		String s ="";
 		return s;
 	}
