@@ -1,12 +1,16 @@
-CREATE OR REPLACE TRIGGER $trigger_name$
+CREATE OR REPLACE TRIGGER applicatienaam_entiteit_typerestrictie_soortrule
 BEFORE DELETE OR INSERT OR UPDATE
-ON $table_name$
+ON detabelnaam
 FOR EACH ROW
 DECLARE
-$value_declarations$
+declareval
+declareval
+declareval
+declareval
+
 BEGIN
-$trigger_code$;
+de gegenereerde trigger code;
 EXCEPTION
-$exception_code$;
+ de exceptie afhandeling;
 END;
 

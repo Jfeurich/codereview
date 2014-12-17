@@ -1,11 +1,11 @@
-CREATE OR REPLACE TRIGGER $trigger_name$
+CREATE OR REPLACE TRIGGER <trigger_name>
 BEFORE DELETE OR INSERT OR UPDATE
-ON $table_name$
+ON <table_name>
 FOR EACH ROW
 DECLARE
-$value_declarations$
+<value_declarations>
 BEGIN
-$trigger_code$;
+<trigger_code>;
 EXCEPTION
-$exception_code$;
+<exception_code>;
 END;

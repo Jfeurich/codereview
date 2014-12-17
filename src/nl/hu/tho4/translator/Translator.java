@@ -25,14 +25,13 @@ public class Translator {
 	
 	public ST translate(ST st, String language) {
 		ST query = new ST(Translatorlanguage(language));
-		System.out.println(query.toString());
-		/*query.add("$trigger_name$",generateTriggerName());
-		query.add("$table_name$",businessrule.getAttribute1().getTabel());
+		query.add("trigger_name",generateTriggerName());
+		query.add("table_name","detabelnaam");
 		for(int i = 0;i<4;i++){
-			query.add("$value_declarations$","declareval");
+			query.add("value_declarations","declareval"+"\n");
 		}
-		query.add("$trigger_code$",generateTriggerCode());
-		query.add("$exception_code$",generateExceptionCode());*/
+		query.add("trigger_code",generateTriggerCode());
+		query.add("exception_code",generateExceptionCode());
 		return query;
 	}
 	
@@ -43,12 +42,12 @@ public class Translator {
 	}
 	
 	private String generateTriggerCode(){
-		String s ="";
+		String s ="de gegenereerde trigger code";
 		return s;
 	}
 	
 	private String generateExceptionCode(){
-		String s ="";
+		String s =" de exceptie afhandeling";
 		return s;
 	}
 	
