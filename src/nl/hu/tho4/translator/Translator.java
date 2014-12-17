@@ -39,19 +39,20 @@ public class Translator {
 	}
 	
 	private final String Translatorlanguage(String language) {
-		String languagetemplate = null;
-		try{
-		switch (language){
-			case "plsql" : languagetemplate = readFileToString("Stringtemplates/plsql.st");break;
-			case "mysql" : languagetemplate = readFileToString("Stringtemplates/mysql.st");break;
-			}
-		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return languagetemplate;
+//		String languagetemplate = null;
+//		try{
+//		switch (language){
+//			case "plsql" : languagetemplate = readFileToString("Stringtemplates/plsql.st");break;
+//			case "mysql" : languagetemplate = readFileToString("Stringtemplates/mysql.st");break;
+//			}
+//		}
+//		catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		return languagetemplate;
+		return "";
 	}
 	
 	private String readFileToString(String pathname) throws IOException {
@@ -87,4 +88,7 @@ public class Translator {
 		this.businessrule = businessrule;
 	}
 
+	public ST translate(ST st, String language) {
+		return null;
+	}
 }

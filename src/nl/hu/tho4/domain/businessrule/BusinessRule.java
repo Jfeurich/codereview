@@ -1,6 +1,6 @@
 package nl.hu.tho4.domain.businessrule;
 
-public abstract class BusinessRule {
+public class BusinessRule {
     private String   ruleNaam;
     private String   error;
     private String   errorType;
