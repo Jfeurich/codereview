@@ -11,7 +11,7 @@ import org.stringtemplate.v4.*;
 public class Translator {
 	private String language;
 	private BusinessRule businessrule;
-	public String Translator(String language, BusinessRule businessrule){
+	public String translator(String language, BusinessRule businessrule){
 		ST query = new ST(Translatorlanguage(language));
 		query.add("$trigger_name$",generateTriggerName());
 		query.add("$table_name$",businessrule.getAttribute1().getTabel());
