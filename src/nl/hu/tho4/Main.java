@@ -17,7 +17,7 @@ public class Main {
         BusinessRule br = new BusinessRule("AttCompareRule", "Error", "ErrorType", "Code", op, null, null, att1, att2);
 
         Generator generator = Generator.getInstance();
-        generator.generateCode("plsql", br);
+        generator.generate("plsql", br);
     }
 
 }

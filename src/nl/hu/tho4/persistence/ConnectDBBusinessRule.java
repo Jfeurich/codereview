@@ -1,9 +1,11 @@
 package nl.hu.tho4.persistence;
 
 import nl.hu.tho4.domain.businessrule.BusinessRule;
+import nl.hu.tho4.persistence.ConnectionFactory;
 
 public class ConnectDBBusinessRule {
-	public void ConectDBBusinessRule(){
+	private ConnectionFactory connectionFactory;
+	public void ConectDBBusinessRule(ConnectionFactory cf){
 
 	}
 	public void getBusinessRule(BusinessRule r){

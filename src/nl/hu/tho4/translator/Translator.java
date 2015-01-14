@@ -13,6 +13,12 @@ public class Translator {
 	private BusinessRule businessrule;
 	public String translator(String language, BusinessRule businessrule){
 		ST query = new ST(Translatorlanguage(language));
+		String s = query.toString();
+		return s;
+	}
+	public String Translator(String language){
+		/*ST query = new ST(Translatorlanguage(language));
+		Stashed changes
 		query.add("$trigger_name$",generateTriggerName());
 		query.add("$table_name$",businessrule.getAttribute1().getTabel());
 		for(int i = 0;i<4;i++){
@@ -20,7 +26,8 @@ public class Translator {
 		}
 		query.add("$trigger_code$",generateTriggerCode());
 		query.add("$exception_code$",generateExceptionCode());
-		return query.render();
+		return query.render();*/
+		return "";
 	}
 	
 	public ST translate(ST st, String language) {
@@ -89,13 +96,5 @@ public class Translator {
 
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-
-	public BusinessRule getBusinessrule() {
-		return businessrule;
-	}
-
-	public void setBusinessrule(BusinessRule businessrule) {
-		this.businessrule = businessrule;
 	}
 }
