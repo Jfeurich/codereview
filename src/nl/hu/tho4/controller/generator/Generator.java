@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  */
 public class Generator {
     private static Generator ourInstance = new Generator();
-    Translator translator;
+    private Translator translator;
 
     public static Generator getInstance() {
         return ourInstance;

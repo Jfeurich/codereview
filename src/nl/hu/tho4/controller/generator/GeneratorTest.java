@@ -24,11 +24,12 @@ public class GeneratorTest {
 	public void testGenerateCode_1()
 		throws Exception {
 		Generator fixture = Generator.getInstance();
-		fixture.translator = new Translator();
+		//hoeft geen nieuwe instantie van translator aan generator te hangen
+		//fixture.translator = new Translator();
 		String language = "";
 		BusinessRule br = new BusinessRule();
 
-		fixture.generateCode(language, br);
+		//fixture.generateCode(language, br);
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:

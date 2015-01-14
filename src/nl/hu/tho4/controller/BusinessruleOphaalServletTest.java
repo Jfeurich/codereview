@@ -1,7 +1,7 @@
 package nl.hu.tho4.controller;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * The class <code>BusinessruleOphaalServletTest</code> contains tests for the class <code>{@link BusinessruleOphaalServlet}</code>.
