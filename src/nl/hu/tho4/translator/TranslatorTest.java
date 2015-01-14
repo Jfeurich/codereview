@@ -28,21 +28,22 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//je hoeft geen businessrule te setten in de translator het is alleen maar een soort utility class
+		//fixture.setBusinessrule(new BusinessRule());
 
-		BusinessRule result = fixture.getBusinessrule();
+		//BusinessRule result = fixture.getBusinessrule();
 
 		// add additional test code here
-		assertNotNull(result);
-		assertEquals(null, result.getAttribute2());
-		assertEquals(null, result.getErrorType());
-		assertEquals(null, result.getValue2());
-		assertEquals(null, result.getValue1());
-		assertEquals(null, result.getRuleNaam());
-		assertEquals(null, result.getOperator());
-		assertEquals(null, result.getCode());
-		assertEquals(null, result.getError());
-		assertEquals(null, result.getAttribute1());
+//		assertNotNull(result);
+//		assertEquals(null, result.getAttribute2());
+//		assertEquals(null, result.getErrorType());
+//		assertEquals(null, result.getValue2());
+//		assertEquals(null, result.getValue1());
+//		assertEquals(null, result.getRuleNaam());
+//		assertEquals(null, result.getOperator());
+//		assertEquals(null, result.getCode());
+//		assertEquals(null, result.getError());
+//		assertEquals(null, result.getAttribute1());
 	}
 
 	/**
@@ -57,7 +58,8 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+
+		//fixture.setBusinessrule(new BusinessRule());
 
 		String result = fixture.getLanguage();
 
@@ -77,10 +79,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		BusinessRule businessrule = new BusinessRule();
 
-		fixture.setBusinessrule(businessrule);
+		//fixture.setBusinessrule(businessrule);
 
 		// add additional test code here
 	}
@@ -97,7 +99,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		String language = "";
 
 		fixture.setLanguage(language);
@@ -117,7 +119,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -147,7 +149,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -177,7 +179,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		String language = "mysql";
 		BusinessRule businessrule = new BusinessRule("", "", "", "", new Operator("", ""), new Value("", "", ""), new Value("", "", ""), new Attribute("", "", "", "", ""), new Attribute("", "", "", "", ""));
 
@@ -207,7 +209,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-		fixture.setBusinessrule(new BusinessRule());
+		//fixture.setBusinessrule(new BusinessRule());
 		String language = "mysql";
 		BusinessRule businessrule = new BusinessRule("", "", "", "", new Operator("", ""), new Value("", "", ""), new Value("", "", ""), new Attribute("", "", "", "", ""), new Attribute("", "", "", "", ""));
 

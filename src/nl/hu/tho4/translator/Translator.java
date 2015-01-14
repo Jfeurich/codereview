@@ -10,7 +10,8 @@ import org.stringtemplate.v4.*;
 
 public class Translator {
 	private String language;
-	private BusinessRule businessrule;
+	//businessrule is hier niet nodig, creëert alleen maar high coupling
+	//private BusinessRule businessrule;
 	public String translator(String language, BusinessRule businessrule){
 		ST query = new ST(Translatorlanguage(language));
 		String s = query.toString();
@@ -61,9 +62,10 @@ public class Translator {
 	private final String Translatorlanguage(String language) {
 		String languagetemplate = null;
 		try{
-		switch (language){
-			case "plsql" : languagetemplate = readFileToString("lib/plsql.st");break;
-			case "mysql" : languagetemplate = readFileToString("lib/mysql.st");break;
+			if (language.equals("plsql")) {
+				languagetemplate = readFileToString("lib/plsql.st");
+			} else if (language.equals("mysql")) {
+				languagetemplate = readFileToString("lib/mysql.st");
 			}
 		}
 		catch (IOException e) {
