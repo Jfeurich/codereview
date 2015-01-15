@@ -1,10 +1,8 @@
-package nl.hu.tho4.test;
-
-import org.junit.*;
+package nl.hu.tho4.tests;
 
 import nl.hu.tho4.controller.generator.Generator;
 import nl.hu.tho4.domain.businessrule.BusinessRule;
-import nl.hu.tho4.translator.Translator;
+
 import static org.junit.Assert.*;
 
 /**
