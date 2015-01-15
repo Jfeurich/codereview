@@ -1,4 +1,6 @@
-package nl.hu.tho4.controller;
+package nl.hu.tho4.test;
+
+import nl.hu.tho4.controller.BusinessruleOphaalServlet;
 
 import org.junit.After;
 import org.junit.Before;

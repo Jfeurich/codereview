@@ -4,8 +4,16 @@ import java.sql.DriverManager;
 
 public class MySQLConnection implements DBConnection{
 	protected final static String DB_DRIV = "com.mysql.jdbc.Driver";
-	protected String databaseURL = "jdbc:mysql://localhost:3306/THO6";
-	@Override
+	protected String databaseURL = "jdbc:mysql://databaseIP:3306/THO6";
+
+	public MySQLConnection() {
+		try{
+			Class.forName(DB_DRIV).newInstance();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+	}
 	public Connection connect() {
 		Connection con = null;
 		try{
