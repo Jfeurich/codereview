@@ -1,15 +1,16 @@
 package nl.hu.tho4.tests;
 
+import nl.hu.tho4.persistence.MySQLConnection;
+import oracle.jdbc.oci.OracleOCIConnection;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.util.Properties;
 
-import nl.hu.tho4.persistence.MySQLConnection;
-import oracle.jdbc.oci.OracleOCIConnection;
-
-import org.junit.Test;
-
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * The class <code>MySQLConnectionTest</code> contains tests for the class <code>{@link MySQLConnection}</code>.

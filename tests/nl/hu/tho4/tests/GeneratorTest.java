@@ -2,8 +2,11 @@ package nl.hu.tho4.tests;
 
 import nl.hu.tho4.controller.generator.Generator;
 import nl.hu.tho4.domain.businessrule.BusinessRule;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * The class <code>GeneratorTest</code> contains tests for the class <code>{@link Generator}</code>.
@@ -39,8 +42,8 @@ public class GeneratorTest {
 		//       at org.stringtemplate.v4.STGroup.compile(STGroup.java:448)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
-		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:27)
-		//       at nl.hu.tho4.controller.generator.Generator.generateCode(Generator.java:22)
+		//       at Translator.translate(Translator.java:27)
+		//       at Generator.generateCode(Generator.java:22)
 	}
 
 	/**

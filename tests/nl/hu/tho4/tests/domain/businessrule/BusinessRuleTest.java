@@ -1,8 +1,15 @@
-package nl.hu.tho4.domain.businessrule;
+package nl.hu.tho4.tests.domain.businessrule;
 
-import org.junit.*;
+import nl.hu.tho4.domain.businessrule.Attribute;
+import nl.hu.tho4.domain.businessrule.BusinessRule;
+import nl.hu.tho4.domain.businessrule.Operator;
+import nl.hu.tho4.domain.businessrule.Value;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class BusinessRuleTest {
     private BusinessRule testBusinessRule;
@@ -22,7 +29,7 @@ public class BusinessRuleTest {
         testValue = new Value("","","");
         testBusinessRule.setValue1(testValue);
         testBusinessRule.setValue2(testValue);
-        testAttribute = new Attribute("","","","","");
+        testAttribute = new Attribute("", "", "", "", 0);
         testBusinessRule.setAttribute1(testAttribute);
         testBusinessRule.setAttribute2(testAttribute);
     }
@@ -116,27 +123,27 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetAttribute1() {
-        assertEquals(new Attribute("","","","",""), testBusinessRule.getAttribute1());
+        assertEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
     }
 
     @Test
     public void testSetAttribute1() {
-        testAttribute2 = new Attribute("a","a","a","a","a");
+        testAttribute2 = new Attribute("a", "a", "a", "a", 1);
         testBusinessRule.setAttribute1(testAttribute2);
-        assertNotEquals(new Attribute("","","","",""), testBusinessRule.getAttribute1());
+        assertNotEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
         assertEquals(testAttribute2, testBusinessRule.getAttribute1());
     }
 
     @Test
     public void testGetAttribute2() {
-        assertEquals(new Attribute("","","","",""), testBusinessRule.getAttribute2());
+        assertEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute2());
     }
 
     @Test
     public void testSetAttribute2() {
-        testAttribute2 = new Attribute("a","a","a","a","a");
+        testAttribute2 = new Attribute("a", "a", "a", "a", 1);
         testBusinessRule.setAttribute2(testAttribute2);
-        assertNotEquals(new Attribute("","","","",""), testBusinessRule.getAttribute1());
+        assertNotEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
         assertEquals(testAttribute2, testBusinessRule.getAttribute1());
     }
 

@@ -1,7 +1,12 @@
-package nl.hu.tho4.domain.businessrule;
+package nl.hu.tho4.tests.domain.businessrule;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import nl.hu.tho4.domain.businessrule.Attribute;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class AttributeTest {
     private Attribute testAttribute;
@@ -14,7 +19,7 @@ public class AttributeTest {
         testAttribute.setDbSchema("Schema");
         testAttribute.setTabel("Tabel");
         testAttribute.setKolom("Kolom");
-        testAttribute.setValue("Value");
+        testAttribute.setAttributeID(0);
     }
 
     @Test
@@ -67,14 +72,14 @@ public class AttributeTest {
 
     @Test
     public void testGetValue() {
-        assertEquals("Value", testAttribute.getValue());
+        assertEquals(0, testAttribute.getAttributeID());
     }
 
     @Test
     public void testSetValue() {
-        testAttribute.setValue("Attribute");
-        assertNotEquals("Value", testAttribute.getValue());
-        assertEquals("Attribute", testAttribute.getValue());
+        testAttribute.setAttributeID(1);
+        assertNotEquals(0, testAttribute.getAttributeID());
+        assertEquals(1, testAttribute.getAttributeID());
     }
 
     @After

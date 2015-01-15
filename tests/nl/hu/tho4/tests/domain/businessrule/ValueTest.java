@@ -1,7 +1,12 @@
-package nl.hu.tho4.domain.businessrule;
+package nl.hu.tho4.tests.domain.businessrule;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import nl.hu.tho4.domain.businessrule.Value;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ValueTest{
     private Value testValue;
