@@ -9,7 +9,6 @@ public class Attribute {
 
     public Attribute(){
 
-
     }
 
     public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom, String value) {

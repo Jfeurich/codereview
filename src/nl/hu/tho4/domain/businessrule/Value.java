@@ -5,6 +5,10 @@ public class Value {
     private String valueType;
     private String value;
 
+    public Value(){
+
+    }
+
     public Value(String waardeNaam, String valueType, String value) {
         this.waardeNaam = waardeNaam;
         this.valueType = valueType;
