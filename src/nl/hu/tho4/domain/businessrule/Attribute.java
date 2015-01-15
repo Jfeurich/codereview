@@ -5,18 +5,18 @@ public class Attribute {
     private String dbSchema;
     private String tabel;
     private String kolom;
-    private String value;
+    private int attributeID;
 
     public Attribute(){
 
     }
 
-    public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom, String value) {
+    public Attribute(String attributeNaam, String dbSchema, String tabel, String kolom, int attributeID) {
         this.attributeNaam = attributeNaam;
         this.dbSchema = dbSchema;
         this.tabel = tabel;
         this.kolom = kolom;
-        this.value = value;
+        this.setAttributeID(attributeID);
     }
 
     public String getAttributeNaam() {
@@ -51,11 +51,11 @@ public class Attribute {
         this.kolom = kolom;
     }
 
-    public String getValue() {
-        return value;
-    }
+	public int getAttributeID() {
+		return attributeID;
+	}
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+	public void setAttributeID(int attributeID) {
+		this.attributeID = attributeID;
+	}
 }
