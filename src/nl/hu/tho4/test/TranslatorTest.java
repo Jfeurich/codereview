@@ -5,7 +5,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import org.stringtemplate.v4.ST;
-
+import nl.hu.tho4.domain.businessrule.*;
 import nl.hu.tho4.domain.businessrule.BusinessRule;
 import nl.hu.tho4.translator.Translator;
 
@@ -25,18 +25,15 @@ public class TranslatorTest {
 	 * @generatedBy CodePro at 1/14/15 2:17 PM
 	 */
 	@Test
-	public void testTranslator_1()
-		throws Exception {
+	public void testTranslator_11() throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		String language = "";
 
 		String result = fixture.Translator(language);
 
 		// add additional test code here
 		assertEquals("", result);
-=======
 		//je hoeft geen businessrule te setten in de translator het is alleen maar een soort utility class
 		//fixture.setBusinessrule(new BusinessRule());
 
@@ -53,7 +50,6 @@ public class TranslatorTest {
 //		assertEquals(null, result.getCode());
 //		assertEquals(null, result.getError());
 //		assertEquals(null, result.getAttribute1());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 	}
 
 	/**
@@ -68,12 +64,8 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
 
 		//fixture.setBusinessrule(new BusinessRule());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
-
 		String result = fixture.getLanguage();
 
 		// add additional test code here
@@ -103,7 +95,6 @@ public class TranslatorTest {
 	}
 
 	/**
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 	 * Run the void setLanguage(String) method test.
 	 *
 	 * @throws Exception
@@ -115,10 +106,8 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
 		//fixture.setBusinessrule(new BusinessRule());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
+
 		String language = "";
 
 		fixture.setLanguage(language);
@@ -138,10 +127,8 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
 		//fixture.setBusinessrule(new BusinessRule());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
+
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -171,10 +158,8 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
+
 		//fixture.setBusinessrule(new BusinessRule());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -188,9 +173,7 @@ public class TranslatorTest {
 		//       at org.stringtemplate.v4.STGroup.compile(STGroup.java:448)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:34)
-=======
 		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:27)
 		assertNotNull(result);
 	}
@@ -222,7 +205,6 @@ public class TranslatorTest {
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
 		//       at nl.hu.tho4.translator.Translator.translator(Translator.java:15)
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		assertNotNull(result);
 	}
 
@@ -238,10 +220,7 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
 		//fixture.setBusinessrule(new BusinessRule());
->>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		String language = "mysql";
 		BusinessRule businessrule = new BusinessRule();
 

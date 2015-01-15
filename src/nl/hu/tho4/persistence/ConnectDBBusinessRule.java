@@ -4,10 +4,8 @@ import nl.hu.tho4.domain.businessrule.BusinessRule;
 import nl.hu.tho4.persistence.ConnectionFactory;
 
 public class ConnectDBBusinessRule {
-	@SuppressWarnings("unused")
-	private ConnectionFactory connectionFactory;
-	public void ConectDBBusinessRule(ConnectionFactory cf){
-
+	public void ConectDBBusinessRule(){
+		
 	}
 	public void getBusinessRule(BusinessRule r){
 
@@ -19,3 +17,12 @@ public class ConnectDBBusinessRule {
 		} */
 	}
 }
+/*
+ * Deze methode moet bevatten:
+ * connect()						Maak verbinding met de Oracle DB
+ * getBusinessrule()				Haal Businessrule op
+ * saveBusinessrule()				Sla Businessrule op
+ * getongegenereerdeBusinessrules()	Haal de te genereren Businessrules op
+ * searchBusinessrule()				Zoek een businessrule op naam/tabel/etc
+ *  
+ */
