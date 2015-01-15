@@ -1,4 +1,4 @@
-package nl.hu.tho4.translator;
+package nl.hu.tho4.translator.filesystem;
 
 public class FilesystemFacade {
 

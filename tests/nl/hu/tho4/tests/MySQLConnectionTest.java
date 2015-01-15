@@ -1,12 +1,11 @@
-package nl.hu.tho4.test;
+package nl.hu.tho4.tests;
 
 import java.sql.Connection;
 import java.util.Properties;
 
 import nl.hu.tho4.persistence.MySQLConnection;
 import oracle.jdbc.oci.OracleOCIConnection;
-
-import org.junit.*;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
