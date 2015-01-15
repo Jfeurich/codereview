@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 package nl.hu.tho4.test;
 
 import org.junit.*;
@@ -6,8 +7,22 @@ import static org.junit.Assert.*;
 
 import org.stringtemplate.v4.ST;
 import nl.hu.tho4.domain.businessrule.*;
+=======
+package nl.hu.tho4.tests;
+
+import nl.hu.tho4.domain.businessrule.Attribute;
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 import nl.hu.tho4.domain.businessrule.BusinessRule;
+import nl.hu.tho4.domain.businessrule.Operator;
+import nl.hu.tho4.domain.businessrule.Value;
 import nl.hu.tho4.translator.Translator;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.stringtemplate.v4.ST;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * The class <code>TranslatorTest</code> contains tests for the class <code>{@link Translator}</code>.
@@ -25,15 +40,26 @@ public class TranslatorTest {
 	 * @generatedBy CodePro at 1/14/15 2:17 PM
 	 */
 	@Test
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 	public void testTranslator_11() throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+=======
+	public void testTranslator_1() throws Exception {
+		Translator fixture = new Translator();
+		fixture.setLanguage("");
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		String language = "";
 
 		String result = fixture.Translator(language);
 
 		// add additional test code here
 		assertEquals("", result);
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		//je hoeft geen businessrule te setten in de translator het is alleen maar een soort utility class
 		//fixture.setBusinessrule(new BusinessRule());
 
@@ -50,6 +76,10 @@ public class TranslatorTest {
 //		assertEquals(null, result.getCode());
 //		assertEquals(null, result.getError());
 //		assertEquals(null, result.getAttribute1());
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 	}
 
 	/**
@@ -64,8 +94,15 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 
 		//fixture.setBusinessrule(new BusinessRule());
+=======
+
+
+		//fixture.setBusinessrule(new BusinessRule());
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		String result = fixture.getLanguage();
 
 		// add additional test code here
@@ -73,8 +110,6 @@ public class TranslatorTest {
 	}
 
 	/**
-<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
-=======
 	 * Run the void setBusinessrule(BusinessRule) method test.
 	 *
 	 * @throws Exception
@@ -106,8 +141,13 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		//fixture.setBusinessrule(new BusinessRule());
 
+=======
+
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		String language = "";
 
 		fixture.setLanguage(language);
@@ -127,6 +167,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		//fixture.setBusinessrule(new BusinessRule());
 
 		ST st = new ST("");
@@ -160,6 +204,10 @@ public class TranslatorTest {
 		fixture.setLanguage("");
 
 		//fixture.setBusinessrule(new BusinessRule());
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -173,7 +221,13 @@ public class TranslatorTest {
 		//       at org.stringtemplate.v4.STGroup.compile(STGroup.java:448)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:34)
+=======
+
+		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:34)
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:27)
 		assertNotNull(result);
 	}
@@ -186,8 +240,7 @@ public class TranslatorTest {
 	 * @generatedBy CodePro at 14/01/15 10:31
 	 */
 	@Test
-	public void testTranslator_1()
-		throws Exception {
+	public void testTranslator_3() throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
 		//fixture.setBusinessrule(new BusinessRule());
@@ -205,6 +258,10 @@ public class TranslatorTest {
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
 		//       at nl.hu.tho4.translator.Translator.translator(Translator.java:15)
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		assertNotNull(result);
 	}
 
@@ -220,7 +277,13 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		//fixture.setBusinessrule(new BusinessRule());
+=======
+
+		//fixture.setBusinessrule(new BusinessRule());
+
+>>>>>>> FETCH_HEAD:tests/nl/hu/tho4/tests/TranslatorTest.java
 		String language = "mysql";
 		BusinessRule businessrule = new BusinessRule();
 
