@@ -29,12 +29,31 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		String language = "";
 
 		String result = fixture.Translator(language);
 
 		// add additional test code here
 		assertEquals("", result);
+=======
+		//je hoeft geen businessrule te setten in de translator het is alleen maar een soort utility class
+		//fixture.setBusinessrule(new BusinessRule());
+
+		//BusinessRule result = fixture.getBusinessrule();
+
+		// add additional test code here
+//		assertNotNull(result);
+//		assertEquals(null, result.getAttribute2());
+//		assertEquals(null, result.getErrorType());
+//		assertEquals(null, result.getValue2());
+//		assertEquals(null, result.getValue1());
+//		assertEquals(null, result.getRuleNaam());
+//		assertEquals(null, result.getOperator());
+//		assertEquals(null, result.getCode());
+//		assertEquals(null, result.getError());
+//		assertEquals(null, result.getAttribute1());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 	}
 
 	/**
@@ -49,6 +68,11 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 
 		String result = fixture.getLanguage();
 
@@ -57,6 +81,29 @@ public class TranslatorTest {
 	}
 
 	/**
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+	 * Run the void setBusinessrule(BusinessRule) method test.
+	 *
+	 * @throws Exception
+	 *
+	 * @generatedBy CodePro at 14/01/15 10:31
+	 */
+	@Test
+	public void testSetBusinessrule_1()
+		throws Exception {
+		Translator fixture = new Translator();
+		fixture.setLanguage("");
+		//fixture.setBusinessrule(new BusinessRule());
+		BusinessRule businessrule = new BusinessRule();
+
+		//fixture.setBusinessrule(businessrule);
+
+		// add additional test code here
+	}
+
+	/**
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 	 * Run the void setLanguage(String) method test.
 	 *
 	 * @throws Exception
@@ -68,6 +115,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		String language = "";
 
 		fixture.setLanguage(language);
@@ -87,6 +138,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -116,6 +171,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		ST st = new ST("");
 		String language = "mysql";
 
@@ -129,7 +188,41 @@ public class TranslatorTest {
 		//       at org.stringtemplate.v4.STGroup.compile(STGroup.java:448)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
 		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
 		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:34)
+=======
+		//       at nl.hu.tho4.translator.Translator.translate(Translator.java:27)
+		assertNotNull(result);
+	}
+
+	/**
+	 * Run the String translator(String,BusinessRule) method test.
+	 *
+	 * @throws Exception
+	 *
+	 * @generatedBy CodePro at 14/01/15 10:31
+	 */
+	@Test
+	public void testTranslator_1()
+		throws Exception {
+		Translator fixture = new Translator();
+		fixture.setLanguage("");
+		//fixture.setBusinessrule(new BusinessRule());
+		String language = "mysql";
+		BusinessRule businessrule = new BusinessRule("", "", "", "", new Operator("", ""), new Value("", "", ""), new Value("", "", ""), new Attribute("", "", "", "", ""), new Attribute("", "", "", "", ""));
+
+		String result = fixture.translator(language, businessrule);
+
+		// add additional test code here
+		// An unexpected exception was thrown in user code while executing this test:
+		//    java.lang.NullPointerException
+		//       at st4hidden.org.antlr.runtime.ANTLRStringStream.<init>(ANTLRStringStream.java:75)
+		//       at org.stringtemplate.v4.compiler.Compiler.compile(Compiler.java:111)
+		//       at org.stringtemplate.v4.STGroup.compile(STGroup.java:448)
+		//       at org.stringtemplate.v4.ST.<init>(ST.java:173)
+		//       at org.stringtemplate.v4.ST.<init>(ST.java:159)
+		//       at nl.hu.tho4.translator.Translator.translator(Translator.java:15)
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		assertNotNull(result);
 	}
 
@@ -145,6 +238,10 @@ public class TranslatorTest {
 		throws Exception {
 		Translator fixture = new Translator();
 		fixture.setLanguage("");
+<<<<<<< HEAD:src/nl/hu/tho4/test/TranslatorTest.java
+=======
+		//fixture.setBusinessrule(new BusinessRule());
+>>>>>>> FETCH_HEAD:src/nl/hu/tho4/translator/TranslatorTest.java
 		String language = "mysql";
 		BusinessRule businessrule = new BusinessRule();
 
