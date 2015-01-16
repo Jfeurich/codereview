@@ -8,6 +8,7 @@ public class BusinessRule {
     private Operator operator;
     private Value    value1, value2;
     private Attribute attribute1, attribute2;
+    private int ruleID;
 
     public BusinessRule() {
 
@@ -96,4 +97,8 @@ public class BusinessRule {
     public void setAttribute2(Attribute attribute2) {
         this.attribute2 = attribute2;
     }
+
+    public int getRuleID() {return ruleID;}
+
+    public void setRuleID(int ruleID){this.ruleID = ruleID;}
 }

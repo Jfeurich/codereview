@@ -4,6 +4,7 @@ public class Value {
     private String waardeNaam;
     private String valueType;
     private String value;
+    private int valueID;
 
     public Value() {
 
@@ -38,4 +39,8 @@ public class Value {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public int getValueID() {return valueID;}
+
+    public void setValueID(int valueID){this.valueID = valueID;}
 }
