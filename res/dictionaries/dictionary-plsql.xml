@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dictionary>
+    <translation language="plsql" element="GreaterThan">
+        <elementTranslation>&gt;</elementTranslation>
+    </translation>
+    <translation language="plsql" element="LesserThan">
+        <elementTranslation>&lt;</elementTranslation>
+    </translation>
+</dictionary>

@@ -1,6 +1,7 @@
-package nl.hu.tho6.translator.filesystem.types;
+package nl.hu.tho6.translator.filesystem.types.impl;
 
 import nl.hu.tho6.translator.dictionary.Dictionary;
+import nl.hu.tho6.translator.filesystem.types.FileSystem;
 import nl.hu.tho6.utils.file.PathUtils;
 
 import javax.xml.bind.JAXBContext;
@@ -9,10 +10,10 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
-public class XMLFileSystem {
+public class XMLFileSystem implements FileSystem {
     private static final String FILE_TYPE = ".xml";
 
-    private void writeToXml(Dictionary dictionary) {
+    public void writeToFile(Dictionary dictionary) {
         try {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class); Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -22,7 +23,7 @@ public class XMLFileSystem {
         }
     }
 
-    private Dictionary readFromXml(String language) {
+    public Dictionary readFromFile(String language) {
         try {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class);
             Unmarshaller un = context.createUnmarshaller();
@@ -32,6 +33,7 @@ public class XMLFileSystem {
             e.printStackTrace();
         } return null;
     }
+
 }
 
 

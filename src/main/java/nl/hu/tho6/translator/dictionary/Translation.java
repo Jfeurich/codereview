@@ -1,5 +1,7 @@
 package nl.hu.tho6.translator.dictionary;
 
+import nl.hu.tho6.utils.observer.Observable;
+
 import javax.xml.bind.annotation.*;
 
 /**
@@ -7,7 +9,7 @@ import javax.xml.bind.annotation.*;
  */
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
-public class Translation {
+public class Translation extends Observable {
     @XmlAttribute
     private String language;
     @XmlAttribute
@@ -24,7 +26,7 @@ public class Translation {
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        this.language = language; notifyObersvers(this);
     }
 
     public String getElement() {
@@ -32,7 +34,7 @@ public class Translation {
     }
 
     public void setElement(String element) {
-        this.element = element;
+        this.element = element; notifyObersvers(this);
     }
 
     public String getElementTranslation() {
@@ -40,6 +42,6 @@ public class Translation {
     }
 
     public void setElementTranslation(String elemntTranslation) {
-        this.elementTranslation = elemntTranslation;
+        this.elementTranslation = elemntTranslation; notifyObersvers(this);
     }
 }
