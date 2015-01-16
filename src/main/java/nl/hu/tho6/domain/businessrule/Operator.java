@@ -3,6 +3,7 @@ package nl.hu.tho6.domain.businessrule;
 public class Operator {
     private String naam;
     private String operatorType;
+    private int operatorID;
 
     public Operator() {
 
@@ -28,4 +29,8 @@ public class Operator {
     public void setOperatorType(String operatorType) {
         this.operatorType = operatorType;
     }
+
+    public int getOperatorID() { return operatorID; }
+
+    public void setOperatorID(int operatorID) {this.operatorID = operatorID; }
 }
