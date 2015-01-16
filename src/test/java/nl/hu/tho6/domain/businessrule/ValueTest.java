@@ -1,6 +1,5 @@
-package nl.hu.tho6.tests.domain.businessrule;
+package nl.hu.tho6.domain.businessrule;
 
-import nl.hu.tho6.domain.businessrule.Value;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +12,7 @@ public class ValueTest {
 
     @Before
     public void setUp() {
-        testValue = new Value();
-        testValue.setWaardeNaam("Naam");
-        testValue.setValueType("Type");
+        testValue = new Value(); testValue.setWaardeNaam("Naam"); testValue.setValueType("Type");
         testValue.setValue("Value");
     }
 
@@ -26,8 +23,7 @@ public class ValueTest {
 
     @Test
     public void testSetWaardeNaam() {
-        testValue.setWaardeNaam("Value");
-        assertNotEquals("Naam", testValue.getWaardeNaam());
+        testValue.setWaardeNaam("Value"); assertNotEquals("Naam", testValue.getWaardeNaam());
         assertEquals("Value", testValue.getWaardeNaam());
     }
 
@@ -38,8 +34,7 @@ public class ValueTest {
 
     @Test
     public void testSetValueType() {
-        testValue.setValueType("Value");
-        assertNotEquals("Type", testValue.getValueType());
+        testValue.setValueType("Value"); assertNotEquals("Type", testValue.getValueType());
         assertEquals("Value", testValue.getValueType());
     }
 
@@ -50,8 +45,7 @@ public class ValueTest {
 
     @Test
     public void testSetValue() {
-        testValue.setValue("Value2");
-        assertNotEquals("Value", testValue.getValue());
+        testValue.setValue("Value2"); assertNotEquals("Value", testValue.getValue());
         assertEquals("Value2", testValue.getValue());
     }
 

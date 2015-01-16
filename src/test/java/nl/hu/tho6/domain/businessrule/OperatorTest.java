@@ -1,6 +1,5 @@
-package nl.hu.tho6.tests.domain.businessrule;
+package nl.hu.tho6.domain.businessrule;
 
-import nl.hu.tho6.domain.businessrule.Operator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +12,7 @@ public class OperatorTest {
 
     @Before
     public void setUp() {
-        testOperator = new Operator();
-        testOperator.setNaam("Naam");
-        testOperator.setOperatorType("Type");
+        testOperator = new Operator(); testOperator.setNaam("Naam"); testOperator.setOperatorType("Type");
     }
 
     @Test
@@ -25,8 +22,7 @@ public class OperatorTest {
 
     @Test
     public void testSetNaam() {
-        testOperator.setNaam("Operator");
-        assertNotEquals("Naam", testOperator.getNaam());
+        testOperator.setNaam("Operator"); assertNotEquals("Naam", testOperator.getNaam());
         assertEquals("Operator", testOperator.getNaam());
     }
 
@@ -37,8 +33,7 @@ public class OperatorTest {
 
     @Test
     public void testSetOperatorType() {
-        testOperator.setOperatorType("Operator");
-        assertNotEquals("Type", testOperator.getOperatorType());
+        testOperator.setOperatorType("Operator"); assertNotEquals("Type", testOperator.getOperatorType());
         assertEquals("Operator", testOperator.getOperatorType());
     }
 

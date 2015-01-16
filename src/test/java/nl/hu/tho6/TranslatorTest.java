@@ -1,4 +1,4 @@
-package nl.hu.tho6.tests;
+package nl.hu.tho6;
 
 import nl.hu.tho6.domain.businessrule.Attribute;
 import nl.hu.tho6.domain.businessrule.BusinessRule;

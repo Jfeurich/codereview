@@ -1,4 +1,4 @@
-package nl.hu.tho6.tests;
+package nl.hu.tho6;
 
 import nl.hu.tho6.persistence.MySQLConnection;
 import oracle.jdbc.oci.OracleOCIConnection;

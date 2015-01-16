@@ -1,9 +1,5 @@
-package nl.hu.tho6.tests.domain.businessrule;
+package nl.hu.tho6.domain.businessrule;
 
-import nl.hu.tho6.domain.businessrule.Attribute;
-import nl.hu.tho6.domain.businessrule.BusinessRule;
-import nl.hu.tho6.domain.businessrule.Operator;
-import nl.hu.tho6.domain.businessrule.Value;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
