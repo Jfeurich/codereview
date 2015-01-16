@@ -1,5 +1,6 @@
 package nl.hu.tho6.translator.dictionary;
 
+import nl.hu.tho6.translator.dictionary.exception.TranslationNotFoundException;
 import nl.hu.tho6.utils.observer.Observable;
 import nl.hu.tho6.utils.observer.Observer;
 
@@ -36,18 +37,22 @@ public class Dictionary extends Observable implements Observer {
         }
     }
 
-    public String getTranslationStringForElement(String element) {
+    public String getTranslationStringForElement(String element) throws TranslationNotFoundException {
         String foundTranslation = ""; for (Translation t : translations) {
             if (t.getElement().equals(element)) {
                 foundTranslation = t.getElementTranslation();
+            } else {
+                throw new TranslationNotFoundException("The translation for the element '" + element + "' cannot be found in this dictionary");
             }
         } return foundTranslation;
     }
 
-    public Translation getTranslationForElement(String element) {
+    public Translation getTranslationForElement(String element) throws TranslationNotFoundException {
         Translation foundTranslation = null; for (Translation t : translations) {
             if (t.getElement().equals(element)) {
                 foundTranslation = t;
+            } else {
+                throw new TranslationNotFoundException("The translation for the element '" + element + "' cannot be found in this dictionary");
             }
         } return foundTranslation;
     }
