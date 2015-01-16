@@ -1,8 +1,8 @@
 package nl.hu.tho6.translator.filesystem;
 
-public class FilesystemFacade {
+public class FileSystemFacade {
 
-    public FilesystemFacade() {
+    public FileSystemFacade() {
 
     }
 

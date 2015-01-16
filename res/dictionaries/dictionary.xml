@@ -1,14 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<dictionary>
-    <element pseudo="&gt;">
-        <translation lang="java">
-            >
-        </translation>
-        <translation lang="plsql">
-            >
-        </translation>
-        <translation lang="sql">
-            >
-        </translation>
-    </element>
-</dictionary>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<translation language="plsql" element="GreaterThan">
+    <elementTranslation>&gt;</elementTranslation>
+</translation>

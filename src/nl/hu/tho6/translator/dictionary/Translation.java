@@ -1,15 +1,22 @@
 package nl.hu.tho6.translator.dictionary;
 
+import javax.xml.bind.annotation.*;
+
 /**
  * Created by Liam on 16-1-2015.
  */
+@XmlRootElement
+@XmlAccessorType (XmlAccessType.FIELD)
 public class Translation {
+    @XmlAttribute
     private String language;
+    @XmlAttribute
     private String element;
-    private String translation;
+    @XmlElement (name = "elementTranslation")
+    private String elementTranslation;
 
-    public Translation(String language, String element, String translation) {
-        setLanguage(language); setElement(element); setTranslation(translation);
+    public Translation() {
+
     }
 
     public String getLanguage() {
@@ -28,11 +35,11 @@ public class Translation {
         this.element = element;
     }
 
-    public String getTranslation() {
-        return translation;
+    public String getElementTranslation() {
+        return elementTranslation;
     }
 
-    public void setTranslation(String translation) {
-        this.translation = translation;
+    public void setElementTranslation(String elemntTranslation) {
+        this.elementTranslation = elemntTranslation;
     }
 }

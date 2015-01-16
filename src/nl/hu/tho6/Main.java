@@ -16,5 +16,4 @@ public class Main {
         Generator generator = Generator.getInstance();
         generator.generate("plsql", br);
     }
-
 }
