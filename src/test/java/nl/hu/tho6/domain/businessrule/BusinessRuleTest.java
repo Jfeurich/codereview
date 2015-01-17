@@ -25,6 +25,7 @@ public class BusinessRuleTest {
         testAttribute = new Attribute("", "", "", "", 0);
         testBusinessRule.setAttribute1(testAttribute);
         testBusinessRule.setAttribute2(testAttribute);
+        testBusinessRule.setRuleID(0);
     }
 
     @Test
@@ -136,6 +137,18 @@ public class BusinessRuleTest {
         testBusinessRule.setAttribute2(testAttribute2);
         assertNotEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
         assertEquals(testAttribute2, testBusinessRule.getAttribute1());
+    }
+
+    @Test
+    public void testGetAttributeID() {
+        assertEquals(0, testBusinessRule.getRuleID());
+    }
+
+    @Test
+    public void testSetAttributeID() {
+        testBusinessRule.setRuleID(1);
+        assertNotEquals(0, testBusinessRule.getRuleID());
+        assertEquals(1, testBusinessRule.getRuleID());
     }
 
     @After

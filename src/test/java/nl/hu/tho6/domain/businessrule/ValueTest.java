@@ -12,8 +12,11 @@ public class ValueTest {
 
     @Before
     public void setUp() {
-        testValue = new Value(); testValue.setWaardeNaam("Naam"); testValue.setValueType("Type");
+        testValue = new Value();
+        testValue.setWaardeNaam("Naam");
+        testValue.setValueType("Type");
         testValue.setValue("Value");
+        testValue.setValueID(0);
     }
 
     @Test
@@ -47,6 +50,18 @@ public class ValueTest {
     public void testSetValue() {
         testValue.setValue("Value2"); assertNotEquals("Value", testValue.getValue());
         assertEquals("Value2", testValue.getValue());
+    }
+
+    @Test
+    public void testGetAttributeID() {
+        assertEquals(0, testValue.getValueID());
+    }
+
+    @Test
+    public void testSetAttributeID() {
+        testValue.setValueID(1);
+        assertNotEquals(0, testValue.getValueID());
+        assertEquals(1, testValue.getValueID());
     }
 
     @After

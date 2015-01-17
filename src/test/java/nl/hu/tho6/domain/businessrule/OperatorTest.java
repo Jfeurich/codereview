@@ -12,7 +12,10 @@ public class OperatorTest {
 
     @Before
     public void setUp() {
-        testOperator = new Operator(); testOperator.setNaam("Naam"); testOperator.setOperatorType("Type");
+        testOperator = new Operator();
+        testOperator.setNaam("Naam");
+        testOperator.setOperatorType("Type");
+        testOperator.setOperatorID(0);
     }
 
     @Test
@@ -35,6 +38,18 @@ public class OperatorTest {
     public void testSetOperatorType() {
         testOperator.setOperatorType("Operator"); assertNotEquals("Type", testOperator.getOperatorType());
         assertEquals("Operator", testOperator.getOperatorType());
+    }
+
+    @Test
+    public void testGetAttributeID() {
+        assertEquals(0, testOperator.getOperatorID());
+    }
+
+    @Test
+    public void testSetAttributeID() {
+        testOperator.setOperatorID(1);
+        assertNotEquals(0, testOperator.getOperatorID());
+        assertEquals(1, testOperator.getOperatorID());
     }
 
     @After

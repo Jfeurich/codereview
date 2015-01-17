@@ -69,12 +69,12 @@ public class AttributeTest {
     }
 
     @Test
-    public void testGetValue() {
+    public void testGetAttributeID() {
         assertEquals(0, testAttribute.getAttributeID());
     }
 
     @Test
-    public void testSetValue() {
+    public void testSetAttributeID() {
         testAttribute.setAttributeID(1);
         assertNotEquals(0, testAttribute.getAttributeID());
         assertEquals(1, testAttribute.getAttributeID());
