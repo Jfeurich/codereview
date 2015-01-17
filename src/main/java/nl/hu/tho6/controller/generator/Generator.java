@@ -15,17 +15,15 @@ public class Generator {
         return ourInstance;
     }
 
-    public ST generate(String language, BusinessRule br) {
-        ST result = new ST("");
-        //TODO convert to pseudo
-        return result;
+    public ST generate(String language, BusinessRule businessRule) {
+        ST pseudo = convertToPseudoCode(businessRule); ST code = translator.translate(pseudo, language); return code;
     }
 
     private Generator() {
         translator = new Translator();
     }
 
-    private ST convertToPseudoCode(String language, BusinessRule br) {
+    private ST convertToPseudoCode(BusinessRule businessRule) {
         ST pseudo = new ST("");
         //TODO implement conversion
         return pseudo;

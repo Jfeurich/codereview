@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by Liam on 16-1-2015.
  */
+//TODO plaats vinden om dictionaries te storen
 @XmlRootElement (name = "dictionary")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Dictionary extends Observable implements Observer {
@@ -24,7 +25,7 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        this.language = language.toLowerCase();
     }
 
     public String getLanguage() {
@@ -32,7 +33,7 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void addElementTranslation(Translation translation) {
-        if (!(translation == null)) {
+        if (!(translation == null) && translation.getLanguage().equals(language)) {
             translation.addObserver(this); translations.add(translation); notifyObersvers(this);
         }
     }

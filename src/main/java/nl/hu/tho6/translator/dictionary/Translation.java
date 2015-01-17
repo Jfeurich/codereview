@@ -26,7 +26,7 @@ public class Translation extends Observable {
     }
 
     public void setLanguage(String language) {
-        this.language = language; notifyObersvers(this);
+        this.language = language.toLowerCase(); notifyObersvers(this);
     }
 
     public String getElement() {

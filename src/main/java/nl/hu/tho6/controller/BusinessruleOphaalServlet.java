@@ -1,33 +1,32 @@
 package nl.hu.tho6.controller;
 
-import nl.hu.tho6.domain.businessrule.BusinessRule;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.util.*;
-
-import nl.hu.tho6.persistence.ConnectDBBusinessRule;
 import nl.hu.tho6.controller.generator.Generator;
+import nl.hu.tho6.domain.businessrule.BusinessRule;
+import nl.hu.tho6.persistence.ConnectDBBusinessRule;
 import org.stringtemplate.v4.ST;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
     private String language = "PL/SQL";
     private int aantalBusinessRules = 0;
+    private Generator generator = Generator.getInstance();
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         ConnectDBBusinessRule.getOngegenereerdeBusinessRules();
-//        language = req.getParameter("Language");
-        RequestDispatcher rd = null;
         if(ongeGenereerdeBusinessRule.size() == 0){
             returnMessage = "Er zijn geen businessrules te genereren.";
-//            rd = req.getRequestDispatcher(???);
         } else {
             for(int i = 0; i < ongeGenereerdeBusinessRule.size(); i++){
-                ST gegenereerdeBusinessRule = Generator.generate(language, ongeGenereerdeBusinessRule.get(i));
+                ST gegenereerdeBusinessRule = generator.generate(language, ongeGenereerdeBusinessRule.get(i));
                 ConnectDBBusinessRule.saveBusinessrule(gegenereerdeBusinessRule);
                 aantalBusinessRules++;
             }
@@ -38,8 +37,8 @@ public class BusinessruleOphaalServlet extends HttpServlet {
             }
         }
 
-        String session = request.getParameter("SESSION");
-        response.sendRedirect("https://ondora01.hu.nl:8080/apex/f?p=2298:1:" + session + "::::P1_TEST:" + returnMessage);
+        String session = req.getParameter("SESSION");
+        resp.sendRedirect("https://ondora01.hu.nl:8080/apex/f?p=2298:1:" + session + "::::P1_TEST:" + returnMessage);
     }
 
 }
