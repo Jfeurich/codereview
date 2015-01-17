@@ -36,12 +36,10 @@ public class BusinessruleOphaalServlet extends HttpServlet {
             } else {
                 returnMessage = "er zijn " + aantalBusinessRules + " businessrules gegenereerd.";
             }
-
-//            rd = req.getRequestDispatcher(???);
         }
 
-        req.setAttribute("message", returnMessage);
-        rd.forward(req, resp);
+        String session = request.getParameter("SESSION");
+        response.sendRedirect("https://ondora01.hu.nl:8080/apex/f?p=2298:1:" + session + "::::P1_TEST:" + returnMessage);
     }
 
 }
