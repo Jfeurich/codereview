@@ -3,6 +3,7 @@ package nl.hu.tho6.controller;
 import nl.hu.tho6.controller.generator.Generator;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.persistence.ConnectDBBusinessRule;
+import nl.hu.tho6.persistence.connection.ConnectionFactory;
 import org.stringtemplate.v4.ST;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        Connection con = null; // TODO waarde inzetten van database zonder dat deze in github verschijnt
+        Connection con = ConnectionFactory.getConnection(); // TODO waarde inzetten van database zonder dat deze in github verschijnt
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
         if(ongeGenereerdeBusinessRule.size() == 0){
