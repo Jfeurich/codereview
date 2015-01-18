@@ -1,8 +1,8 @@
 package nl.hu.tho4.persistence;
-import nl.hu.tho4.persistence.DBConnection;
+import nl.hu.tho4.persistence.Connection;
 
 public interface ConnectionFactory {
 
-	DBConnection getConnection();
-
+	Connection getConnection();
+	
 }

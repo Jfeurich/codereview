@@ -2,7 +2,7 @@ package nl.hu.tho4.persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class OracleConnection implements DBConnection {
+public abstract class OracleConnection implements Connection {
 	protected final static String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
 	protected String databaseURL = "jdbc:oracle://databaseIP:3306/THO6";
 	public OracleConnection(){
@@ -13,7 +13,6 @@ public class OracleConnection implements DBConnection {
 			System.out.println(ex);
 		}
 	}
-	@Override
 	public void closeConnection(Connection con) {
 		try{
 			con.close();
@@ -23,8 +22,7 @@ public class OracleConnection implements DBConnection {
 		}	
 		
 	}
-	@Override
-	public Connection connect() {
+	public void connect() {
 		Connection con = null;
 		try{
 			con = DriverManager.getConnection(databaseURL, "root", "");
@@ -32,7 +30,6 @@ public class OracleConnection implements DBConnection {
 		catch(Exception ex){
 			System.out.println("Kan niet verbinden met de database" + ex);
 		}
-		return con;
 	}
 
 }
