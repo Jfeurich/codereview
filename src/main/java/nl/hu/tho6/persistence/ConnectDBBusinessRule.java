@@ -4,11 +4,13 @@ import nl.hu.tho6.domain.businessrule.Attribute;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.domain.businessrule.Operator;
 import nl.hu.tho6.domain.businessrule.Value;
+import org.stringtemplate.v4.ST;
 
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+//import java.util.Optional;
 
 /*
  * Deze methode moet bevatten:
@@ -80,6 +82,7 @@ public class ConnectDBBusinessRule {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
+                BusinessRule r = new BusinessRule();
                 int id = rs.getInt("RULEID");
                 String rulenaam = rs.getString("RULENAAM");
                 String error = rs.getString("ERROR");
@@ -89,17 +92,36 @@ public class ConnectDBBusinessRule {
                 String code = "";
                 //TODO dit gaat waarschijnlijk nog nullpointer excpetions opleveren, na het eten
                 // maar even kijken of dit handiger kan
+                // TODO kijken of optional hier een optie is.
                 ConnectDBBusinessRule con2 = new ConnectDBBusinessRule(con);
                 ArrayList<Value> values = con2.getValue(id);
-                Value v1 = values.get(0);
-                Value v2 = values.get(1);
                 ConnectDBBusinessRule con3 = new ConnectDBBusinessRule(con);
                 Operator o = con3.getOperator(id);
                 ConnectDBBusinessRule con4 = new ConnectDBBusinessRule(con);
                 ArrayList<Attribute> attributes = con4.getAttribute(id);
                 Attribute a1 = attributes.get(0);
                 Attribute a2 = attributes.get(1);
-                BusinessRule r = new BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2);
+                Value v1 = values.get(0);
+                Value v2 = values.get(1);
+                // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
+                r.setRuleNaam(rulenaam);
+                r.setError(error);
+                r.setErrorType(errortype);
+                r.setCode(code);
+                r.setOperator(o);
+                if(nulltest(v1)){
+                    r.setValue1(v1);
+                }
+                if(nulltest(v2)){
+                    r.setValue2(v2);
+                }
+                if(nulltest(a1)) {
+                    r.setAttribute1(a1);
+                }
+                if(nulltest(a2)){
+                    r.setAttribute2(a2);
+                }
+                r.setRuleID(id);
                 rules.add(r);
             }
             stmt.close();
@@ -172,12 +194,12 @@ public class ConnectDBBusinessRule {
     public Operator getOperator(int businessruleID){
         Operator op = null;
         try {
-            String sql = "select\t \"OPERATOR\".\"OPERATORNAAM\" as \"OPERATORNAAM\",\n" +
-                    "\t \"OPERATOR\".\"OPERATORTYPE\" as \"OPERATORTYPE\" \n" +
-                    " from\t \"BUSINESSRULE\" \"BUSINESSRULE\",\n" +
-                    "\t \"OPERATOR\" \"OPERATOR\" \n" +
-                    " where   \"OPERATOR\".\"OPERATORID\"=\"BUSINESSRULE\".\"OPERATOR\"\n" +
-                    "  and \t BUSINESSRULE.RULEID ="+businessruleID;
+            String sql =    "select OPERATOR.OPERATORNAAM as OPERATORNAAM," +
+                            "OPERATOR.OPERATORTYPE as OPERATORTYPE \n" +
+                            "from BUSINESSRULE BUSINESSRULE,\n" +
+                            "OPERATOR OPERATOR \n" +
+                            "where   OPERATOR.OPERATORID=BUSINESSRULE.OPERATOR\n" +
+                            "and  BUSINESSRULE.RULEID ="+businessruleID;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -190,6 +212,13 @@ public class ConnectDBBusinessRule {
             System.out.println("Kan geen operator halen uit de database" + ex);
         }
         return op;
+    }
+
+    public boolean nulltest(Object o){
+        if(o!=null){
+            return true;
+        }
+        return false;
     }
 
 //    public BusinessRule searchBusinessRule() {
@@ -208,6 +237,21 @@ public class ConnectDBBusinessRule {
 //        }
 //        return rule;
 //    }
+    //saveBusinessRule slaat de gemaakte businessrule op in een database
+    // TODO aanpassen zodat de target database als parameter meegegeven kan worden
+    public void saveBusinessRule(ST rule){
+        try {
+            String sql = rule.toString();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                //declare variables here
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+        }
+    }
 }
 
 
@@ -215,7 +259,7 @@ public class ConnectDBBusinessRule {
  * Deze methode moet bevatten:
  * connect()						Maak verbinding met de Oracle DB
  * getBusinessrule()				Haal Businessrule op
- * saveBusinessrule()				Sla Businessrule op
+ * saveBusinessrule()				Sla Businessrule op in de Oracle DB
  * getongegenereerdeBusinessrules()	Haal de te genereren Businessrules op
  * searchBusinessrule()				Zoek een businessrule op naam/tabel/etc
  *
