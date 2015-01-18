@@ -26,7 +26,8 @@ public class Translation extends Observable {
     }
 
     public void setLanguage(String language) {
-        this.language = language.toLowerCase(); notifyObersvers(this);
+        this.language = language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", "");
+        notifyObersvers(this);
     }
 
     public String getElement() {
@@ -34,7 +35,8 @@ public class Translation extends Observable {
     }
 
     public void setElement(String element) {
-        this.element = element; notifyObersvers(this);
+        this.element = element;
+        notifyObersvers(this);
     }
 
     public String getElementTranslation() {
@@ -42,6 +44,7 @@ public class Translation extends Observable {
     }
 
     public void setElementTranslation(String elemntTranslation) {
-        this.elementTranslation = elemntTranslation; notifyObersvers(this);
+        this.elementTranslation = elemntTranslation;
+        notifyObersvers(this);
     }
 }

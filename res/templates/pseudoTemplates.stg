@@ -1,0 +1,6 @@
+AttCompare(element) ::= <<
+<element>
+>>
+AttList(element) ::= <<
+<element>
+>>
