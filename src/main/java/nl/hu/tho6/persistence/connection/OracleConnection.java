@@ -3,7 +3,7 @@ package nl.hu.tho6.persistence.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class OracleConnection implements DBConnection {
+public class OracleConnection{
     protected final static String DB_DRIV     = "oracle.jdbc.driver.OracleDriver";
     protected              String databaseURL = "jdbc:oracle://databaseIP:3306/THO6";
 
@@ -15,7 +15,6 @@ public class OracleConnection implements DBConnection {
         }
     }
 
-    @Override
     public void closeConnection(Connection con) {
         try {
             con.close();
@@ -25,7 +24,6 @@ public class OracleConnection implements DBConnection {
 
     }
 
-    @Override
     public Connection connect() {
         Connection con = null; try {
             con = DriverManager.getConnection(databaseURL, "root", "");
