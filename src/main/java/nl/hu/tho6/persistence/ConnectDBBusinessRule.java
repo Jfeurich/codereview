@@ -87,6 +87,8 @@ public class ConnectDBBusinessRule {
                 int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
                 String code = "";
+                //TODO dit gaat waarschijnlijk nog nullpointer excpetions opleveren, na het eten
+                // maar even kijken of dit handiger kan
                 ConnectDBBusinessRule con2 = new ConnectDBBusinessRule(con);
                 ArrayList<Value> values = con2.getValue(id);
                 Value v1 = values.get(0);

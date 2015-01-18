@@ -19,8 +19,9 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     private int aantalBusinessRules = 0;
     private Generator generator = Generator.getInstance();
 
-
+//
 //    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+//       TODO hier een arraylist neerzetten waar de businessrules in komen
 //        ConnectDBBusinessRule.getOngegenereerdeBusinessRules();
 //        if(ongeGenereerdeBusinessRule.size() == 0){
 //            returnMessage = "Er zijn geen businessrules te genereren.";
