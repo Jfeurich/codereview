@@ -1,6 +1,6 @@
 package nl.hu.tho6;
 
-import nl.hu.tho6.persistence.MySQLConnection;
+import nl.hu.tho6.persistence.connection.MySQLConnection;
 import oracle.jdbc.oci.OracleOCIConnection;
 import org.junit.After;
 import org.junit.Before;

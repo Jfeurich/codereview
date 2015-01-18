@@ -1,4 +1,4 @@
-package nl.hu.tho6.persistence;
+package nl.hu.tho6.persistence.connection;
 
 import java.sql.Connection;
 
