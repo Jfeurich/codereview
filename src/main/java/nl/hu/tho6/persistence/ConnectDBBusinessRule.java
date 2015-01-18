@@ -2,6 +2,7 @@ package nl.hu.tho6.persistence;
 
 import nl.hu.tho6.domain.businessrule.Attribute;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
+import nl.hu.tho6.domain.businessrule.Operator;
 import nl.hu.tho6.domain.businessrule.Value;
 
 import java.util.ArrayList;
@@ -59,30 +60,44 @@ public class ConnectDBBusinessRule {
 //        return rule;
 //    }
 
+    /**
+     * Haalt alle ongegenereerde businessrules op uit de database.
+     */
     public ArrayList<BusinessRule> getOngegenereerdeBusinessRules() {
         //Haal de businessrules op uit de ruledatabase
         ArrayList<BusinessRule> rules = new ArrayList<BusinessRule>();
         try {
-            String sql = "select\t \"BUSINESSRULE\".\"RULEID\" as \"RULEID\",\n" +
-                    "\t \"BUSINESSRULE\".\"RULENAAM\" as \"RULENAAM\",\n" +
-                    "\t \"BUSINESSRULE\".\"ERROR\" as \"ERROR\",\n" +
-                    "\t \"BUSINESSRULE\".\"ERRORTYPE\" as \"ERRORTYPE\",\n" +
-                    "\t \"BUSINESSRULE\".\"OPERATOR\" as \"OPERATOR\",\n" +
-                    "\t \"BUSINESSRULE\".\"BUSINESSRULETYPE\" as \"BUSINESSRULETYPE\" \n" +
-                    " from\t \"ONGEGENEREERDE_BUSINESSRULE\" \"ONGEGENEREERDE_BUSINESSRULE_1\",\n" +
-                    "\t \"BUSINESSRULE\" \"BUSINESSRULE\" \n" +
-                    " where   \"BUSINESSRULE\".\"RULEID\"=\"ONGEGENEREERDE_BUSINESSRULE_1\".\"BUSINESSRULERULEID\"\n" +
-                    " and     \"ONGEGENEREERDE_BUSINESSRULE_1\".\"STATUS\" = 'NOT_GENERATED'";
+            String sql = "select BUSINESSRULE.RULEID as RULEID,\n" +
+                    "BUSINESSRULE.RULENAAM asRULENAAM,\n" +
+                    "BUSINESSRULE.ERROR as ERROR,\n" +
+                    "BUSINESSRULE.ERRORTYPE as ERRORTYPE,\n" +
+                    "BUSINESSRULE.OPERATOR as OPERATOR,\n" +
+                    "BUSINESSRULE.BUSINESSRULETYPE as BUSINESSRULETYPE \n" +
+                    " from ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
+                    "BUSINESSRULE BUSINESSRULE \n" +
+                    " where   BUSINESSRULE.RULEID=ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID\n" +
+                    " and     ONGEGENEREERDE_BUSINESSRULE.STATUS = 'NOT_GENERATED'";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("RULEID");
                 String rulenaam = rs.getString("RULENAAM");
                 String error = rs.getString("ERROR");
-                int errortype = rs.getInt("ERRORTYPE");
+                String errortype = rs.getString("ERRORTYPE");
                 int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
-                BusinessRule r = new BusinessRule();
+                String code = "";
+                ConnectDBBusinessRule con2 = new ConnectDBBusinessRule(con);
+                ArrayList<Value> values = con2.getValue(id);
+                Value v1 = values.get(0);
+                Value v2 = values.get(1);
+                ConnectDBBusinessRule con3 = new ConnectDBBusinessRule(con);
+                Operator o = con3.getOperator(id);
+                ConnectDBBusinessRule con4 = new ConnectDBBusinessRule(con);
+                ArrayList<Attribute> attributes = con4.getAttribute(id);
+                Attribute a1 = attributes.get(0);
+                Attribute a2 = attributes.get(1);
+                BusinessRule r = new BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2);
                 rules.add(r);
             }
             stmt.close();
@@ -92,44 +107,105 @@ public class ConnectDBBusinessRule {
         return rules;
     }
 
-    public ArrayList<Attribute> getAttribute(){
-        ArrayList<Attribute> a = null;
+    public ArrayList<Attribute> getAttribute(int businessruleID){
+        ArrayList<Attribute> attributes = null;
         try {
-            String sql = "";
+            String sql = "select ATTRIBUTE.ATTRIBUTENAAM as ATTRIBUTENAAM,\n" +
+                    " ATTRIBUTE.DBSCHEMA as DBSCHEMA,\n" +
+                    " ATTRIBUTE.TABEL as TABEL,\n" +
+                    " ATTRIBUTE.KOLOM as KOLOM,\n" +
+                    " ATTRIBUTE.ATTRIBUTEID as ATTRIBUTEID \n" +
+                    " from BUSINESSRULE_ATTRIBUTE BUSINESSRULE_ATTRIBUTE,\n" +
+                    " ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
+                    " BUSINESSRULE BUSINESSRULE,\n" +
+                    " ATTRIBUTE ATTRIBUTE \n" +
+                    " where   BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID\n" +
+                    " and BUSINESSRULE.RULEID="+ businessruleID;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-
+                int attributeid = rs.getInt("ATTRIBUTEID");
+                String attributenaam = rs.getString("ATTRIBUTENAAM");
+                String dbschema = rs.getString("DBSCHEMA");
+                String tabel = rs.getString("TABEL");
+                String kolom = rs.getString("KOLOM");
+                Attribute a = new Attribute(attributenaam,dbschema,tabel,kolom,attributeid);
+                attributes.add(a);
             }
             stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan geen businessrules halen uit de database" + ex);
+            System.out.println("Kan geen attributes halen uit de database" + ex);
         }
-        return a;
+        return attributes;
     }
 
-    public ArrayList<Value> getValue(){
+    public ArrayList<Value> getValue(int businessruleID){
         ArrayList<Value> v = null;
-
+        try {
+            String sql = "select VALUE.VALUEID as VALUEID,\n" +
+                    " VALUE.WAARDENAAM as WAARDENAAM,\n" +
+                    " VALUE.VALUETYPE as VALUETYPE,\n" +
+                    " VALUE.VALUE as VALUE,\n" +
+                    " VALUE.BUSINESSRULE as BUSINESSRULE \n" +
+                    " from BUSINESSRULE BUSINESSRULE,\n" +
+                    " VALUE VALUE \n" +
+                    " where   VALUE.BUSINESSRULE = BUSINESSRULE."+ businessruleID;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int valueID = rs.getInt("VALUED");
+                String waardenaam = rs.getString("WAARDENAAM");
+                String valuetype = rs.getString("VALUETYPE");
+                String value = rs.getString("VALUE");
+                Value val = new Value(waardenaam,valuetype,value);
+                v.add(val);
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            System.out.println("Kan geen values halen uit de database" + ex);
+        }
         return v;
     }
 
-    public BusinessRule searchBusinessRule() {
-        //moeten misschien meerdere functies worden afhankelijk van waarop gezocht moet worden
-        BusinessRule rule = new BusinessRule();
+    public Operator getOperator(int businessruleID){
+        Operator op = null;
         try {
-            String sql = "SELECT * FROM businessrules WHERE conditie AND";
+            String sql = "select\t \"OPERATOR\".\"OPERATORNAAM\" as \"OPERATORNAAM\",\n" +
+                    "\t \"OPERATOR\".\"OPERATORTYPE\" as \"OPERATORTYPE\" \n" +
+                    " from\t \"BUSINESSRULE\" \"BUSINESSRULE\",\n" +
+                    "\t \"OPERATOR\" \"OPERATOR\" \n" +
+                    " where   \"OPERATOR\".\"OPERATORID\"=\"BUSINESSRULE\".\"OPERATOR\"\n" +
+                    "  and \t BUSINESSRULE.RULEID ="+businessruleID;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                //declare variables here
+                String naam = rs.getString("OPERATORNAAM");
+                String operatortype = rs.getString("OPERATORTYPE");
+                op = new Operator(naam,operatortype);
             }
             stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan businessrule niet vinden" + ex);
+            System.out.println("Kan geen operator halen uit de database" + ex);
         }
-        return rule;
+        return op;
     }
+
+//    public BusinessRule searchBusinessRule() {
+//        //moeten misschien meerdere functies worden afhankelijk van waarop gezocht moet worden
+//        BusinessRule rule = new BusinessRule();
+//        try {
+//            String sql = "SELECT * FROM businessrules WHERE conditie AND";
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery(sql);
+//            while (rs.next()) {
+//                //declare variables here
+//            }
+//            stmt.close();
+//        } catch (Exception ex) {
+//            System.out.println("Kan businessrule niet vinden" + ex);
+//        }
+//        return rule;
+//    }
 }
 
 
