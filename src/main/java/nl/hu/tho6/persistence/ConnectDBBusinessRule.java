@@ -82,6 +82,8 @@ public class ConnectDBBusinessRule {
                 int errortype = rs.getInt("ERRORTYPE");
                 int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
+                BusinessRule r = new BusinessRule();
+                rules.add(r);
             }
             stmt.close();
         } catch (Exception ex) {
