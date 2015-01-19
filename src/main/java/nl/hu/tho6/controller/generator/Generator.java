@@ -19,7 +19,9 @@ public class Generator {
     }
 
     public ST generate(String language, BusinessRule businessRule) {
+        //code vertalen naar pseudoCode
         ST pseudo = convertToPseudoCode(businessRule);
+        //pseudoCode vertalen naar code voor language
         ST code = translator.translate(pseudo, language);
         return code;
     }
@@ -29,10 +31,11 @@ public class Generator {
     }
 
     private ST convertToPseudoCode(BusinessRule businessRule) {
+        //dit klopt nog niet met wat we voor ogen hebben
         STGroup stGroup = new STGroupFile(PathUtils.PSEUDO_TEMPLATES_PATH + "pseudoTemplates.stg");
         ST pseudo = stGroup.getInstanceOf("AttCompare");
         pseudo.add("element", "HardCodedAttCompare");
-        //TODO implement conversion
+        //TODO implement conversion to pseudo
         return pseudo;
     }
 }

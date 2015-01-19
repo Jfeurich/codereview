@@ -14,6 +14,7 @@ public class XMLFileSystem implements FileSystem {
     private static final String FILE_TYPE = ".xml";
 
     public void writeToFile(Dictionary dictionary) {
+        //file wegschrijven naar xml
         try {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class); Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -24,6 +25,7 @@ public class XMLFileSystem implements FileSystem {
     }
 
     public Dictionary readFromFile(String language) {
+        //file uitlezen vanuit xml
         try {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class);
             Unmarshaller un = context.createUnmarshaller();

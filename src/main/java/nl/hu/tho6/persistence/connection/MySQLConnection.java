@@ -16,11 +16,13 @@
 //    }
 //
 //    public Connection connect() {
-//        Connection con = null; try {
+//        Connection con = null;
+//        try {
 //            con = DriverManager.getConnection(databaseURL, "root", "");
 //        } catch (Exception ex) {
 //            System.out.println("Kan niet verbinden met de database" + ex);
-//        } return con;
+//        }
+//        return con;
 //    }
 //
 //    @Override

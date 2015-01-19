@@ -25,6 +25,7 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void setLanguage(String language) {
+        //taal van de dictionary setten, alles naar lowercase en alleen de letters over laten
         this.language = language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", "");
     }
 
@@ -33,22 +34,30 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void addElementTranslation(Translation translation) {
+        //om nullpointers te voorkomen checken of translation param null is
         if ((translation != null)) {
+            //translation alleen toevoegen als de taal van de translation gelijk is aan de van de dictionary
             if (translation.getLanguage().equals(language)) {
+                //deze dictionary toevoegen als observer
                 translation.addObserver(this);
+                //translation aan dictionary toevoegen
                 translations.add(translation);
+                //observers notifyen (observer is een notifier)
                 notifyObersvers(this);
             }
         }
     }
 
     public String getTranslationStringForElement(String element) throws TranslationNotFoundException {
+        //translation ophalen die bij het element horen en omzetten naar een string
         return getTranslationForElement(element).getElementTranslation();
     }
 
     public Translation getTranslationForElement(String element) throws TranslationNotFoundException {
         Translation foundTranslation = null;
+        //loop door lijst met translations
         for (Translation t : getTranslations()) {
+            //als de elementen overeenkomen is hhet de juiste translation
             if (t.getElement().equals(element)) {
                 foundTranslation = t;
             }

@@ -36,31 +36,41 @@ public class Translator {
     }
 
     public static void addDictionary(Dictionary dictionary) {
+        //checken of dictionary param null is
         if (!(dictionary == null)) {
             dictionaries.add(dictionary);
         }
     }
 
+    //TODO Subject to change
     public ST translate(ST st, String language) {
+        //aan het begin een dictionary selecteren om te zorgen dat er niet voor elk element opnieuw de dictionary laden
         selectDictionary(language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", ""));
 
+        //string maken van de ST pseudoCode
         String pseudoCodeString = st.render();
+        //pseudocodestring opdelen in elementen
         String[] elements = pseudoCodeString.split(" ");
 
         String translationString = "";
 
+        //voor alle elementen translation  ophalen
         for (String element : elements) {
             translationString = translationString + getTranslationForElement(element);
         }
 
+        //omzetten naar ST object
         ST translation = new ST(translationString);
 
+        //dictionary weer op null zetten
         deSelectDictionary();
         return translation;
     }
 
     private void selectDictionary(String language) {
+        //loop door lijst met dictionaries
         for (Dictionary dictionary : dictionaries) {
+            //als talen gelijk zijn set current dictionary
             if (dictionary.getLanguage().equals(language)) {
                 currentDictionary = dictionary;
             }
@@ -68,12 +78,14 @@ public class Translator {
     }
 
     private void deSelectDictionary() {
+        //set current dictionary op null
         currentDictionary = null;
     }
 
     private String getTranslationForElement(String element) {
         String translatedElement = "";
         try {
+            //translation ophalen van het element
             translatedElement = currentDictionary.getTranslationStringForElement(element);
         } catch (TranslationNotFoundException e) {
             e.printStackTrace();

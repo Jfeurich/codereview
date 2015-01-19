@@ -26,6 +26,7 @@ public class Translation extends Observable {
     }
 
     public void setLanguage(String language) {
+        //taal van de translation setten, alles naar lowercase en alleen de letters over laten
         this.language = language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", "");
         notifyObersvers(this);
     }
