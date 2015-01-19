@@ -23,7 +23,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        Connection con = ConnectionFactory.getConnection(); // TODO waarde inzetten van database zonder dat deze in github verschijnt
+        Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
         if(ongeGenereerdeBusinessRule.size() == 0){
