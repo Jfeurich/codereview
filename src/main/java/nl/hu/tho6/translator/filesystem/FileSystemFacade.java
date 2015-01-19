@@ -23,7 +23,8 @@ public class FileSystemFacade implements Observer {
     }
 
     public Dictionary readDictionary(String language) throws DictionaryNotFoundException {
-        Dictionary dictionary = fileSystem.readFromFile(language); if (!(dictionary == null)) {
+        Dictionary dictionary = fileSystem.readFromFile(language);
+        if (!(dictionary == null)) {
             addObserverToTranslations(dictionary);
         } else {
             throw new DictionaryNotFoundException("The Dictionary for the language '" + language + "' is not found");

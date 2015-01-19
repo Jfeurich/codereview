@@ -15,7 +15,7 @@ import java.util.List;
 @XmlRootElement (name = "dictionary")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Dictionary extends Observable implements Observer {
-    @XmlTransient
+    @XmlAttribute
     private String            language;
     @XmlElement (name = "translation")
     private List<Translation> translations;
@@ -25,7 +25,7 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void setLanguage(String language) {
-        this.language = language.toLowerCase();
+        this.language = language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", "");
     }
 
     public String getLanguage() {
@@ -33,29 +33,32 @@ public class Dictionary extends Observable implements Observer {
     }
 
     public void addElementTranslation(Translation translation) {
-        if (!(translation == null) && translation.getLanguage().equals(language)) {
-            translation.addObserver(this); translations.add(translation); notifyObersvers(this);
+        if ((translation != null)) {
+            if (translation.getLanguage().equals(language)) {
+                translation.addObserver(this);
+                translations.add(translation);
+                notifyObersvers(this);
+            }
         }
     }
 
     public String getTranslationStringForElement(String element) throws TranslationNotFoundException {
-        String foundTranslation = ""; for (Translation t : translations) {
-            if (t.getElement().equals(element)) {
-                foundTranslation = t.getElementTranslation();
-            } else {
-                throw new TranslationNotFoundException("The translation for the element '" + element + "' cannot be found in this dictionary");
-            }
-        } return foundTranslation;
+        return getTranslationForElement(element).getElementTranslation();
     }
 
     public Translation getTranslationForElement(String element) throws TranslationNotFoundException {
-        Translation foundTranslation = null; for (Translation t : translations) {
+        Translation foundTranslation = null;
+        for (Translation t : getTranslations()) {
             if (t.getElement().equals(element)) {
                 foundTranslation = t;
-            } else {
-                throw new TranslationNotFoundException("The translation for the element '" + element + "' cannot be found in this dictionary");
             }
-        } return foundTranslation;
+        }
+
+        if (foundTranslation == null) {
+            throw new TranslationNotFoundException("The translation for the element '" + element + "' cannot be found");
+        }
+
+        return foundTranslation;
     }
 
     public List<Translation> getTranslations() {
