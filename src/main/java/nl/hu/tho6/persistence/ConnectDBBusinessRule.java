@@ -90,7 +90,7 @@ public class ConnectDBBusinessRule {
                 int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
                 String code = "";
-                //TODO dit gaat waarschijnlijk nog nullpointer excpetions opleveren, na het eten
+                //TODO dit gaat waarschijnlijk nog nullpointer excpetions opleveren
                 // maar even kijken of dit handiger kan
                 // TODO kijken of optional hier een optie is.
                 ConnectDBBusinessRule con2 = new ConnectDBBusinessRule(con);
