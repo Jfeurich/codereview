@@ -5,7 +5,6 @@ import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
 import nl.hu.tho6.translator.dictionary.exception.TranslationNotFoundException;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
 import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
-import org.stringtemplate.v4.ST;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 public class Translator {
     private static Translator ourInstance = new Translator();
     private static List<Dictionary> dictionaries;
-    private        Dictionary       currentDictionary;
 
     public static Translator getInstance() {
         return ourInstance;
@@ -21,7 +19,6 @@ public class Translator {
 
     private Translator() {
         dictionaries = new ArrayList<Dictionary>();
-        currentDictionary = null;
         init();
     }
 
@@ -42,32 +39,8 @@ public class Translator {
         }
     }
 
-    //TODO Subject to change
-    public ST translate(ST st, String language) {
-        //aan het begin een dictionary selecteren om te zorgen dat er niet voor elk element opnieuw de dictionary laden
-        selectDictionary(language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", ""));
-
-        //string maken van de ST pseudoCode
-        String pseudoCodeString = st.render();
-        //pseudocodestring opdelen in elementen
-        String[] elements = pseudoCodeString.split(" ");
-
-        String translationString = "";
-
-        //voor alle elementen translation  ophalen
-        for (String element : elements) {
-            translationString = translationString + getTranslationForElement(element);
-        }
-
-        //omzetten naar ST object
-        ST translation = new ST(translationString);
-
-        //dictionary weer op null zetten
-        deSelectDictionary();
-        return translation;
-    }
-
-    private void selectDictionary(String language) {
+    private Dictionary selectDictionary(String language) {
+        Dictionary currentDictionary = null;
         //loop door lijst met dictionaries
         for (Dictionary dictionary : dictionaries) {
             //als talen gelijk zijn set current dictionary
@@ -75,14 +48,11 @@ public class Translator {
                 currentDictionary = dictionary;
             }
         }
+        return currentDictionary;
     }
 
-    private void deSelectDictionary() {
-        //set current dictionary op null
-        currentDictionary = null;
-    }
-
-    private String getTranslationForElement(String element) {
+    public String getTranslationForElement(String element, String language) {
+        Dictionary currentDictionary = selectDictionary(language);
         String translatedElement = "";
         try {
             //translation ophalen van het element
