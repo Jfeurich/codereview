@@ -9,11 +9,6 @@
     <translation language="plsql" element="Equals">
         <elementTranslation>=</elementTranslation>
     </translation>
-    <translation language="plsql" element="Declare">
-        <elementTranslation>Declare
-            i_passed boolean := true
-        </elementTranslation>
-    </translation>
     <translation language="plsql" element="Begin">
         <elementTranslation>begin</elementTranslation>
     </translation>
@@ -28,42 +23,5 @@
     </translation>
     <translation language="plsql" element="IfNot">
         <elementTranslation>if not</elementTranslation>
-    </translation>
-    <translation language="plsql" element="HardCodedAttCompare">
-        <elementTranslation>declare
-            l_passed boolean := true;
-            begin
-            if l_oper in ( 'INS', 'UPD' )
-            then
-            -- de prijs mag niet negatief zijn
-            l_passed := :new.prijs >= 0;
-            if not l_passed
-            then
-            l_error_stack := l_error_stack || 'De prijs van het product
-            mag niet negatief zijn.';
-            end if;
-            end if;
-            end;
-        </elementTranslation>
-    </translation>
-    <translation language="plsql" element="HardCodedAttList">
-        <elementTranslation>declare
-            l_passed boolean := true;
-            begin
-            -- het producttype moet BOE, CD of KLE zijn
-            if l_oper in ( 'INS', 'UPD' )
-            then
-            l_passed := :new.product_type in ( 'BOE', 'CD', 'KLE' );
-            if not l_passed
-            then
-            l_error_stack :=
-            l_error_stack ||
-            'Product type ' ||
-            :new.product_type ||
-            ' is onbekend. Toegestane waarden zijn BOE, CD en KLE.';
-            end if;
-            end if;
-            end;
-        </elementTranslation>
     </translation>
 </dictionary>

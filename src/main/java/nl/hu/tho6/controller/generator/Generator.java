@@ -18,18 +18,22 @@ public class Generator {
         return ourInstance;
     }
 
+    //TODO subject to change
     public ST generate(String language, BusinessRule businessRule) {
         //code vertalen naar pseudoCode
         ST pseudo = convertToPseudoCode(businessRule);
         //pseudoCode vertalen naar code voor language
-        ST code = translator.translate(pseudo, language);
+        //        ST code = translator.translate(pseudo, language);
+        ST code = new ST("");
         return code;
     }
 
+    //TODO subject to change
     private Generator() {
         translator = Translator.getInstance();
     }
 
+    //TODO subject to change
     private ST convertToPseudoCode(BusinessRule businessRule) {
         //dit klopt nog niet met wat we voor ogen hebben
         STGroup stGroup = new STGroupFile(PathUtils.PSEUDO_TEMPLATES_PATH + "pseudoTemplates.stg");
