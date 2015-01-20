@@ -238,8 +238,9 @@ public class ConnectDBBusinessRule {
 //        return rule;
 //    }
     //saveBusinessRule slaat de gemaakte businessrule op in een database
-    // TODO aanpassen zodat de target database als parameter meegegeven kan worden
-    public void saveBusinessRule(ST rule){
+    // TODO aanpassen zodat de target database als parameter meegegeven kan worden, query aanpassen zodat
+    // de gegenereerde rule opgeslagen wordt in GEGENEREERDE_BUSINESSRULE
+    public void saveBusinessRule(ST rule/*String databaselogingegevens, die gedecrypt moeten worden in JAVA*/){
         try {
             String sql = rule.toString();
             Statement stmt = con.createStatement();
@@ -253,14 +254,3 @@ public class ConnectDBBusinessRule {
         }
     }
 }
-
-
-/*
- * Deze methode moet bevatten:
- * connect()						Maak verbinding met de Oracle DB
- * getBusinessrule()				Haal Businessrule op
- * saveBusinessrule()				Sla Businessrule op in de Oracle DB
- * getongegenereerdeBusinessrules()	Haal de te genereren Businessrules op
- * searchBusinessrule()				Zoek een businessrule op naam/tabel/etc
- *
- */
