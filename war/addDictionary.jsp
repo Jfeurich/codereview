@@ -7,13 +7,14 @@
     </jsp:include>
     <div class="content">
         <jsp:include page="Menu.jsp" />
+        <div class="messageBox">${message}</div>
         <form action="addDictionary.do" method="post">
             <label>Language: </label><input type="text" name="language">
             <br><br>
             <label>De elementen moeten tussen &lt; en &gt; gezet worden.</label>
             <div id="Code">
                 <label>Code:</label>
-                <textarea></textarea>
+                <textarea name="code"></textarea>
             </div>
             <div id="Elementen">
                 <label>Element suggesties:</label>
