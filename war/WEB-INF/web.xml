@@ -7,12 +7,27 @@
         <servlet-name>BusinessRule Ophaal Servlet</servlet-name>
         <servlet-class>nl.hu.tho6.controller.BusinessruleOphaalServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.BusinessruleOphaalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.addDictionaryServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>BusinessRule Ophaal Servlet</servlet-name>
         <url-pattern>/BusinessruleOphaalServlet.do</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestRuleServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
+        <url-pattern>/addDictionaryServlet.do</url-pattern>
+    </servlet-mapping>
     <listener>
         <listener-class>nl.hu.tho6.listener.ContextListener
         </listener-class>
