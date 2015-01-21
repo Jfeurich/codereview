@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class defineElementsServlet extends HttpServlet {
+public class changeDictionaryServlet extends HttpServlet {
     private String message;
     private boolean noEmptyFields = true;
 
@@ -26,7 +26,7 @@ public class defineElementsServlet extends HttpServlet {
             if(noEmptyFields) {
                 for (int i = 0; i < elements.size(); i++) {
 //            TODO
-//            voeg element toe aan Dictionary
+//            verander element in Dictionary
                 }
             }
         }
