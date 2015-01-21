@@ -22,8 +22,20 @@
     <translation language="plsql" element="LesserThan">
         <elementTranslation>&lt;</elementTranslation>
     </translation>
-    <translation language="plsql" element="Equals">
+    <translation language="plsql" element="GreaterThanOrEqualsTo">
+        <elementTranslation>&gt;=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="LesserThanOrEqualsTo">
+        <elementTranslation>&lt;=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="EqualsTo">
         <elementTranslation>=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="NotEqualsTo">
+        <elementTranslation>!=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="IsNot">
+        <elementTranslation>IS NOT</elementTranslation>
     </translation>
     <translation language="plsql" element="ErrorFunction">
         <elementTranslation>raise_application_error(-20800, "&lt;ErrorMessage&gt;");</elementTranslation>
