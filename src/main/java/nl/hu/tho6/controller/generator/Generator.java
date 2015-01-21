@@ -12,7 +12,6 @@ import java.util.Map;
 public class Generator {
     private static Generator ourInstance = new Generator();
     private Translator translator;
-    private boolean commandExecuted;
 
     public static Generator getInstance() {
         return ourInstance;
@@ -28,8 +27,7 @@ public class Generator {
         while (unfilledAttributes) {
             for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
                 if (attribute.getValue() == null) {
-                    execute(attribute.getKey(), businessRule, language, templateForLanguage);
-                    if (!commandExecuted) {
+                    if (!execute(attribute.getKey(), businessRule, language, templateForLanguage)) {
                         templateForLanguage.add(attribute.getKey(), translator.getTranslationForElement(attribute.getKey(), language));
                     }
                 }
@@ -52,8 +50,8 @@ public class Generator {
         return new ST(translator.getTranslationForElement("Template", language));
     }
 
-    private ST execute(String command, BusinessRule businessRule, String language, ST templateForLanguage) {
-        commandExecuted = false;
+    private boolean execute(String command, BusinessRule businessRule, String language, ST templateForLanguage) {
+        boolean commandExecuted = false;
 
         if (command.equals("TriggerName")) {
             templateForLanguage.add(command, generateTriggerName(businessRule));
@@ -75,7 +73,7 @@ public class Generator {
             commandExecuted = true;
         }
 
-        return templateForLanguage;
+        return commandExecuted;
     }
 
     private String generateTriggerName(BusinessRule businessRule) {
