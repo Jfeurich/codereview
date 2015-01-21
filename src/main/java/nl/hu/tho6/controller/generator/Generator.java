@@ -65,16 +65,13 @@ public class Generator {
             templateForLanguage.add(command, generateTableName(businessRule));
             commandExecuted = true;
         } else if (command.equals("Variables")) {
-            //TODO implement method for command
-            templateForLanguage.add(command, "");
+            templateForLanguage.add(command, generateVariables(businessRule));
             commandExecuted = true;
-        } else if (command.equals("Condition")) {
-            //TODO implement method for command
-            templateForLanguage.add(command, "");
+        } else if (command.equals("Conditions")) {
+            templateForLanguage.add(command, generateConditions(businessRule));
             commandExecuted = true;
         } else if (command.equals("Error")) {
-            //TODO implement method for command
-            templateForLanguage.add(command, "");
+            templateForLanguage.add(command, generateError(businessRule));
             commandExecuted = true;
         }
 
@@ -94,5 +91,23 @@ public class Generator {
     private String generateTableName(BusinessRule businessRule) {
         String tableName = businessRule.getAttribute1().getTabel();
         return tableName;
+    }
+
+    //TODO implement method
+    private String generateError(BusinessRule businessRule) {
+        String error = "";
+        return error;
+    }
+
+    //TODO implement method
+    private String generateConditions(BusinessRule businessRule) {
+        String conditions = "";
+        return conditions;
+    }
+
+    //TODO implement method
+    private String generateVariables(BusinessRule businessRule) {
+        String variables = "";
+        return variables;
     }
 }
