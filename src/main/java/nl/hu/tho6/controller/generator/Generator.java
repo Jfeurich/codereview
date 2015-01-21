@@ -1,6 +1,7 @@
 package nl.hu.tho6.controller.generator;
 
 import nl.hu.tho6.domain.businessrule.BusinessRule;
+import nl.hu.tho6.domain.businessrule.StringTemplate;
 import nl.hu.tho6.translator.Translator;
 import org.stringtemplate.v4.ST;
 
@@ -22,25 +23,27 @@ public class Generator {
 
     //TODO refactor
     public String generate(String language, BusinessRule businessRule) {
-        ST templateForLanguage = getTemplateForLanguage(language);
+        StringTemplate templateForLanguage = getTemplateForLanguage(language);
 
         //TODO thiw wont work, nullpointer op regel 33
         boolean unfilledAttributes = true;
-        Map<String, Object> attributes = templateForLanguage.getAttributes();
+        Map<String, String> attributes = templateForLanguage.getAttributes();
 
         while (unfilledAttributes) {
-            for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
-                if (attribute.getValue() == null) {
+
+            for (Map.Entry<String, String> attribute : attributes.entrySet()) {
+                if (attribute.getValue().equals("empty")) {
                     if (!execute(attribute.getKey(), businessRule, language, templateForLanguage)) {
-                        templateForLanguage.add(attribute.getKey(), translator.getTranslationForElement(attribute.getKey(), language));
+                        templateForLanguage.setAttribute(attribute.getKey(), translator.getTranslationForElement(attribute.getKey(), language));
                     }
                 }
+
             }
 
-            templateForLanguage = new ST(templateForLanguage.render());
+            templateForLanguage = new StringTemplate(templateForLanguage.render());
             attributes = templateForLanguage.getAttributes();
 
-            unfilledAttributes = (!(attributes.size() == 0));
+            unfilledAttributes = (!templateForLanguage.checkAllAttributes());
         }
 
         return templateForLanguage.render();
@@ -50,30 +53,30 @@ public class Generator {
         translator = Translator.getInstance();
     }
 
-    private ST getTemplateForLanguage(String language) {
-        return new ST(translator.getTranslationForElement("Template", language));
+    private StringTemplate getTemplateForLanguage(String language) {
+        return new StringTemplate(translator.getTranslationForElement("Template", language));
     }
 
-    private boolean execute(String command, BusinessRule businessRule, String language, ST templateForLanguage) {
+    private boolean execute(String command, BusinessRule businessRule, String language, StringTemplate templateForLanguage) {
         boolean commandExecuted = false;
 
         if (command.equals("TriggerName")) {
-            templateForLanguage.add(command, generateTriggerName(businessRule));
+            templateForLanguage.setAttribute(command, generateTriggerName(businessRule));
             commandExecuted = true;
         } else if (command.equals("TimeOperator")) {
-            templateForLanguage.add(command, generateTimpeOperator(businessRule));
+            templateForLanguage.setAttribute(command, generateTimpeOperator(businessRule));
             commandExecuted = true;
         } else if (command.equals("TableName")) {
-            templateForLanguage.add(command, generateTableName(businessRule));
+            templateForLanguage.setAttribute(command, generateTableName(businessRule));
             commandExecuted = true;
         } else if (command.equals("Variables")) {
-            templateForLanguage.add(command, generateVariables(businessRule));
+            templateForLanguage.setAttribute(command, generateVariables(businessRule));
             commandExecuted = true;
         } else if (command.equals("Conditions")) {
-            templateForLanguage.add(command, generateConditions(businessRule));
+            templateForLanguage.setAttribute(command, generateConditions(businessRule));
             commandExecuted = true;
         } else if (command.equals("Error")) {
-            templateForLanguage.add(command, generateError(businessRule));
+            templateForLanguage.setAttribute(command, generateError(businessRule));
             commandExecuted = true;
         }
 

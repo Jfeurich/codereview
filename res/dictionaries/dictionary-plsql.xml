@@ -2,31 +2,31 @@
 <dictionary language="plsql">
     <translation language="plsql" element="Template">
         <elementTranslation>
-            create or replace trigger &lt;TriggerName&gt;
-            before &lt;TimeOperator&gt;
-            on &lt;TableName&gt;
+            create or replace trigger [TriggerName]
+            before [TimeOperator]
+            on [TableName]
             for each row
             declare
-            &lt;Variables&gt;
+            [Variables]
             begin
-            if not &lt;Conditions&gt;
+            if not [Conditions]
             then
-            &lt;Error&gt;
+            [Error]
             end if;
-            end &lt;TriggerName&gt;;
+            end [TriggerName];
         </elementTranslation>
     </translation>
     <translation language="plsql" element="GreaterThan">
-        <elementTranslation>&gt;</elementTranslation>
+        <elementTranslation>></elementTranslation>
     </translation>
     <translation language="plsql" element="LesserThan">
-        <elementTranslation>&lt;</elementTranslation>
+        <elementTranslation>[</elementTranslation>
     </translation>
     <translation language="plsql" element="GreaterThanOrEqualsTo">
-        <elementTranslation>&gt;=</elementTranslation>
+        <elementTranslation>>=</elementTranslation>
     </translation>
     <translation language="plsql" element="LesserThanOrEqualsTo">
-        <elementTranslation>&lt;=</elementTranslation>
+        <elementTranslation>[=</elementTranslation>
     </translation>
     <translation language="plsql" element="EqualsTo">
         <elementTranslation>=</elementTranslation>
@@ -38,6 +38,6 @@
         <elementTranslation>IS NOT</elementTranslation>
     </translation>
     <translation language="plsql" element="ErrorFunction">
-        <elementTranslation>raise_application_error(-20800, "&lt;ErrorMessage&gt;");</elementTranslation>
+        <elementTranslation>raise_application_error(-20800, "[ErrorMessage>");</elementTranslation>
     </translation>
 </dictionary>
