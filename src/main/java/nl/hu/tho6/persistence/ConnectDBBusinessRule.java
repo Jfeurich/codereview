@@ -240,11 +240,10 @@ public class ConnectDBBusinessRule {
     //saveBusinessRule slaat de gemaakte businessrule op in een database
     // TODO aanpassen zodat de target database als parameter meegegeven kan worden, query aanpassen zodat
     // de gegenereerde rule opgeslagen wordt in GEGENEREERDE_BUSINESSRULE
-    public void saveBusinessRule(ST rule/*String databaselogingegevens, die gedecrypt moeten worden in JAVA*/){
+    public void saveBusinessRule(String rule/*String databaselogingegevens, die gedecrypt moeten worden in JAVA*/){
         try {
-            String sql = rule.toString();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(rule);
             while (rs.next()) {
                 //declare variables here
             }
