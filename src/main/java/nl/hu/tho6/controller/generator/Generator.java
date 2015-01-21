@@ -2,10 +2,9 @@ package nl.hu.tho6.controller.generator;
 
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.translator.Translator;
-import nl.hu.tho6.utils.file.PathUtils;
 import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.STGroupFile;
+
+import java.util.Map;
 
 /**
  * Created by Liam on 17-12-2014.
@@ -13,33 +12,87 @@ import org.stringtemplate.v4.STGroupFile;
 public class Generator {
     private static Generator ourInstance = new Generator();
     private Translator translator;
+    private boolean commandExecuted;
 
     public static Generator getInstance() {
         return ourInstance;
     }
 
-    //TODO subject to change
-    public ST generate(String language, BusinessRule businessRule) {
-        //code vertalen naar pseudoCode
-        ST pseudo = convertToPseudoCode(businessRule);
-        //pseudoCode vertalen naar code voor language
-        //        ST code = translator.translate(pseudo, language);
-        ST code = new ST("");
-        return code;
+    //TODO refactor
+    public String generate(String language, BusinessRule businessRule) {
+        ST templateForLanguage = getTemplateForLanguage(language);
+
+        boolean unfilledAttributes = true;
+        Map<String, Object> attributes = templateForLanguage.getAttributes();
+
+        while (unfilledAttributes) {
+            for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
+                if (attribute.getValue() == null) {
+                    execute(attribute.getKey(), businessRule, language, templateForLanguage);
+                    if (!commandExecuted) {
+                        templateForLanguage.add(attribute.getKey(), translator.getTranslationForElement(attribute.getKey(), language));
+                    }
+                }
+            }
+
+            templateForLanguage = new ST(templateForLanguage.render());
+            attributes = templateForLanguage.getAttributes();
+
+            unfilledAttributes = (!(attributes.size() == 0));
+        }
+
+        return templateForLanguage.render();
     }
 
-    //TODO subject to change
     private Generator() {
         translator = Translator.getInstance();
     }
 
-    //TODO subject to change
-    private ST convertToPseudoCode(BusinessRule businessRule) {
-        //dit klopt nog niet met wat we voor ogen hebben
-        STGroup stGroup = new STGroupFile(PathUtils.PSEUDO_TEMPLATES_PATH + "pseudoTemplates.stg");
-        ST pseudo = stGroup.getInstanceOf("AttCompare");
-        pseudo.add("element", "HardCodedAttCompare");
-        //TODO implement conversion to pseudo
-        return pseudo;
+    private ST getTemplateForLanguage(String language) {
+        return new ST(translator.getTranslationForElement("Template", language));
+    }
+
+    private ST execute(String command, BusinessRule businessRule, String language, ST templateForLanguage) {
+        commandExecuted = false;
+
+        if (command.equals("TriggerName")) {
+            templateForLanguage.add(command, generateTriggerName(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("TimeOperator")) {
+            templateForLanguage.add(command, generateTimpeOperator(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("TableName")) {
+            templateForLanguage.add(command, generateTableName(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("Variables")) {
+            //TODO implement method for command
+            templateForLanguage.add(command, "");
+            commandExecuted = true;
+        } else if (command.equals("Condition")) {
+            //TODO implement method for command
+            templateForLanguage.add(command, "");
+            commandExecuted = true;
+        } else if (command.equals("Error")) {
+            //TODO implement method for command
+            templateForLanguage.add(command, "");
+            commandExecuted = true;
+        }
+
+        return templateForLanguage;
+    }
+
+    private String generateTriggerName(BusinessRule businessRule) {
+        String code = "BRG_TARGET_" + businessRule.getAttribute1().getTabel() + "_TRIGGER" + businessRule.getRuleID();
+        return code;
+    }
+
+    private String generateTimpeOperator(BusinessRule businessRule) {
+        String timeOperator = "update or insert or delete";
+        return timeOperator;
+    }
+
+    private String generateTableName(BusinessRule businessRule) {
+        String tableName = businessRule.getAttribute1().getTabel();
+        return tableName;
     }
 }

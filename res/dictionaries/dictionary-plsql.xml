@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <dictionary language="plsql">
+    <translation language="plsql" element="Template">
+        <elementTranslation>
+            create or replace trigger &lt;TriggerName&gt;
+            before &lt;TimeOperator&gt;
+            on &lt;TableName&gt;
+            for each row
+            declare
+            &lt;Variables&gt;
+            begin
+            if not &lt;Condition&gt;
+            then
+            &lt;Error&gt;
+            end if;
+            end &lt;TriggerName&gt;;
+        </elementTranslation>
+    </translation>
     <translation language="plsql" element="GreaterThan">
         <elementTranslation>&gt;</elementTranslation>
     </translation>
@@ -23,5 +39,8 @@
     </translation>
     <translation language="plsql" element="IfNot">
         <elementTranslation>if not</elementTranslation>
+    </translation>
+    <translation language="plsql" element="ErrorFunction">
+        <elementTranslation>raise_application_error(-20800, "&lt;ErrorMessage&gt;");</elementTranslation>
     </translation>
 </dictionary>

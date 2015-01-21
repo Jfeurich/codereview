@@ -4,7 +4,6 @@ import nl.hu.tho6.controller.generator.Generator;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.persistence.ConnectDBBusinessRule;
 import nl.hu.tho6.persistence.connection.ConnectionFactory;
-import org.stringtemplate.v4.ST;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +29,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
             returnMessage = "Er zijn geen businessrules te genereren.";
         } else {
             for(int i = 0; i < ongeGenereerdeBusinessRule.size(); i++){
-                ST gegenereerdeBusinessRule = generator.generate(language, ongeGenereerdeBusinessRule.get(i));
+                String gegenereerdeBusinessRule = generator.generate(language, ongeGenereerdeBusinessRule.get(i));
                 // TODO dit aanpassen zodat het werkt
                 //ConnectDBBusinessRule.saveBusinessrule(gegenereerdeBusinessRule);
                 aantalBusinessRules++;
