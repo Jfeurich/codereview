@@ -9,7 +9,7 @@
     </servlet>
     <servlet>
         <servlet-name>TestServlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.BusinessruleOphaalServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.TestServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestRuleServlet.do</url-pattern>
+        <url-pattern>/TestServlet.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
