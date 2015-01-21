@@ -1,4 +1,4 @@
-package nl.hu.tho6.domain.businessrule;
+package nl.hu.tho6.utils.stringtemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  * Created by Nathan on 21/01/2015.
  */
 public class StringTemplate {
-    String content;
-    HashMap<String,String> attributes;
+    private String content;
+    private HashMap<String,String> attributes;
 
     public StringTemplate(String content){
         this.content = content;

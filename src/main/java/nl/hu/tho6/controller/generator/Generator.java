@@ -1,14 +1,10 @@
 package nl.hu.tho6.controller.generator;
 
 import nl.hu.tho6.domain.businessrule.BusinessRule;
-import nl.hu.tho6.domain.businessrule.StringTemplate;
 import nl.hu.tho6.translator.Translator;
-import org.stringtemplate.v4.ST;
+import nl.hu.tho6.utils.stringtemplate.StringTemplate;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Liam on 17-12-2014.
@@ -25,12 +21,10 @@ public class Generator {
     public String generate(String language, BusinessRule businessRule) {
         StringTemplate templateForLanguage = getTemplateForLanguage(language);
 
-        //TODO thiw wont work, nullpointer op regel 33
         boolean unfilledAttributes = true;
         Map<String, String> attributes = templateForLanguage.getAttributes();
 
         while (unfilledAttributes) {
-
             for (Map.Entry<String, String> attribute : attributes.entrySet()) {
                 if (attribute.getValue().equals("empty")) {
                     if (!execute(attribute.getKey(), businessRule, language, templateForLanguage)) {
@@ -114,18 +108,5 @@ public class Generator {
     private String generateVariables(BusinessRule businessRule) {
         String variables = "";
         return variables;
-    }
-
-    private ArrayList<String> tagsInTemplate(String txt) {
-        ArrayList<String> tags = new ArrayList<String>();
-
-        Pattern p = Pattern.compile("\\[([^\\]]+)]");
-        Matcher m = p.matcher(txt);
-
-        while (m.find()) {
-            tags.add(m.group(1));
-        }
-
-        return tags;
     }
 }
