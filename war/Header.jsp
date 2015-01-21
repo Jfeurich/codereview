@@ -10,6 +10,6 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
-<h1>AutoTotaalDienst - ${param.subTitle}</h1>
+<h1>${param.subTitle}</h1>
 </body>
 </html>
