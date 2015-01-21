@@ -1,5 +1,6 @@
-package nl.hu.tho6.controller.generator;
+package nl.hu.tho6.controller;
 
+        import nl.hu.tho6.controller.generator.Generator;
         import nl.hu.tho6.domain.businessrule.BusinessRule;
         import nl.hu.tho6.persistence.ConnectDBBusinessRule;
         import nl.hu.tho6.persistence.connection.ConnectionFactory;
