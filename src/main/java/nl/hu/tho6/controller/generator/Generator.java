@@ -97,7 +97,7 @@ public class Generator {
 
     private String generateError(BusinessRule businessRule, String language) {
         String error = "";
-        if(businessRule.getErrorType().equals("CustomError")){
+        if(businessRule.getErrorType().equals("2")){
             error += translator.getTranslationForElement("ErrorFunction",language);
         } else {
             error += translator.getTranslationForElement("DefaultError",language);
@@ -113,7 +113,7 @@ public class Generator {
         String conditions = "( new." + businessRule.getAttribute1().getKolom();
         if(businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")){
             if(businessRule.getOperator().getNaam().equals("Between")){
-                conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualTo",language);
+                conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualsTo",language);
             } else {
                 conditions += " " + translator.getTranslationForElement("LesserThan",language);
             }
@@ -125,9 +125,9 @@ public class Generator {
             }
             conditions += " new." + businessRule.getAttribute1().getKolom();
             if(businessRule.getOperator().getNaam().equals("Between")){
-                conditions += " " + translator.getTranslationForElement("LesserThanOrEqualTo0",language);
+                conditions += " " + translator.getTranslationForElement("LesserThanOrEqualsTo",language);
             } else {
-                conditions += "( " + translator.getTranslationForElement("GreaterThan",language);
+                conditions += " " + translator.getTranslationForElement("GreaterThan",language);
             }
             conditions += " " + businessRule.getValue2().getValue();
         } else {

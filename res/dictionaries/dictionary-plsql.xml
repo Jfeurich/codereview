@@ -15,6 +15,21 @@
             end [TriggerName];
         </elementTranslation>
     </translation>
+    <translation language="plsql" element="LoadOtherTableIntoVariable">
+        <elementTranslation>
+            create or replace trigger [TriggerName]
+                before [TimeOperator]
+                on [TableName]
+                for each row
+            declare
+                [Variables]
+            begin
+                if not [Conditions] then
+                    [Error]
+                end if;
+            end [TriggerName];
+        </elementTranslation>
+    </translation>
     <translation language="plsql" element="GreaterThan">
         <elementTranslation>></elementTranslation>
     </translation>
@@ -41,6 +56,9 @@
     </translation>
     <translation language="plsql" element="Or">
         <elementTranslation>OR</elementTranslation>
+    </translation>
+    <translation language="plsql" element="Assign">
+        <elementTranslation>:=</elementTranslation>
     </translation>
     <translation language="plsql" element="ErrorFunction">
         <elementTranslation>raise_application_error(-20800, "[ErrorMessage]");</elementTranslation>

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
     private static ConnectionFactory instance = new ConnectionFactory();
-    public static final String URL = "jdbc:oracle:thin/ondora01.hu.nl:8521/THO6";
+    public static final String URL = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
     public static final String USER = "tho6_2014_2b_team3";
     public static final String PASSWORD = " tho6_2014_2b_team3";
     public static final String DRIVER_CLASS = "oracle.jdbc.driver.OracleDriver";

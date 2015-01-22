@@ -70,13 +70,13 @@ public class ConnectDBBusinessRule {
         ArrayList<BusinessRule> rules = new ArrayList<BusinessRule>();
         try {
             String sql = "select BUSINESSRULE.RULEID as RULEID,\n" +
-                    "BUSINESSRULE.RULENAAM asRULENAAM,\n" +
+                    "BUSINESSRULE.RULENAAM as RULENAAM,\n" +
                     "BUSINESSRULE.ERROR as ERROR,\n" +
                     "BUSINESSRULE.ERRORTYPE as ERRORTYPE,\n" +
                     "BUSINESSRULE.OPERATOR as OPERATOR,\n" +
                     "BUSINESSRULE.BUSINESSRULETYPE as BUSINESSRULETYPE \n" +
-                    " from ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
-                    "BUSINESSRULE BUSINESSRULE \n" +
+                    " from ONGEGENEREERDE_BUSINESSRULE ,\n" +
+                    "BUSINESSRULE \n" +
                     " where   BUSINESSRULE.RULEID=ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID\n" +
                     " and     ONGEGENEREERDE_BUSINESSRULE.STATUS = 'NOT_GENERATED'";
             Statement stmt = con.createStatement();
@@ -99,10 +99,23 @@ public class ConnectDBBusinessRule {
                 Operator o = con3.getOperator(id);
                 ConnectDBBusinessRule con4 = new ConnectDBBusinessRule(con);
                 ArrayList<Attribute> attributes = con4.getAttribute(id);
-                Attribute a1 = attributes.get(0);
-                Attribute a2 = attributes.get(1);
-                Value v1 = values.get(0);
-                Value v2 = values.get(1);
+                Attribute a1 = null;
+                Attribute a2 = null;
+                Value v1 = null;
+                Value v2 = null;
+                if (attributes.size() > 0) {
+                    a1 = attributes.get(0);
+                    if (attributes.size() > 1) {
+                        a2 = attributes.get(1);
+                    }
+                }
+                if (values.size() > 0) {
+                    v1 = values.get(0);
+                    if (values.size() > 1) {
+                        v2 = values.get(1);
+                    }
+                }
+
                 // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
@@ -127,12 +140,13 @@ public class ConnectDBBusinessRule {
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan geen businessrules halen uit de database" + ex);
+            ex.printStackTrace();
         }
         return rules;
     }
 
     public ArrayList<Attribute> getAttribute(int businessruleID){
-        ArrayList<Attribute> attributes = null;
+        ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         try {
             String sql = "select ATTRIBUTE.ATTRIBUTENAAM as ATTRIBUTENAAM,\n" +
                     " ATTRIBUTE.DBSCHEMA as DBSCHEMA,\n" +
@@ -164,29 +178,29 @@ public class ConnectDBBusinessRule {
     }
 
     public ArrayList<Value> getValue(int businessruleID){
-        ArrayList<Value> v = null;
+        ArrayList<Value> v = new ArrayList<Value>();
         try {
             String sql = "select VALUE.VALUEID as VALUEID,\n" +
                     " VALUE.WAARDENAAM as WAARDENAAM,\n" +
                     " VALUE.VALUETYPE as VALUETYPE,\n" +
-                    " VALUE.VALUE as VALUE,\n" +
+                    " VALUE.VALUE as VALUECONTENT,\n" +
                     " VALUE.BUSINESSRULE as BUSINESSRULE \n" +
-                    " from BUSINESSRULE BUSINESSRULE,\n" +
-                    " VALUE VALUE \n" +
-                    " where   VALUE.BUSINESSRULE = BUSINESSRULE."+ businessruleID;
+                    " from VALUE VALUE \n" +
+                    " where   VALUE.BUSINESSRULE = " + businessruleID;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int valueID = rs.getInt("VALUED");
+                int valueID = rs.getInt("VALUEID");
                 String waardenaam = rs.getString("WAARDENAAM");
                 String valuetype = rs.getString("VALUETYPE");
-                String value = rs.getString("VALUE");
+                String value = rs.getString("VALUECONTENT");
                 Value val = new Value(waardenaam,valuetype,value);
                 v.add(val);
             }
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan geen values halen uit de database" + ex);
+            ex.printStackTrace();
         }
         return v;
     }
