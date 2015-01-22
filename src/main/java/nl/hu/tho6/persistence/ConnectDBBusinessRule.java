@@ -29,39 +29,6 @@ public class ConnectDBBusinessRule {
         con = c;
     }
 
-//    public ArrayList<BusinessRule> getBusinessRules() {
-//        //Haal de businessrules op uit de ruledatabase
-//        ArrayList<BusinessRule> rules = new ArrayList<BusinessRule>();
-//        try {
-//            String sql = "SELECT * FROM businessrule WHERE conditie";
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                //declare variables here
-//            }
-//            stmt.close();
-//        } catch (Exception ex) {
-//            System.out.println("Kan geen businessrules halen uit de database" + ex);
-//        }
-//        return rules;
-//    }
-
-//    public BusinessRule saveBusinessrule(Connection target) {
-//        BusinessRule rule = new BusinessRule();
-//        try {
-//            String sql = "CREATE OR REPLACE ETC";
-//            Statement stmt = target.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                //declare variables here
-//            }
-//            stmt.close();
-//        } catch (Exception ex) {
-//            System.out.println("Kan businessrule niet vinden" + ex);
-//        }
-//        return rule;
-//    }
-
     /**
      * Haalt alle ongegenereerde businessrules op uit de database.
      */
@@ -144,7 +111,7 @@ public class ConnectDBBusinessRule {
         }
         return rules;
     }
-
+    /*Haalt alle attributes behorende bij de businessrule uit de DB*/
     public ArrayList<Attribute> getAttribute(int businessruleID){
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         try {
@@ -176,7 +143,7 @@ public class ConnectDBBusinessRule {
         }
         return attributes;
     }
-
+    /*haal values uit de database behordende bij de database*/
     public ArrayList<Value> getValue(int businessruleID){
         ArrayList<Value> v = new ArrayList<Value>();
         try {
@@ -204,7 +171,7 @@ public class ConnectDBBusinessRule {
         }
         return v;
     }
-
+    /*Haal de operator behorende bijde businessrule uit de database*/
     public Operator getOperator(int businessruleID){
         Operator op = null;
         try {
@@ -227,7 +194,7 @@ public class ConnectDBBusinessRule {
         }
         return op;
     }
-
+    /*Controleer of een object null returnt */
     public boolean nulltest(Object o){
         if(o!=null){
             return true;
@@ -251,16 +218,14 @@ public class ConnectDBBusinessRule {
 //        }
 //        return rule;
 //    }
-    //saveBusinessRule slaat de gemaakte businessrule op in een database
-    // TODO aanpassen zodat de target database als parameter meegegeven kan worden, query aanpassen zodat
-    // de gegenereerde rule opgeslagen wordt in GEGENEREERDE_BUSINESSRULE
-    public void saveBusinessRule(String rule/*String databaselogingegevens, die gedecrypt moeten worden in JAVA*/){
+
+    /*Sla de gemaakte businessrule op in de oracle database.*/
+    // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
+    public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
         try {
+            String sql = "INSERT INTO GEGENEREERDE_BUSINESSRULE (BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES ('" + BUSINESSRULENAAM + "', '" + LANGUAGENAAM + "', '" + CODE +"');";
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(rule);
-            while (rs.next()) {
-                //declare variables here
-            }
+            stmt.executeUpdate(sql);
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);

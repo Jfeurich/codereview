@@ -17,7 +17,7 @@
     <jsp:include page="Menu.jsp" />
     <div class="messageBox">${message}</div>
     <form action="TestServlet.do" method="post">
-      <input type="submit" value="Submit">
+      <input type="submit" value="genereertest">
     </form>
     <jsp:include page="Footer.jsp" />
   </div>
