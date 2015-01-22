@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.addDictionaryServlet</servlet-class>
+        <servlet-class>production.THO6.nl.hu.tho6.controller.addDictionaryServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

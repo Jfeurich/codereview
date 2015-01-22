@@ -11,8 +11,10 @@
         <div class="messageBox">${message}</div>
 
         <%--TODO DICTIONARIES!--%>
-        <c:forEach items="DICTIONARIES!" var="dictionary">
-            <label>${dictionary.getName}</label><a href="nl.hu.tho6.controller.allDictionariesServlet?dictionary=${dictionary.getName}?type=Change">Change</a><a href="nl.hu.tho6.controller.allDictionariesServlet?dictionary=${dictionary.getName}?type=Delete">Delete</a>
+        <c:set var="translator" value="${Translator.getInstance()}" />
+        <c:set var="dictionaries" value="${translator.getDictionaries}" />
+        <c:forEach items="${dictionaries}" var="dictionary">
+            <label>${dictionary.getLanguage}</label><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage}?type=Change">Change</a><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage}?type=Delete">Delete</a>
         </c:forEach>
 
         <jsp:include page="Footer.jsp" />

@@ -4,11 +4,10 @@ import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.exception.TranslationNotFoundException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Translator {
     private static Translator ourInstance = new Translator();
-    private static List<Dictionary> dictionaries;
+    private static ArrayList<Dictionary> dictionaries;
 
     public static Translator getInstance() {
         return ourInstance;
@@ -39,7 +38,7 @@ public class Translator {
         return translatedElement;
     }
 
-    private Dictionary selectDictionary(String language) {
+    public Dictionary selectDictionary(String language) {
         Dictionary currentDictionary = null;
         //loop door lijst met dictionaries
         for (Dictionary dictionary : dictionaries) {
@@ -63,4 +62,15 @@ public class Translator {
         return dictionaryExists;
     }
 
+    public void removeDictionary(String language) {
+        for(Dictionary dictionary : dictionaries) {
+            if(dictionary.getLanguage().equals(language)){
+                dictionaries.remove(dictionary);
+            }
+        }
+    }
+
+    public ArrayList<Dictionary> getDictionaries(){
+        return dictionaries;
+    }
 }

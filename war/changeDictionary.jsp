@@ -11,9 +11,8 @@
     <div class="messageBox">${message}</div>
 
     <form action="changeDictionary.do" method="post">
-    <%--TODO elementvalue--%>
     <c:forEach items="${sessionScope.elements}" var="element">
-      <label>&lt;${element}&gt;</label> = <input type="text" name="${element}" value="${elementvalue}">
+      <label>&lt;${element.getElement()}&gt;</label> = <input type="text" name="${element.getElementTranslation}" value="${element.getElementTranslation()}">
     </c:forEach>
       <input type="submit" value="Submit">
     </form>

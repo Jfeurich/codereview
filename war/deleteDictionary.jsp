@@ -11,13 +11,13 @@
     <div class="messageBox">${message}</div>
 
     Are you sure you want to delete this dictionary and all its elements?
-    ${dictionary}
+    ${sessionScope.language}
 
     <c:forEach items="${sessionScope.elements}" var="element">
       <label>&lt;${element}&gt;</label> = <label>${elementvalue}</label>
     </c:forEach>
 
-    <a href="nl.hu.tho6.contoller.deleteDictionaryServlet?dictionary=${dictionary}">Delete</a> <a href="allDictionaries.jsp">Cancel</a>
+    <a href="nl.hu.tho6.contoller.deleteDictionaryServlet?language=${sessionScope.language}">Delete</a> <a href="allDictionaries.jsp">Cancel</a>
 
     <jsp:include page="Footer.jsp" />
   </div>

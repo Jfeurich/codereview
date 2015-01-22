@@ -51,6 +51,7 @@ public class addDictionaryServlet extends HttpServlet {
             }
 
             HttpSession session = request.getSession();
+            session.setAttribute("language", language);
             session.setAttribute("elements", elements);
 
             rd = request.getRequestDispatcher("defineElements.jsp");
@@ -62,7 +63,7 @@ public class addDictionaryServlet extends HttpServlet {
 
     public static ArrayList<String> tagsInTemplate(String element) {
         ArrayList<String> elements = new ArrayList<String>();
-        Pattern p = Pattern.compile("<(.*?)>");
+        Pattern p = Pattern.compile("[(.*?)]");
         Matcher m = p.matcher(element);
 
         while (m.find()) {
