@@ -32,7 +32,6 @@ public class Generator {
                         templateForLanguage.setAttribute(attribute.getKey(), translator.getTranslationForElement(attribute.getKey(), language));
                     }
                 }
-
             }
 
             templateForLanguage = new StringTemplate(templateForLanguage.render());
@@ -110,6 +109,7 @@ public class Generator {
         return businessRule.getError();
     }
 
+    //TODO refactor
     private String generateConditions(BusinessRule businessRule, String language) {
         String conditions = "( new." + businessRule.getAttribute1().getKolom();
         if(businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")){
