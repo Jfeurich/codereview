@@ -19,13 +19,13 @@
         <elementTranslation>></elementTranslation>
     </translation>
     <translation language="plsql" element="LesserThan">
-        <elementTranslation>[</elementTranslation>
+        <elementTranslation>&lt;</elementTranslation>
     </translation>
     <translation language="plsql" element="GreaterThanOrEqualsTo">
         <elementTranslation>>=</elementTranslation>
     </translation>
     <translation language="plsql" element="LesserThanOrEqualsTo">
-        <elementTranslation>[=</elementTranslation>
+        <elementTranslation>&lt;=</elementTranslation>
     </translation>
     <translation language="plsql" element="EqualsTo">
         <elementTranslation>=</elementTranslation>
