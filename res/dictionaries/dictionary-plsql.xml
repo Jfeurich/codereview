@@ -3,16 +3,15 @@
     <translation language="plsql" element="Template">
         <elementTranslation>
             create or replace trigger [TriggerName]
-            before [TimeOperator]
-            on [TableName]
-            for each row
+                before [TimeOperator]
+                on [TableName]
+                for each row
             declare
-            [Variables]
+                [Variables]
             begin
-            if not [Conditions]
-            then
-            [Error]
-            end if;
+                if not [Conditions] then
+                    [Error]
+                end if;
             end [TriggerName];
         </elementTranslation>
     </translation>
@@ -37,7 +36,13 @@
     <translation language="plsql" element="IsNot">
         <elementTranslation>IS NOT</elementTranslation>
     </translation>
+    <translation language="plsql" element="And">
+        <elementTranslation>AND</elementTranslation>
+    </translation>
+    <translation language="plsql" element="Or">
+        <elementTranslation>OR</elementTranslation>
+    </translation>
     <translation language="plsql" element="ErrorFunction">
-        <elementTranslation>raise_application_error(-20800, "[ErrorMessage>");</elementTranslation>
+        <elementTranslation>raise_application_error(-20800, "[ErrorMessage]");</elementTranslation>
     </translation>
 </dictionary>
