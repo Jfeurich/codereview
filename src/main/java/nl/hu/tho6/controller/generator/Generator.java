@@ -18,7 +18,8 @@ public class Generator {
     }
 
     //TODO refactor
-    public String generate(String language, BusinessRule businessRule) {
+    public String generate(BusinessRule businessRule) {
+        String language = businessRule.getLanguage().toLowerCase();
         StringTemplate templateForLanguage = getTemplateForLanguage(language);
 
         boolean unfilledAttributes = true;

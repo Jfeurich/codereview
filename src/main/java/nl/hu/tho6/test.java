@@ -37,9 +37,8 @@ public class test {
         Attribute a2 = new Attribute("Spelersgeboortedatum","target","spelers","geboortedatum",1);
         Value v1 = new Value("Geboortedatum","Integer","18");
         Value v2 = new Value("Geboortedatum","Integer","65");
-//        String result = gen.generate("plsql",new BusinessRule("BsRuleNaam","Medewerker moet 18 jaar of ouder zijn en jonger dan of gelijk aan 65.","CustomError","BSRULE01", o, v1, v2, a1, null));
-        String result = gen.generate("plsql",ongeGenereerdeBusinessRule.get(0));
-        cdbbr.saveBusinessRule();
+//        String result = gen.generate("plsql",new BusinessRule("BsRuleNaam","Medewerker moet 18 jaar of ouder zijn en jonger dan of gelijk aan 65.","CustomError","BSRULE01","PLSQL", o, v1, v2, a1, null));
+        String result = gen.generate(ongeGenereerdeBusinessRule.get(0));
         System.out.println(result);
     }
 }

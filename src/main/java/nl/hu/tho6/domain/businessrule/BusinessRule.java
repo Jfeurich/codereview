@@ -5,6 +5,7 @@ public class BusinessRule {
     private String   error;
     private String   errorType;
     private String   code;
+    private String   language;
     private Operator operator;
     private Value    value1, value2;
     private Attribute attribute1, attribute2;
@@ -14,16 +15,25 @@ public class BusinessRule {
 
     }
 
-    public BusinessRule(String ruleNaam, String error, String errorType, String code, Operator operator, Value value1, Value value2, Attribute attribute1, Attribute attribute2) {
+    public BusinessRule(String ruleNaam, String error, String errorType, String code, String language, Operator operator, Value value1, Value value2, Attribute attribute1, Attribute attribute2) {
         this.ruleNaam = ruleNaam;
         this.error = error;
         this.errorType = errorType;
         this.code = code;
+        this.language = language;
         this.operator = operator;
         this.value1 = value1;
         this.value2 = value2;
         this.attribute1 = attribute1;
         this.attribute2 = attribute2;
+    }
+
+    public String getLanguage(){
+        return language;
+    }
+
+    public void setLanguage(String language){
+        this.language = language;
     }
 
     public String getRuleNaam() {

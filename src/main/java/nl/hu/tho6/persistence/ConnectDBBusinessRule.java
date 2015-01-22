@@ -41,7 +41,8 @@ public class ConnectDBBusinessRule {
                     "BUSINESSRULE.ERROR as ERROR,\n" +
                     "BUSINESSRULE.ERRORTYPE as ERRORTYPE,\n" +
                     "BUSINESSRULE.OPERATOR as OPERATOR,\n" +
-                    "BUSINESSRULE.BUSINESSRULETYPE as BUSINESSRULETYPE \n" +
+                    "BUSINESSRULE.BUSINESSRULETYPE as BUSINESSRULETYPE \n," +
+                    "ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM as LANGUAGE\n " +
                     " from ONGEGENEREERDE_BUSINESSRULE ,\n" +
                     "BUSINESSRULE \n" +
                     " where   BUSINESSRULE.RULEID=ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID\n" +
@@ -54,6 +55,7 @@ public class ConnectDBBusinessRule {
                 String rulenaam = rs.getString("RULENAAM");
                 String error = rs.getString("ERROR");
                 String errortype = rs.getString("ERRORTYPE");
+                String language = rs.getString("LANGUAGE");
                 int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
                 String code = "";
@@ -102,6 +104,7 @@ public class ConnectDBBusinessRule {
                     r.setAttribute2(a2);
                 }
                 r.setRuleID(id);
+                r.setLanguage(language);
                 rules.add(r);
             }
             stmt.close();
