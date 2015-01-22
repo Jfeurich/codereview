@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
-    private String language = "PL/SQL";
     private int aantalBusinessRules = 0;
     private Generator generator = Generator.getInstance();
 
@@ -30,7 +29,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         } else {
             for(int i = 0; i < ongeGenereerdeBusinessRule.size(); i++){
                 String gegenereerdeBusinessRule = generator.generate(ongeGenereerdeBusinessRule.get(i));
-                cdbbr.saveBusinessRule(ongeGenereerdeBusinessRule.get(i).getRuleNaam(),language,gegenereerdeBusinessRule);
+                cdbbr.saveBusinessRule(ongeGenereerdeBusinessRule.get(i).getRuleNaam(),ongeGenereerdeBusinessRule.get(i).getLanguage(),gegenereerdeBusinessRule);
                 aantalBusinessRules++;
             }
             if(aantalBusinessRules == 1){
