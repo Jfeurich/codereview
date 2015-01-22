@@ -4,6 +4,7 @@ import nl.hu.tho6.controller.generator.Generator;
 import nl.hu.tho6.domain.businessrule.Attribute;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.domain.businessrule.Operator;
+import nl.hu.tho6.domain.businessrule.Value;
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
@@ -19,9 +20,10 @@ public class test {
         Dictionary dc = fs.readDictionary("plsql");
         Translator.addDictionary(dc);
         Generator gen = Generator.getInstance();
-        Operator o = new Operator("GreaterThanOrEqualTo","Een type");
-        Attribute a = new Attribute("MedewerkerGeboortedatum","target","tabel1","kolom1",1);
-        String result = gen.generate("plsql",new BusinessRule("BsRuleNaam","Dat mag niet","CustomError","BSRULE01", o, null, null, a, null));
+        Operator o = new Operator("GreaterThanOrEqualsTo","Een type");
+        Attribute a1 = new Attribute("MedewerkerGeboortedatum","target","medewerker","geboortedatum",1);
+        Value v = new Value("Geboortedatum","Integer","18");
+        String result = gen.generate("plsql",new BusinessRule("BsRuleNaam","Medeweker moet ouder dan 18 zijn.","CustomError","BSRULE01", o, v, null, a1, null));
         System.out.println(result);
     }
 }

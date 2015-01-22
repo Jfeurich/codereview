@@ -67,10 +67,13 @@ public class Generator {
             templateForLanguage.setAttribute(command, generateVariables(businessRule));
             commandExecuted = true;
         } else if (command.equals("Conditions")) {
-            templateForLanguage.setAttribute(command, generateConditions(businessRule));
+            templateForLanguage.setAttribute(command, generateConditions(businessRule,language));
             commandExecuted = true;
         } else if (command.equals("Error")) {
-            templateForLanguage.setAttribute(command, generateError(businessRule));
+            templateForLanguage.setAttribute(command, generateError(businessRule,language));
+            commandExecuted = true;
+        } else if (command.equals("ErrorMessage")) {
+            templateForLanguage.setAttribute(command, getErrorMessage(businessRule));
             commandExecuted = true;
         }
 
@@ -92,15 +95,50 @@ public class Generator {
         return tableName;
     }
 
-    //TODO implement method
-    private String generateError(BusinessRule businessRule) {
+    private String generateError(BusinessRule businessRule, String language) {
         String error = "";
+        if(businessRule.getErrorType().equals("CustomError")){
+            error += translator.getTranslationForElement("ErrorFunction",language);
+        } else {
+            error += translator.getTranslationForElement("DefaultError",language);
+        }
         return error;
     }
 
-    //TODO implement method
-    private String generateConditions(BusinessRule businessRule) {
-        String conditions = "";
+    private String getErrorMessage(BusinessRule businessRule){
+        return businessRule.getError();
+    }
+
+    private String generateConditions(BusinessRule businessRule, String language) {
+        String conditions = "( new." + businessRule.getAttribute1().getKolom();
+        if(businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")){
+            if(businessRule.getOperator().getNaam().equals("Between")){
+                conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualTo",language);
+            } else {
+                conditions += " " + translator.getTranslationForElement("LesserThan",language);
+            }
+            conditions += " " + businessRule.getValue1().getValue();
+            if(businessRule.getOperator().getNaam().equals("Between")){
+                conditions += " " + translator.getTranslationForElement("And",language);
+            } else {
+                conditions += " " + translator.getTranslationForElement("Or",language);
+            }
+            conditions += " new." + businessRule.getAttribute1().getKolom();
+            if(businessRule.getOperator().getNaam().equals("Between")){
+                conditions += " " + translator.getTranslationForElement("LesserThanOrEqualTo0",language);
+            } else {
+                conditions += "( " + translator.getTranslationForElement("GreaterThan",language);
+            }
+            conditions += " " + businessRule.getValue2().getValue();
+        } else {
+            conditions += " " + translator.getTranslationForElement(businessRule.getOperator().getNaam(), language);
+            if(businessRule.getAttribute2() != null){
+                conditions += " new." + businessRule.getAttribute2().getKolom();
+            } else if(businessRule.getValue1() != null){
+                conditions += " " + businessRule.getValue1().getValue();
+            }
+        }
+        conditions += " )";
         return conditions;
     }
 
