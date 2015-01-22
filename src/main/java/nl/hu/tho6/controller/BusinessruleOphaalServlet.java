@@ -27,9 +27,10 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         if(ongeGenereerdeBusinessRule.size() == 0){
             returnMessage = "Er zijn geen businessrules te genereren.";
         } else {
-            for(int i = 0; i < ongeGenereerdeBusinessRule.size(); i++){
-                String gegenereerdeBusinessRule = generator.generate(ongeGenereerdeBusinessRule.get(i));
-                cdbbr.saveBusinessRule(ongeGenereerdeBusinessRule.get(i).getRuleNaam(),ongeGenereerdeBusinessRule.get(i).getLanguage(),gegenereerdeBusinessRule);
+
+            for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
+                String gegenereerdeBusinessRule = generator.generate(businessRule);
+                cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
                 aantalBusinessRules++;
             }
             if(aantalBusinessRules == 1){
