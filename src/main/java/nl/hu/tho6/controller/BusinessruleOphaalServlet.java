@@ -30,7 +30,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         } else {
             for(int i = 0; i < ongeGenereerdeBusinessRule.size(); i++){
                 String gegenereerdeBusinessRule = generator.generate(language, ongeGenereerdeBusinessRule.get(i));
-                cdbbr.saveBusinessRule(gegenereerdeBusinessRule);
+                cdbbr.saveBusinessRule(ongeGenereerdeBusinessRule.get(i).getRuleNaam(),language,gegenereerdeBusinessRule);
                 aantalBusinessRules++;
             }
             if(aantalBusinessRules == 1){
