@@ -226,7 +226,7 @@ public class ConnectDBBusinessRule {
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
         try {
-            String sql = "INSERT INTO GEGENEREERDE_BUSINESSRULE (BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES ('" + BUSINESSRULENAAM + "', '" + LANGUAGENAAM + "', '" + CODE +"');";
+            String sql = "INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,'" + BUSINESSRULENAAM + "', '" + LANGUAGENAAM + "', '" + CODE +"')";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
