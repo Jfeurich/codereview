@@ -15,6 +15,11 @@ import java.io.File;
  * Created by Liam on 20-1-2015.
  */
 public class ContextListener implements ServletContextListener {
+
+    public ContextListener(){
+
+    }
+
     public void contextInitialized(ServletContextEvent sce) {
         FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
         readAllDictionaries(facade);
