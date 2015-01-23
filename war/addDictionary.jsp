@@ -9,7 +9,7 @@
         <jsp:include page="Menu.jsp" />
         <div class="messageBox">${message}</div>
         <form action="addDictionary.do" method="post">
-            <label>Language: </label><input type="text" name="language">
+            <label>Language: </label><input type="text" name="language" value="${param.language}">
             <br><br>
             <label>De elementen moeten tussen [ en ] gezet worden.</label>
             <div id="Code">
@@ -18,11 +18,12 @@
             </div>
             <div id="Elementen">
                 <label>Element suggesties:</label><br><br>
-                <label>[triggerNaam]</label><br>
-                <label>[tableNaam]</label><br>
-                <label>[condition]</label><br>
-                <label>[variable]</label><br>
-                <label>[code]</label><br>
+                <label>[TriggerName]</label><br>
+                <label>[TimeOperator]</label><br>
+                <label>[TableName]</label><br>
+                <label>[Variables]</label><br>
+                <label>[Conditions]</label><br>
+                <label>[Error]</label><br>
             </div>
             <div id="Submit">
                 <input type="submit" value="Submit">

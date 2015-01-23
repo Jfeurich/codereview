@@ -1,3 +1,6 @@
+<%@ page import="nl.hu.tho6.translator.Translator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="nl.hu.tho6.translator.dictionary.Dictionary" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="nl">
@@ -10,11 +13,17 @@
         <jsp:include page="Menu.jsp" />
         <div class="messageBox">${message}</div>
 
-        <%--TODO DICTIONARIES!--%>
+        <%--<%--%>
+            <%--Translator translator = Translator.getInstance();--%>
+            <%--ArrayList<Dictionary> dictionaries = translator.getDictionaries();--%>
+            <%--request.setAttribute("dictionaries", dictionaries);--%>
+        <%--%>--%>
+
         <c:set var="translator" value="${Translator.getInstance()}" />
-        <c:set var="dictionaries" value="${translator.getDictionaries}" />
+        <c:set var="dictionaries" value="${translator.getDictionaries()}" />
+
         <c:forEach items="${dictionaries}" var="dictionary">
-            <label>${dictionary.getLanguage}</label><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage}?type=Change">Change</a><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage}?type=Delete">Delete</a>
+            <label>${dictionary.getLanguage()}</label><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage()}?type=Change">Change</a><a href="nl.hu.tho6.controller.allDictionariesServlet?language=${dictionary.getLanguage()}?type=Delete">Delete</a>
         </c:forEach>
 
         <jsp:include page="Footer.jsp" />

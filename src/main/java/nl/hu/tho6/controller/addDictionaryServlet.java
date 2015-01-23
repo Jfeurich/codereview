@@ -24,7 +24,24 @@ public class addDictionaryServlet extends HttpServlet {
             rd = request.getRequestDispatcher("addDictionary.jsp");
         } else {
             elements = tagsInTemplate(code);
-
+            if(elements.contains("TriggerName")){
+                elements.remove("TriggerName");
+            }
+            if(elements.contains("TimeOperator")){
+                elements.remove("TimeOperator");
+            }
+            if(elements.contains("TableName")){
+                elements.remove("TableName");
+            }
+            if(elements.contains("Variables")){
+                elements.remove("Variables");
+            }
+            if(elements.contains("Conditions")){
+                elements.remove("Conditions");
+            }
+            if(elements.contains("Error")){
+                elements.remove("Error");
+            }
             if(!elements.contains("GreaterThanOrEqualTo")){
                 elements.add("GreaterThanOrEqualTo");
             }
@@ -46,8 +63,23 @@ public class addDictionaryServlet extends HttpServlet {
             if(!elements.contains("IsNot")){
                 elements.add("IsNot");
             }
-            if(!elements.contains("Error")){
-                elements.add("Error");
+            if(!elements.contains("ErrorFunction")){
+                elements.add("ErrorFunction");
+            }
+            if(!elements.contains("DefautError")){
+                elements.add("DefautError");
+            }
+            if(!elements.contains("Assign")){
+                elements.add("Assign");
+            }
+            if(!elements.contains("And")){
+                elements.add("And");
+            }
+            if(!elements.contains("Or")){
+                elements.add("Or");
+            }
+            if(!elements.contains("LoadOtherTableIntoVariable")){
+                elements.add("LoadOtherTableIntoVariable");
             }
 
             HttpSession session = request.getSession();
@@ -63,7 +95,7 @@ public class addDictionaryServlet extends HttpServlet {
 
     public static ArrayList<String> tagsInTemplate(String element) {
         ArrayList<String> elements = new ArrayList<String>();
-        Pattern p = Pattern.compile("[(.*?)]");
+        Pattern p = Pattern.compile("\\[([^\\]]+)]");
         Matcher m = p.matcher(element);
 
         while (m.find()) {

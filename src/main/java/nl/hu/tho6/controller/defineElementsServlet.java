@@ -1,5 +1,6 @@
 package nl.hu.tho6.controller;
 
+import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.Translation;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
@@ -16,7 +17,7 @@ public class defineElementsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd;
-        rd = request.getRequestDispatcher("allDictionaries.jsp");
+        rd = request.getRequestDispatcher("addDictionary.jsp");
         FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
         String language = (String) request.getSession().getAttribute("language");
         ArrayList<String> elements = (ArrayList<String>) request.getSession().getAttribute("elements");
@@ -37,6 +38,7 @@ public class defineElementsServlet extends HttpServlet {
             Dictionary d = new Dictionary();
 
             d.setLanguage(language);
+            System.out.println("lanugage: " + d.getLanguage());
             d.addObserver(facade);
             for (int i = 0; i < elements.size(); i++) {
                 Translation t = new Translation();
@@ -46,7 +48,8 @@ public class defineElementsServlet extends HttpServlet {
                 t.addObserver(d);
                 d.addElementTranslation(t);
             }
-
+            facade.writeDictionary(d);
+            Translator.addDictionary(d);
         }
 
 

@@ -13,6 +13,46 @@
         <url-pattern>/addDictionary.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Define Elements Servlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.defineElementsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Define Elements Servlet</servlet-name>
+        <url-pattern>/defineElements.do</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>All Dictionaries Servlet</servlet-name>-->
+        <!--<servlet-class>nl.hu.tho6.controller.allDictionariesServlet</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>All Dictionaries Servlet</servlet-name>-->
+        <!--<url-pattern>/allDictionaries.do</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <servlet>
+    <servlet-name>Change Dictionary Servlet</servlet-name>
+    <servlet-class>nl.hu.tho6.controller.changeDictionaryServlet</servlet-class>
+</servlet>
+
+    <servlet-mapping>
+        <servlet-name>Change Dictionary Servlet</servlet-name>
+        <url-pattern>/changeDictionary.do</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>Delete Dictionary Servlet</servlet-name>-->
+        <!--<servlet-class>nl.hu.tho6.controller.deleteDictionaryServlet</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Delete Dictionary Servlet</servlet-name>-->
+        <!--<url-pattern>/deleteDictionary.do</url-pattern>-->
+    <!--</servlet-mapping>-->
+
     <listener>
         <listener-class>nl.hu.tho6.listener.ContextListener</listener-class>
     </listener>

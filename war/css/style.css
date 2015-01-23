@@ -47,4 +47,8 @@ textarea{
     clear: both;
 }
 
+label {
+    clear: both;
+    width: 200px;
+}
 

@@ -12,8 +12,19 @@
     <form action="defineElements.do" method="post">
 
       <c:forEach items="${sessionScope.elements}" var="element">
-        <label>&lt;${element}&gt;</label> = <input type="text" name="${element}">
-      </c:forEach>
+        <c:choose>
+          <c:when test="${element eq 'ErrorFunction'}">
+          <label>[${element}]</label> = <input type="text" name="${element}"> <label>Use [ErrorMessage] inside the ErrorFunction</label><br>
+          </c:when>
+          <c:when test="${element eq 'LoadOtherTableIntoVariable'}">
+            <label>[${element}]</label> = <input type="text" name="${element}"> <label>Use [Variable] inside the LoadOtherTableIntoVariable</label><br>
+          </c:when>
+          <c:otherwise>
+            <label>[${element}]</label> = <input type="text" name="${element}"><br>
+          </c:otherwise>
+        </c:choose>
+
+         </c:forEach>
       <input type="submit" value="Submit">
     </form>
     <jsp:include page="Footer.jsp" />
