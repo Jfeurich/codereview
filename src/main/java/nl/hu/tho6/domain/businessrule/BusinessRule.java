@@ -10,6 +10,15 @@ public class BusinessRule {
     private Value    value1, value2;
     private Attribute attribute1, attribute2;
     private int ruleID;
+    private int businessruletype;
+
+    public int getBusinessruletype() {
+        return businessruletype;
+    }
+
+    public void setBusinessruletype(int businessruletype) {
+        this.businessruletype = businessruletype;
+    }
 
     public BusinessRule() {
 

@@ -92,6 +92,7 @@ public class ConnectDBBusinessRule {
                 r.setErrorType(errortype);
                 r.setCode(code);
                 r.setOperator(o);
+                r.setBusinessruletype(ruletype);
                 if(nulltest(v1)){
                     r.setValue1(v1);
                 }
