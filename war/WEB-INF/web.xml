@@ -4,6 +4,16 @@
         version="2.4">
 
     <servlet>
+        <servlet-name>GenerateServlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.BusinessruleOphaalServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GenerateServlet</servlet-name>
+        <url-pattern>/generate.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
         <servlet-class>nl.hu.tho6.controller.addDictionaryServlet</servlet-class>
     </servlet>

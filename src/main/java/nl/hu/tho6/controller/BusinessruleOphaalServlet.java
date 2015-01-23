@@ -24,6 +24,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
+        System.out.println("Size: " + ongeGenereerdeBusinessRule.size());
         if(ongeGenereerdeBusinessRule.size() == 0){
             returnMessage = "Er zijn geen businessrules te genereren.";
         } else {
