@@ -44,6 +44,7 @@ public class ContextListener implements ServletContextListener {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
+                System.out.println("for");
                 String language = convertToLanguage(file);
 
                 Dictionary dic = null;

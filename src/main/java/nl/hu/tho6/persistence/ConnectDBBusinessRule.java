@@ -215,6 +215,7 @@ public class ConnectDBBusinessRule {
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+            ex.printStackTrace();
         }
     }
 
