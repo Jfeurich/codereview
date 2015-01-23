@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
 
 public class XMLFileSystem implements FileSystem {
 
@@ -20,8 +21,10 @@ public class XMLFileSystem implements FileSystem {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(dictionary, new File(PathUtils.DICTIONARY_PATH + PathUtils.DICTIONARY_PREFIX + dictionary.getLanguage() + FILE_TYPE));
+            m.marshal(dictionary, new File(PathUtils.getDictionaryPathTomcat() + PathUtils.DICTIONARY_PREFIX + dictionary.getLanguage() + FILE_TYPE));
         } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -31,9 +34,10 @@ public class XMLFileSystem implements FileSystem {
         try {
             JAXBContext context = JAXBContext.newInstance(Dictionary.class);
             Unmarshaller un = context.createUnmarshaller();
-            Dictionary dictionary = (Dictionary) un.unmarshal(new File(PathUtils.DICTIONARY_PATH + PathUtils.DICTIONARY_PREFIX + language + FILE_TYPE));
-            return dictionary;
+            return (Dictionary) un.unmarshal(new File(PathUtils.getDictionaryPathTomcat() + PathUtils.DICTIONARY_PREFIX + language + FILE_TYPE));
         } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

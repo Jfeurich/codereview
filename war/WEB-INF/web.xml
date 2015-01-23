@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://java.sun.com/xml/ns/javaee"
-         version="2.4">
+<web-app
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        version="2.4">
 
     <servlet>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
@@ -23,15 +23,15 @@
         <url-pattern>/defineElements.do</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>-->
-        <!--<servlet-name>All Dictionaries Servlet</servlet-name>-->
-        <!--<servlet-class>nl.hu.tho6.controller.allDictionariesServlet</servlet-class>-->
-    <!--</servlet>-->
+    <servlet>
+        <servlet-name>All Dictionaries Servlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.allDictionariesServlet</servlet-class>
+    </servlet>
 
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>All Dictionaries Servlet</servlet-name>-->
-        <!--<url-pattern>/allDictionaries.do</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>All Dictionaries Servlet</servlet-name>
+        <url-pattern>/allDictionaries.do</url-pattern>
+    </servlet-mapping>
 
     <servlet>
     <servlet-name>Change Dictionary Servlet</servlet-name>
@@ -43,15 +43,15 @@
         <url-pattern>/changeDictionary.do</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>-->
-        <!--<servlet-name>Delete Dictionary Servlet</servlet-name>-->
-        <!--<servlet-class>nl.hu.tho6.controller.deleteDictionaryServlet</servlet-class>-->
-    <!--</servlet>-->
+    <servlet>
+        <servlet-name>Delete Dictionary Servlet</servlet-name>
+        <servlet-class>nl.hu.tho6.controller.deleteDictionaryServlet</servlet-class>
+    </servlet>
 
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Delete Dictionary Servlet</servlet-name>-->
-        <!--<url-pattern>/deleteDictionary.do</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>Delete Dictionary Servlet</servlet-name>
+        <url-pattern>/deleteDictionary.do</url-pattern>
+    </servlet-mapping>
 
     <listener>
         <listener-class>nl.hu.tho6.listener.ContextListener</listener-class>

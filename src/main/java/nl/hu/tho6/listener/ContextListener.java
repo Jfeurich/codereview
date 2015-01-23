@@ -10,6 +10,7 @@ import nl.hu.tho6.utils.file.PathUtils;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Liam on 20-1-2015.
@@ -22,15 +23,24 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
-        readAllDictionaries(facade);
+        try {
+            readAllDictionaries(facade);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        Dictionary dic = new Dictionary();
+//        dic.setLanguage("TEST");
+//
+//        facade.writeDictionary(dic);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
 
     }
 
-    private void readAllDictionaries(FileSystemFacade facade) {
-        File dir = new File(PathUtils.DICTIONARY_PATH);
+    private void readAllDictionaries(FileSystemFacade facade) throws IOException {
+        File dir = new File(PathUtils.getDictionaryPathTomcat());
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>jan 23, 2015</pre>
  */
-public class FileSystemFacadeTest {
+public class XMLFileSystemFacadeTest {
     private FileSystemFacade facade;
 
     @Before
