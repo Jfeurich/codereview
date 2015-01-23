@@ -10,8 +10,8 @@ import java.util.List;
 
 public class allDictionariesServlet extends HttpServlet  {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String language = request.getParameter("dictionary");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String language = request.getParameter("language");
         String type = request.getParameter("type");
 
         RequestDispatcher rd;
@@ -19,7 +19,7 @@ public class allDictionariesServlet extends HttpServlet  {
         Dictionary dictionary = translator.selectDictionary(language);
 
         List<Translation> translations = dictionary.getTranslations();
-        request.getSession().setAttribute("elementen", translations);
+        request.getSession().setAttribute("elements", translations);
         request.getSession().setAttribute("language", language);
         if(type.equals("Change")){
             rd = request.getRequestDispatcher("changeDictionary.jsp");

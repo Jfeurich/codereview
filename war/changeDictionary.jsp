@@ -11,9 +11,19 @@
     <div class="messageBox">${message}</div>
 
     <form action="changeDictionary.do" method="post">
+      De elementen voor ${sessionScope.language}
+      <br>
     <c:forEach items="${sessionScope.elements}" var="element">
-      <label>&lt;${element.getElement()}&gt;</label> = <input type="text" name="${element.getElementTranslation}" value="${element.getElementTranslation()}">
-    </c:forEach>
+      <c:choose>
+        <c:when test="${element.getElement() eq 'LoadOtherTableIntoVariable'}">
+          <label>[${element.getElement()}]</label> = <textarea name="${element.getElement()}"> ${element.getElementTranslation()} </textarea><br>
+        </c:when>
+        <c:otherwise>
+          <label>[${element.getElement()}]</label> = <input type="text" name="${element.getElement()}" value="${element.getElementTranslation()}"><br>
+        </c:otherwise>
+      </c:choose>
+       </c:forEach>
+      <br>
       <input type="submit" value="Submit">
     </form>
     <jsp:include page="Footer.jsp" />
