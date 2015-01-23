@@ -12,13 +12,14 @@
 
     Are you sure you want to delete this dictionary and all its elements?
     ${sessionScope.language}
-
+    <form action="deleteDictionary.do" method="post">
     <c:forEach items="${sessionScope.elements}" var="element">
-      <label>&lt;${element}&gt;</label> = <label>${elementvalue}</label>
+      <label>[${element.getElement()}]</label> = <label>${element.getElementTranslation()}</label><br>
     </c:forEach>
-    <div>
-    <a href="nl.hu.tho6.contoller.deleteDictionaryServlet?language=${sessionScope.language}">Delete</a> <a href="allDictionaries.jsp">Cancel</a>
-    </div>
+    <br>
+    <input type="submit" name="type" value="Delete">
+    <input type="submit" name="type" value="Cancel">
+    </form>
     <jsp:include page="Footer.jsp" />
   </div>
 </div>

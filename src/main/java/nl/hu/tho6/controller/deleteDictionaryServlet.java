@@ -9,17 +9,21 @@ import java.io.*;
 public class deleteDictionaryServlet extends HttpServlet  {
     private String message;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String language = request.getParameter("language");
-
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String language = (String) request.getSession().getAttribute("language");
+        System.out.println(language);
+        String type = request.getParameter("type");
         RequestDispatcher rd;
-        Translator translator = Translator.getInstance();
-        translator.removeDictionary(language);
+        if(type.equals("Delete")){
+            message = language + " is Deleted!";
+            Translator translator = Translator.getInstance();
+            translator.removeDictionary(language);
 
-        message = language + " is Deleted!";
+        }
+
         request.setAttribute("message", message);
         rd = request.getRequestDispatcher("allDictionaries.jsp");
+
         rd.forward(request, response);
 
     }

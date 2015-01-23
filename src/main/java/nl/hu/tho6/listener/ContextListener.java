@@ -65,7 +65,7 @@ public class ContextListener implements ServletContextListener {
 
     private void writeAllDictionaries(FileSystemFacade facade) throws IOException{
         Translator translator = Translator.getInstance();
-        for(Dictionary dic: translator.getAllDictionaries()){
+        for(Dictionary dic: translator.getDictionaries()){
             facade.writeDictionary(dic);
         }
     }

@@ -11,9 +11,9 @@
         <form action="addDictionary.do" method="post">
             <label>Language: </label><input type="text" name="language" value="${param.language}">
             <br><br>
-            <label>De elementen moeten tussen [ en ] gezet worden.</label>
+            <label>De elementen moeten tussen [ en ] gezet worden.</label><br>
             <div id="Code">
-                <label>Code:</label><br><br>
+                <label>Template:</label><br><br>
                 <textarea name="code"></textarea>
             </div>
             <div id="Elementen">

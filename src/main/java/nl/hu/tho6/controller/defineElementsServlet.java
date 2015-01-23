@@ -25,7 +25,7 @@ public class defineElementsServlet extends HttpServlet {
         for (int i = 0; i < elements.size(); i++) {
 
             String element = request.getParameter(elements.get(i));
-            if (element == null || elements.equals("")) {
+            if (element == null || element.equals("")) {
                 message = "Some elements are empty!";
                 noEmptyFields = false;
                 rd = request.getRequestDispatcher("defineElements.jsp");
