@@ -136,7 +136,7 @@ public class Generator {
             if(businessRule.getAttribute2() != null){
                 conditions += " :new." + businessRule.getAttribute2().getKolom();
             } else if(businessRule.getValue1() != null){
-                conditions += " " + businessRule.getValue1().getValue();
+                conditions += " '" + businessRule.getValue1().getValue() + "'";
             }
         }
         conditions += " )";
