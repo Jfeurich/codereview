@@ -81,7 +81,7 @@ public class Generator {
     }
 
     private String generateTriggerName(BusinessRule businessRule) {
-        String code = "BRG_TARGET_" + businessRule.getAttribute1().getTabel() + "_TRIGGER" + businessRule.getRuleID();
+        String code = "BRG_TARGET_" + businessRule.getAttribute1().getTabel().substring(0,3) + "_TRIGGER" + businessRule.getRuleID();
         return code;
     }
 
@@ -111,7 +111,7 @@ public class Generator {
 
     //TODO refactor
     private String generateConditions(BusinessRule businessRule, String language) {
-        String conditions = "( new." + businessRule.getAttribute1().getKolom();
+        String conditions = "( :new." + businessRule.getAttribute1().getKolom();
         if(businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")){
             if(businessRule.getOperator().getNaam().equals("Between")){
                 conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualsTo",language);
@@ -124,7 +124,7 @@ public class Generator {
             } else {
                 conditions += " " + translator.getTranslationForElement("Or",language);
             }
-            conditions += " new." + businessRule.getAttribute1().getKolom();
+            conditions += " :new." + businessRule.getAttribute1().getKolom();
             if(businessRule.getOperator().getNaam().equals("Between")){
                 conditions += " " + translator.getTranslationForElement("LesserThanOrEqualsTo",language);
             } else {
@@ -134,9 +134,9 @@ public class Generator {
         } else {
             conditions += " " + translator.getTranslationForElement(businessRule.getOperator().getNaam(), language);
             if(businessRule.getAttribute2() != null){
-                conditions += " new." + businessRule.getAttribute2().getKolom();
+                conditions += " :new." + businessRule.getAttribute2().getKolom();
             } else if(businessRule.getValue1() != null){
-                conditions += " " + businessRule.getValue1().getValue();
+                conditions += " '" + businessRule.getValue1().getValue() + "'";
             }
         }
         conditions += " )";

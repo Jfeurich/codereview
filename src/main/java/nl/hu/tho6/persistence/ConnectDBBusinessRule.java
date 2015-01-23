@@ -84,7 +84,8 @@ public class ConnectDBBusinessRule {
                         v2 = values.get(1);
                     }
                 }
-
+                System.out.println("Attributes: " + attributes.size());
+                System.out.println("Values: " + values.size());
                 // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
@@ -124,11 +125,9 @@ public class ConnectDBBusinessRule {
                     " ATTRIBUTE.KOLOM as KOLOM,\n" +
                     " ATTRIBUTE.ATTRIBUTEID as ATTRIBUTEID \n" +
                     " from BUSINESSRULE_ATTRIBUTE BUSINESSRULE_ATTRIBUTE,\n" +
-                    " ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
-                    " BUSINESSRULE BUSINESSRULE,\n" +
                     " ATTRIBUTE ATTRIBUTE \n" +
-                    " where   BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID\n" +
-                    " and BUSINESSRULE.RULEID="+ businessruleID;
+                    " where   BUSINESSRULE_ATTRIBUTE.BUSINESSRULE="+ businessruleID + "\n" +
+                    " and BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -205,23 +204,6 @@ public class ConnectDBBusinessRule {
         return false;
     }
 
-//    public BusinessRule searchBusinessRule() {
-//        //moeten misschien meerdere functies worden afhankelijk van waarop gezocht moet worden
-//        BusinessRule rule = new BusinessRule();
-//        try {
-//            String sql = "SELECT * FROM businessrules WHERE conditie AND";
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                //declare variables here
-//            }
-//            stmt.close();
-//        } catch (Exception ex) {
-//            System.out.println("Kan businessrule niet vinden" + ex);
-//        }
-//        return rule;
-//    }
-
     /*Sla de gemaakte businessrule op in de oracle database.*/
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
@@ -232,6 +214,28 @@ public class ConnectDBBusinessRule {
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+        }
+    }
+
+    public void changeBusinessRuleStatus(){
+        try {
+            String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
+                        "SET STATUS = 'GENERATED' " +
+                        "WHERE EXISTS (" +
+                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS" +
+                        "FROM GEGENEREERDE_BUSINESSRULE," +
+                        "BUSINESSRULE" +
+                        "ONGEGENEREERDE_BUSINESSRULE" +
+                        "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULEID=BUSINESSRULE.RULEID" +
+                        "AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM" +
+                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED')";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }
+        catch(Exception ex){
+            System.out.println("Kan de status van de ongegenereerde businessrule niet veranderen");
+            ex.printStackTrace();
         }
     }
 }

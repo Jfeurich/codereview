@@ -39,7 +39,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
                 returnMessage = "er zijn " + aantalBusinessRules + " businessrules gegenereerd.";
             }
         }
-
+        cdbbr.changeBusinessRuleStatus();
         String session = req.getParameter("SESSION");
         resp.sendRedirect("https://ondora01.hu.nl:8080/apex/f?p=2298:1:" + session + "::::P1_TEST:" + returnMessage);
     }
