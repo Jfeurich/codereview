@@ -15,13 +15,11 @@ import java.sql.ResultSet;
 /*
  * Deze methode moet bevatten:
  * connect()						Maak verbinding met de Oracle DB
- * getBusinessrule()
- * getAttributes
- * getValues
- * getOperator				Haal Businessrule op
+ * getBusinessrule()				Haal Businessrule op
  * saveBusinessrule()				Sla Businessrule op
  * getongegenereerdeBusinessrules()	Haal de te genereren Businessrules op
- * changeBunsinessRuleStatus()
+ * searchBusinessrule()				Zoek een businessrule op naam/tabel/etc
+ *
  */
 
 public class ConnectDBBusinessRule {
@@ -86,7 +84,8 @@ public class ConnectDBBusinessRule {
                         v2 = values.get(1);
                     }
                 }
-
+                System.out.println("Attributes: " + attributes.size());
+                System.out.println("Values: " + values.size());
                 // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
@@ -120,18 +119,15 @@ public class ConnectDBBusinessRule {
     public ArrayList<Attribute> getAttribute(int businessruleID){
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         try {
-            String sql ="select ATTRIBUTE.ATTRIBUTENAAM as ATTRIBUTENAAM,\n" +
-                        " ATTRIBUTE.DBSCHEMA as DBSCHEMA,\n" +
-                        " ATTRIBUTE.TABEL as TABEL,\n" +
-                        " ATTRIBUTE.KOLOM as KOLOM,\n" +
-                        " ATTRIBUTE.ATTRIBUTEID as ATTRIBUTEID \n" +
-                        " from BUSINESSRULE_ATTRIBUTE BUSINESSRULE_ATTRIBUTE,\n" +
-                        " ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
-                        " BUSINESSRULE BUSINESSRULE,\n" +
-                        " ATTRIBUTE ATTRIBUTE \n" +
-                        " where   BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID\n" +
-                        "" +
-                        " and BUSINESSRULE.RULEID="+ businessruleID;
+            String sql = "select ATTRIBUTE.ATTRIBUTENAAM as ATTRIBUTENAAM,\n" +
+                    " ATTRIBUTE.DBSCHEMA as DBSCHEMA,\n" +
+                    " ATTRIBUTE.TABEL as TABEL,\n" +
+                    " ATTRIBUTE.KOLOM as KOLOM,\n" +
+                    " ATTRIBUTE.ATTRIBUTEID as ATTRIBUTEID \n" +
+                    " from BUSINESSRULE_ATTRIBUTE BUSINESSRULE_ATTRIBUTE,\n" +
+                    " ATTRIBUTE ATTRIBUTE \n" +
+                    " where   BUSINESSRULE_ATTRIBUTE.BUSINESSRULE="+ businessruleID + "\n" +
+                    " and BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -226,15 +222,13 @@ public class ConnectDBBusinessRule {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
                         "SET STATUS = 'GENERATED' " +
                         "WHERE EXISTS (" +
-                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS," +
-                        "ONGEGENEREERDE_BUSINESSRULE.LANGUAGE" +
+                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS" +
                         "FROM GEGENEREERDE_BUSINESSRULE," +
                         "BUSINESSRULE" +
                         "ONGEGENEREERDE_BUSINESSRULE" +
                         "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULEID=BUSINESSRULE.RULEID" +
                         "AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM" +
-                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED')" +
-                        "AND ONGEGENEREERDE_BUSINESSRULE.LANGUAGE=GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM";
+                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED')";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();

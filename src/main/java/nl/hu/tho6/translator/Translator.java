@@ -19,8 +19,9 @@ public class Translator {
 
     public static void addDictionary(Dictionary dictionary) {
         //checken of dictionary param null is
-        if (!(dictionary == null) || !dictionaryExistsForLanguage(dictionary.getLanguage())) {
-            dictionaries.add(dictionary);
+        if (!(dictionary == null)) {
+            if (!dictionaryExistsForLanguage(dictionary.getLanguage()))
+                dictionaries.add(dictionary);
         }
     }
 
@@ -63,14 +64,10 @@ public class Translator {
     }
 
     public void removeDictionary(String language) {
-        for(Dictionary dictionary : dictionaries) {
-            if(dictionary.getLanguage().equals(language)){
+        for (Dictionary dictionary : dictionaries) {
+            if (dictionary.getLanguage().equals(language)) {
                 dictionaries.remove(dictionary);
             }
         }
-    }
-
-    public ArrayList<Dictionary> getDictionaries(){
-        return dictionaries;
     }
 }
