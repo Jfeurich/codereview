@@ -31,6 +31,12 @@ public class ContextListener implements ServletContextListener {
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
+        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        try {
+            writeAllDictionaries(facade);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -49,9 +55,15 @@ public class ContextListener implements ServletContextListener {
                 } catch (DictionaryNotFoundException e) {
                     e.printStackTrace();
                 }
-
                 Translator.addDictionary(dic);
             }
+        }
+    }
+
+    private void writeAllDictionaries(FileSystemFacade facade) throws IOException{
+        Translator translator = Translator.getInstance();
+        for(Dictionary dic: translator.getAllDictionaries()){
+            facade.writeDictionary(dic);
         }
     }
 }

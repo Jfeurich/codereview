@@ -70,4 +70,8 @@ public class Translator {
             }
         }
     }
+
+    public ArrayList<Dictionary> getAllDictionaries() {
+        return dictionaries;
+    }
 }
