@@ -205,23 +205,6 @@ public class ConnectDBBusinessRule {
         return false;
     }
 
-//    public BusinessRule searchBusinessRule() {
-//        //moeten misschien meerdere functies worden afhankelijk van waarop gezocht moet worden
-//        BusinessRule rule = new BusinessRule();
-//        try {
-//            String sql = "SELECT * FROM businessrules WHERE conditie AND";
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                //declare variables here
-//            }
-//            stmt.close();
-//        } catch (Exception ex) {
-//            System.out.println("Kan businessrule niet vinden" + ex);
-//        }
-//        return rule;
-//    }
-
     /*Sla de gemaakte businessrule op in de oracle database.*/
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
