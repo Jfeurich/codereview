@@ -29,10 +29,10 @@ public class ContextListener implements ServletContextListener {
             e.printStackTrace();
         }
 
-//        Dictionary dic = new Dictionary();
-//        dic.setLanguage("TEST");
-//
-//        facade.writeDictionary(dic);
+        Dictionary dic = new Dictionary();
+        dic.setLanguage("TESTHAHAHA");
+
+        facade.writeDictionary(dic);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
