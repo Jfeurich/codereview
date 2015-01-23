@@ -16,9 +16,9 @@
     <c:forEach items="${sessionScope.elements}" var="element">
       <label>&lt;${element}&gt;</label> = <label>${elementvalue}</label>
     </c:forEach>
-
+    <div>
     <a href="nl.hu.tho6.contoller.deleteDictionaryServlet?language=${sessionScope.language}">Delete</a> <a href="allDictionaries.jsp">Cancel</a>
-
+    </div>
     <jsp:include page="Footer.jsp" />
   </div>
 </div>

@@ -26,6 +26,7 @@ public class test {
         Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ArrayList<BusinessRule>  ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
+        BusinessRule bs = ongeGenereerdeBusinessRule.get(0);
         System.out.println(ongeGenereerdeBusinessRule.size());
 
         FileSystemFacade fs = new FileSystemFacade(new XMLFileSystem());
@@ -38,7 +39,8 @@ public class test {
         Value v1 = new Value("Geboortedatum","Integer","18");
         Value v2 = new Value("Geboortedatum","Integer","65");
 //        String result = gen.generate("plsql",new BusinessRule("BsRuleNaam","Medewerker moet 18 jaar of ouder zijn en jonger dan of gelijk aan 65.","CustomError","BSRULE01","PLSQL", o, v1, v2, a1, null));
-        String result = gen.generate(ongeGenereerdeBusinessRule.get(0));
+        String result = gen.generate(bs);
+        cdbbr.saveBusinessRule(bs.getRuleNaam(),bs.getLanguage(),result);
         System.out.println(result);
     }
 }

@@ -1,0 +1,50 @@
+body{
+
+}
+
+a{
+
+}
+
+a:hover{
+
+}
+
+ul{
+    list-style: none;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+}
+
+li{
+    float: left;
+    margin: 5px;
+}
+.messageBox{
+    clear: both;
+}
+
+form{
+    clear: both;
+}
+
+#Code{
+    float: left;
+}
+
+textarea{
+    height: 150px;
+    width: 250px;
+}
+
+#Elementen{
+    margin-left: 15px;
+    float: left;
+}
+
+#Submit{
+    clear: both;
+}
+
+

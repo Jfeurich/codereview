@@ -13,18 +13,20 @@
             <br><br>
             <label>De elementen moeten tussen [ en ] gezet worden.</label>
             <div id="Code">
-                <label>Code:</label>
+                <label>Code:</label><br><br>
                 <textarea name="code"></textarea>
             </div>
             <div id="Elementen">
-                <label>Element suggesties:</label>
-                <label>[triggerNaam]</label>
-                <label>[tableNaam]</label>
-                <label>[condition]</label>
-                <label>[variable]</label>
-                <label>[code]</label>
+                <label>Element suggesties:</label><br><br>
+                <label>[triggerNaam]</label><br>
+                <label>[tableNaam]</label><br>
+                <label>[condition]</label><br>
+                <label>[variable]</label><br>
+                <label>[code]</label><br>
             </div>
-            <input type="submit" value="Submit">
+            <div id="Submit">
+                <input type="submit" value="Submit">
+            </div>
         </form>
         <jsp:include page="Footer.jsp" />
     </div>
