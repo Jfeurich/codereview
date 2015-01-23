@@ -234,4 +234,26 @@ public class ConnectDBBusinessRule {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
         }
     }
+
+    public void changeBusinessRuleStatus(){
+        try {
+            String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
+                        "SET STATUS = 'GENERATED' " +
+                        "WHERE EXISTS (" +
+                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS" +
+                        "FROM GEGENEREERDE_BUSINESSRULE," +
+                        "BUSINESSRULE" +
+                        "ONGEGENEREERDE_BUSINESSRULE" +
+                        "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULEID=BUSINESSRULE.RULEID" +
+                        "AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM" +
+                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED')";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+        }
+        catch(Exception ex){
+            System.out.println("Kan de status van de ongegenereerde businessrule niet veranderen");
+            ex.printStackTrace();
+        }
+    }
 }
