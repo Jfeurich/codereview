@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class ContextListener implements ServletContextListener {
 
-    public ContextListener(){
+    public ContextListener() {
 
     }
 
@@ -28,14 +28,15 @@ public class ContextListener implements ServletContextListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Dictionary dic = new Dictionary();
-        dic.setLanguage("TESTHAHAHA");
-
-        facade.writeDictionary(dic);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
+        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        try {
+            writeAllDictionaries(facade);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -44,18 +45,25 @@ public class ContextListener implements ServletContextListener {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                String language = file.getName().replaceAll("dictionary-", "");
+                String language = file.getName().replaceAll("dictionary-", "").replaceAll(".xml", "");
 
                 Dictionary dic = null;
                 try {
                     dic = facade.readDictionary(language);
                     dic.addObserver(facade);
+                    System.out.println(dic);
                 } catch (DictionaryNotFoundException e) {
                     e.printStackTrace();
                 }
-
                 Translator.addDictionary(dic);
             }
+        }
+    }
+
+    private void writeAllDictionaries(FileSystemFacade facade) throws IOException{
+        Translator translator = Translator.getInstance();
+        for(Dictionary dic: translator.getAllDictionaries()){
+            facade.writeDictionary(dic);
         }
     }
 }
