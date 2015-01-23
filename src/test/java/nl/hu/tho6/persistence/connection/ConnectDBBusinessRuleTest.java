@@ -12,6 +12,8 @@ import org.junit.Before;
 import org.junit.After;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /** 
@@ -146,6 +148,24 @@ public void testNulltest() throws Exception {
 public void testSaveBusinessRule() throws Exception {
     Connection con = ConnectionFactory.getConnection();
     ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
+    cdbbr.saveBusinessRule("test", "test", "test");
+    String sql =" SELECT BUSINESSRULENAAM,LANGUAGENAAM,CODE" +
+                " FROM GEGENEREERDE_BUSINESSRULE" +
+                " WHERE CODE='test'";
+    Statement stmt = con.createStatement();
+    ResultSet rs = stmt.executeQuery(sql);
+    String t1 = null;
+    String t2 = null;
+    String t3 = null;
+    while (rs.next()) {
+        t1 = rs.getString("BUSINESSRULENAAM");
+        t2 = rs.getString("LANGUAGENAAM");
+        t3 = rs.getString("CODE");
+    }
+    Assert.assertEquals(t1, "test");
+    Assert.assertEquals(t2, "test");
+    Assert.assertEquals(t3, "test");
+
 
 } 
 
