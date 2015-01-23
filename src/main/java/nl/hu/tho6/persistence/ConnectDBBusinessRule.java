@@ -84,7 +84,8 @@ public class ConnectDBBusinessRule {
                         v2 = values.get(1);
                     }
                 }
-
+                System.out.println("Attributes: " + attributes.size());
+                System.out.println("Values: " + values.size());
                 // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
@@ -124,11 +125,9 @@ public class ConnectDBBusinessRule {
                     " ATTRIBUTE.KOLOM as KOLOM,\n" +
                     " ATTRIBUTE.ATTRIBUTEID as ATTRIBUTEID \n" +
                     " from BUSINESSRULE_ATTRIBUTE BUSINESSRULE_ATTRIBUTE,\n" +
-                    " ONGEGENEREERDE_BUSINESSRULE ONGEGENEREERDE_BUSINESSRULE,\n" +
-                    " BUSINESSRULE BUSINESSRULE,\n" +
                     " ATTRIBUTE ATTRIBUTE \n" +
-                    " where   BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID\n" +
-                    " and BUSINESSRULE.RULEID="+ businessruleID;
+                    " where   BUSINESSRULE_ATTRIBUTE.BUSINESSRULE="+ businessruleID + "\n" +
+                    " and BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
