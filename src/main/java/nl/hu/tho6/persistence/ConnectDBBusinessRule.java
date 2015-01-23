@@ -222,13 +222,15 @@ public class ConnectDBBusinessRule {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
                         "SET STATUS = 'GENERATED' " +
                         "WHERE EXISTS (" +
-                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS" +
+                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS," +
+                        "ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM" +
                         "FROM GEGENEREERDE_BUSINESSRULE," +
                         "BUSINESSRULE" +
                         "ONGEGENEREERDE_BUSINESSRULE" +
                         "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULEID=BUSINESSRULE.RULEID" +
                         "AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM" +
-                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED')";
+                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED'" +
+                        "AND ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM=GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM)";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
