@@ -36,6 +36,10 @@ public class FileSystemFacade implements Observer {
         return dictionary;
     }
 
+    public void deleteDictionary(Dictionary dictionary){
+        fileSystem.deleteFile(dictionary);
+    }
+
     private void addObserverToTranslations(Dictionary dictionary) {
         //loop door lijst met translations en de dictionary als observer toevoegen
         for (Translation t : dictionary.getTranslations()) {

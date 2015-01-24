@@ -10,4 +10,6 @@ public interface FileSystem {
     public abstract void writeToFile(Dictionary dictionary);
 
     public abstract Dictionary readFromFile(String language);
+
+    public abstract void deleteFile(Dictionary dictionary);
 }

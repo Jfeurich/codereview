@@ -43,6 +43,16 @@ public class XMLFileSystem implements FileSystem {
         return null;
     }
 
+    @Override
+    public void deleteFile(Dictionary dictionary) {
+        try {
+            File dictionaryToDelete = new File(PathUtils.getDictionaryPathTomcat() + PathUtils.DICTIONARY_PREFIX + dictionary.getLanguage() + FILE_TYPE);
+            dictionaryToDelete.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
