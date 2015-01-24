@@ -5,7 +5,6 @@ import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.domain.businessrule.Operator;
 import nl.hu.tho6.domain.businessrule.Value;
 import nl.hu.tho6.persistence.connection.ConnectionFactory;
-import org.stringtemplate.v4.ST;
 
 import java.util.ArrayList;
 import java.sql.Connection;
