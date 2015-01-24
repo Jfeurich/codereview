@@ -93,6 +93,7 @@ public class ConnectDBBusinessRule {
                 r.setErrorType(errortype);
                 r.setCode(code);
                 r.setOperator(o);
+                r.setBusinessruletype(ruletype);
                 if(nulltest(v1)){
                     r.setValue1(v1);
                 }
@@ -215,6 +216,7 @@ public class ConnectDBBusinessRule {
             stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+            ex.printStackTrace();
         }
     }
 

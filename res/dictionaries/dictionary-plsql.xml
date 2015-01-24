@@ -60,6 +60,9 @@
     <translation language="plsql" element="Assign">
         <elementTranslation>:=</elementTranslation>
     </translation>
+    <translation language="plsql" element="DefaultError">
+        <elementTranslation>(Een default database error)</elementTranslation>
+    </translation>
     <translation language="plsql" element="ErrorFunction">
         <elementTranslation>raise_application_error(-20800, '[ErrorMessage]');</elementTranslation>
     </translation>

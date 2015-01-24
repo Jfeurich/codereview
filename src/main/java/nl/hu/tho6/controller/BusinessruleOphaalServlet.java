@@ -4,6 +4,11 @@ import nl.hu.tho6.controller.generator.Generator;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.persistence.ConnectDBBusinessRule;
 import nl.hu.tho6.persistence.connection.ConnectionFactory;
+import nl.hu.tho6.translator.Translator;
+import nl.hu.tho6.translator.dictionary.Dictionary;
+import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
+import nl.hu.tho6.translator.filesystem.FileSystemFacade;
+import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +21,6 @@ import java.util.ArrayList;
 public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
-    private int aantalBusinessRules = 0;
     private Generator generator = Generator.getInstance();
 
 
@@ -24,6 +28,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
+        System.out.println("Size: " + ongeGenereerdeBusinessRule.size());
         if(ongeGenereerdeBusinessRule.size() == 0){
             returnMessage = "Er zijn geen businessrules te genereren.";
         } else {
@@ -31,12 +36,11 @@ public class BusinessruleOphaalServlet extends HttpServlet {
             for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
                 String gegenereerdeBusinessRule = generator.generate(businessRule);
                 cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
-                aantalBusinessRules++;
             }
-            if(aantalBusinessRules == 1){
-                returnMessage = "er is " + aantalBusinessRules + " businessrule gegenereerd.";
+            if(ongeGenereerdeBusinessRule.size() == 1){
+                returnMessage = "er is " + ongeGenereerdeBusinessRule.size() + " businessrule gegenereerd.";
             } else {
-                returnMessage = "er zijn " + aantalBusinessRules + " businessrules gegenereerd.";
+                returnMessage = "er zijn " + ongeGenereerdeBusinessRule.size() + " businessrules gegenereerd.";
             }
         }
         cdbbr.changeBusinessRuleStatus();

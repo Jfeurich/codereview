@@ -37,7 +37,6 @@ public class ContextListener implements ServletContextListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void readAllDictionaries(FileSystemFacade facade) throws IOException {
@@ -45,7 +44,8 @@ public class ContextListener implements ServletContextListener {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File file : directoryListing) {
-                String language = file.getName().replaceAll("dictionary-", "").replaceAll(".xml", "");
+                System.out.println("for");
+                String language = convertToLanguage(file);
 
                 Dictionary dic = null;
                 try {
@@ -60,9 +60,13 @@ public class ContextListener implements ServletContextListener {
         }
     }
 
+    private String convertToLanguage(File file) {
+        return file.getName().replaceAll("dictionary-", "").replaceAll(".xml", "");
+    }
+
     private void writeAllDictionaries(FileSystemFacade facade) throws IOException{
         Translator translator = Translator.getInstance();
-        for(Dictionary dic: translator.getAllDictionaries()){
+        for(Dictionary dic: translator.getDictionaries()){
             facade.writeDictionary(dic);
         }
     }

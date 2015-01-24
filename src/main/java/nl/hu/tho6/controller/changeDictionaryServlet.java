@@ -18,13 +18,14 @@ public class changeDictionaryServlet extends HttpServlet {
         ArrayList<String> elements = (ArrayList<String>) request.getSession().getAttribute("elements");
         RequestDispatcher rd;
         rd = request.getRequestDispatcher("allDictionaries.jsp");
+
         for (int i = 0; i < elements.size(); i++) {
             String element = request.getParameter(elements.get(i));
             if (element == null || element.equals("")) {
                 message = "Some elements are empty!";
                 noEmptyFields = false;
+                rd = request.getRequestDispatcher("changeDictionary.jsp");
             }
-            rd = request.getRequestDispatcher("changeDictionary.jsp");
         }
 
         if (noEmptyFields) {

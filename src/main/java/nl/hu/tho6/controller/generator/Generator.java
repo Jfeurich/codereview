@@ -86,8 +86,11 @@ public class Generator {
     }
 
     private String generateTimpeOperator(BusinessRule businessRule) {
-        String timeOperator = "update or insert or delete";
-        return timeOperator;
+        if(businessRule.getBusinessruletype() == 9){
+            return "update";
+        } else {
+            return "insert or update";
+        }
     }
 
     private String generateTableName(BusinessRule businessRule) {
