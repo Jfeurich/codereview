@@ -22,9 +22,11 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
     private Generator generator = Generator.getInstance();
+    private int fouten;
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        fouten = 0;
         Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
         ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
@@ -34,19 +36,37 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         } else {
 
             for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
-                String gegenereerdeBusinessRule = generator.generate(businessRule);
-                System.out.println(gegenereerdeBusinessRule);
-                cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
+                String gegenereerdeBusinessRule = "";
+                try{
+                    gegenereerdeBusinessRule = generator.generate(businessRule);
+                    System.out.println(businessRule.getRuleNaam() + "\n");
+                    System.out.println(gegenereerdeBusinessRule);
+                    cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
+                    cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"GENERATED");
+                } catch (NullPointerException ex){
+                    cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"ERROR");
+                    ex.printStackTrace();
+                    fouten++;
+                }
             }
-            if(ongeGenereerdeBusinessRule.size() == 1){
-                returnMessage = "er is " + ongeGenereerdeBusinessRule.size() + " businessrule gegenereerd.";
+            if((ongeGenereerdeBusinessRule.size() - fouten) == 1){
+                returnMessage = "Er is " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrule gegenereerd.";
             } else {
-                returnMessage = "er zijn " + ongeGenereerdeBusinessRule.size() + " businessrules gegenereerd.";
+                returnMessage = "Er zijn " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrules gegenereerd.";
+            }
+            if(fouten > 0){
+                if(fouten == 1) {
+                    returnMessage += "\nEn bij 1 businessrule is er een fout opgetreden";
+                } else {
+                    returnMessage += "\nEn bij " + fouten + " businessrules zijn er fouten opgetreden";
+                }
             }
         }
-        cdbbr.changeBusinessRuleStatus();
         String session = req.getParameter("SESSION");
-        resp.sendRedirect("https://ondora01.hu.nl:8080/apex/f?p=2298:1:" + session + "::::P1_TEST:" + returnMessage);
+        String saveTo = req.getParameter("ITEM");
+        String page = req.getParameter("PAGE");
+        String url = req.getParameter("URL");
+        resp.sendRedirect(url + ":" + page + ":" + session + "::::" + saveTo + ":" + returnMessage);
     }
 
 }

@@ -85,8 +85,8 @@ public class ConnectDBBusinessRule {
                         v2 = values.get(1);
                     }
                 }
-                System.out.println("Attributes: " + attributes.size());
-                System.out.println("Values: " + values.size());
+                String output = "RuleID: " + id + ", " + attributes.size() + " ATT, " + values.size() + " VAL \t"  + rulenaam;
+                System.out.println(output);
                 // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
@@ -222,19 +222,11 @@ public class ConnectDBBusinessRule {
         }
     }
     /*Verander de status van de gegenereerde businessrule in de database.*/
-    public void changeBusinessRuleStatus(){
+    public void changeBusinessRuleStatus(int businessruleid, String status){
         try {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE \n" +
-                        "SET STATUS = 'GENERATED ' \n" +
-                        "WHERE EXISTS (SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS AS STATUS,\n" +
-                    "                        ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM as LANGUAGENAAM\n" +
-                    "                        FROM GEGENEREERDE_BUSINESSRULE,\n" +
-                    "                        BUSINESSRULE,\n" +
-                    "                        ONGEGENEREERDE_BUSINESSRULE\n" +
-                    "                        WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID = BUSINESSRULE.RULEID\n" +
-                    "                        AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM\n" +
-                    "                        AND STATUS='NOT_GENERATED'\n" +
-                    "                        AND ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM=GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM)";
+                        "SET STATUS = '" + status + "' \n" +
+                        "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID = " + businessruleid;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
