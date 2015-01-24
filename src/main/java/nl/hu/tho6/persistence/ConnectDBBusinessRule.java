@@ -4,6 +4,7 @@ import nl.hu.tho6.domain.businessrule.Attribute;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.domain.businessrule.Operator;
 import nl.hu.tho6.domain.businessrule.Value;
+import nl.hu.tho6.persistence.connection.ConnectionFactory;
 import org.stringtemplate.v4.ST;
 
 import java.util.ArrayList;
@@ -221,16 +222,15 @@ public class ConnectDBBusinessRule {
         try {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
                         "SET STATUS = 'GENERATED' " +
-                        "WHERE EXISTS (" +
-                        "SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS," +
-                        "ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM" +
-                        "FROM GEGENEREERDE_BUSINESSRULE," +
-                        "BUSINESSRULE" +
-                        "ONGEGENEREERDE_BUSINESSRULE" +
-                        "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULEID=BUSINESSRULE.RULEID" +
-                        "AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM" +
-                        "AND ONGEGENEREERDE_BUSINESSRULE.STATUS='NOT_GENERATED'" +
-                        "AND ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM=GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM)";
+                        "WHERE EXISTS (SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS AS STATUS,\n" +
+                    "                        ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM as LANGUAGENAAM\n" +
+                    "                        FROM GEGENEREERDE_BUSINESSRULE,\n" +
+                    "                        BUSINESSRULE,\n" +
+                    "                        ONGEGENEREERDE_BUSINESSRULE\n" +
+                    "                        WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID = BUSINESSRULE.RULEID\n" +
+                    "                        AND BUSINESSRULE.RULENAAM=GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM\n" +
+                    "                        AND STATUS='NOT_GENERATED'\n" +
+                    "                        AND ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM=GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM)";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
