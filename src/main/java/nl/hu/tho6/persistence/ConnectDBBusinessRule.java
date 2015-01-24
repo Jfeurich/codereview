@@ -6,6 +6,7 @@ import nl.hu.tho6.domain.businessrule.Operator;
 import nl.hu.tho6.domain.businessrule.Value;
 import nl.hu.tho6.persistence.connection.ConnectionFactory;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -209,16 +210,18 @@ public class ConnectDBBusinessRule {
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
         try {
-            String sql = "INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,'" + BUSINESSRULENAAM + "', '" + LANGUAGENAAM + "', '" + CODE +"')";
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
+            PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?");
+            updateStatement.setString(1,BUSINESSRULENAAM);
+            updateStatement.setString(2,LANGUAGENAAM);
+            updateStatement.setString(3,CODE);
+            updateStatement.executeQuery();
+            updateStatement.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
             ex.printStackTrace();
         }
     }
-
+    /*Verander de status van de gegenereerde businessrule in de database.*/
     public void changeBusinessRuleStatus(){
         try {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
