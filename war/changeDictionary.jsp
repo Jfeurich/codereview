@@ -15,7 +15,7 @@
       <br>
     <c:forEach items="${sessionScope.elements}" var="element">
       <c:choose>
-        <c:when test="${element.getElement() eq 'LoadOtherTableIntoVariable'}">
+        <c:when test="${element.getElement() eq 'LoadOtherTableIntoVariable' || element.getElement() eq 'Template'}">
           <label>[${element.getElement()}]</label> = <textarea name="${element.getElement()}"> ${element.getElementTranslation()} </textarea><br>
         </c:when>
         <c:otherwise>

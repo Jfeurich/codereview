@@ -8,10 +8,10 @@
   </jsp:include>
   <div class="content">
     <jsp:include page="Menu.jsp" />
-    <div class="messageBox">${message}</div>
+    <div class="messageBox">${message}</div><br>
 
-    Are you sure you want to delete this dictionary and all its elements?
-    ${sessionScope.language}
+    Are you sure you want to delete this dictionary and all its elements? <br><br>
+    ${sessionScope.language}<br><br>
     <form action="deleteDictionary.do" method="post">
     <c:forEach items="${sessionScope.elements}" var="element">
       <label>[${element.getElement()}]</label> = <label>${element.getElementTranslation()}</label><br>

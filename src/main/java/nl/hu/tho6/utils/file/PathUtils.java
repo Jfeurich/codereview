@@ -12,6 +12,6 @@ public class PathUtils {
 
     public static String getDictionaryPathTomcat() throws IOException {
         GetPropertyValues propertyValues = new GetPropertyValues();
-        return propertyValues.getPropValue("tomcatFilePathDictionaries");
+        return propertyValues.getPropValue("localFilePathDictionaries");
     }
 }
