@@ -35,21 +35,21 @@ public class defineElementsServlet extends HttpServlet {
 
         if (noEmptyFields) {
 
-            Dictionary d = new Dictionary();
+            Dictionary dictionary = new Dictionary();
 
-            d.setLanguage(language);
-            System.out.println("lanugage: " + d.getLanguage());
-            d.addObserver(facade);
+            dictionary.setLanguage(language);
+            System.out.println("lanugage: " + dictionary.getLanguage());
+            dictionary.addObserver(facade);
             for (int i = 0; i < elements.size(); i++) {
                 Translation t = new Translation();
                 t.setLanguage(language);
                 t.setElement(elements.get(i));
                 t.setElementTranslation(request.getParameter(elements.get(i)));
-                t.addObserver(d);
-                d.addElementTranslation(t);
+                t.addObserver(dictionary);
+                dictionary.addElementTranslation(t);
             }
-            facade.writeDictionary(d);
-            Translator.addDictionary(d);
+            facade.writeDictionary(dictionary);
+            Translator.addDictionary(dictionary);
         }
 
 

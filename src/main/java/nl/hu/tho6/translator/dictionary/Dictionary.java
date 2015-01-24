@@ -38,8 +38,8 @@ public class Dictionary extends Observable implements Observer {
         if ((translation != null)) {
             //translation alleen toevoegen als de taal van de translation gelijk is aan de van de dictionary
             if (translation.getLanguage().equals(language)) {
-                //deze dictionary toevoegen als observer
-                translation.addObserver(this);
+                    //deze dictionary toevoegen als observer
+                    translation.addObserver(this);
                 //translation aan dictionary toevoegen
                 translations.add(translation);
                 //observers notifyen (observer is een notifier)

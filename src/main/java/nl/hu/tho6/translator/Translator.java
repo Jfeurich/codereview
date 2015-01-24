@@ -4,6 +4,7 @@ import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.exception.TranslationNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Translator {
     private static Translator ourInstance = new Translator();
@@ -64,7 +65,8 @@ public class Translator {
     }
 
     public void removeDictionary(String language) {
-        for (Dictionary dictionary : dictionaries) {
+        for (Iterator<Dictionary> it = dictionaries.iterator(); it.hasNext();) {
+            Dictionary dictionary = it.next();
             if (dictionary.getLanguage().equals(language)) {
                 dictionaries.remove(dictionary);
             }
