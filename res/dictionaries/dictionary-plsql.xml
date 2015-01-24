@@ -60,6 +60,12 @@
     <translation language="plsql" element="Assign">
         <elementTranslation>:=</elementTranslation>
     </translation>
+    <translation language="plsql" element="In">
+        <elementTranslation>IN</elementTranslation>
+    </translation>
+    <translation language="plsql" element="NotIn">
+        <elementTranslation>NOT IN</elementTranslation>
+    </translation>
     <translation language="plsql" element="DefaultError">
         <elementTranslation>(Een default database error)</elementTranslation>
     </translation>

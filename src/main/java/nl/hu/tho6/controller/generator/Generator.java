@@ -4,7 +4,10 @@ import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.utils.stringtemplate.StringTemplate;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Liam on 17-12-2014.
@@ -75,6 +78,9 @@ public class Generator {
         } else if (command.equals("ErrorMessage")) {
             templateForLanguage.setAttribute(command, getErrorMessage(businessRule));
             commandExecuted = true;
+        } else if (command.equals("Variable")){
+            templateForLanguage.setAttribute(command, getVariable());
+            commandExecuted = true;
         }
 
         return commandExecuted;
@@ -136,10 +142,20 @@ public class Generator {
             conditions += " " + businessRule.getValue2().getValue();
         } else {
             conditions += " " + translator.getTranslationForElement(businessRule.getOperator().getNaam(), language);
-            if(businessRule.getAttribute2() != null){
-                conditions += " :new." + businessRule.getAttribute2().getKolom();
-            } else if(businessRule.getValue1() != null){
-                conditions += " '" + businessRule.getValue1().getValue() + "'";
+            if(businessRule.getOperator().getNaam().equals("In") || businessRule.getOperator().getNaam().equals("NotIn")){
+                String[] tags = businessRule.getValue1().getValue().split(":");
+                conditions += " (";
+                conditions += "'" + tags[0] + "'";
+                for (int i = 1; i < tags.length; i++) {
+                    conditions += ",'" + tags[i] + "'";
+                }
+                conditions += " )";
+            } else {
+                if (businessRule.getAttribute2() != null) {
+                    conditions += " :new." + businessRule.getAttribute2().getKolom();
+                } else if (businessRule.getValue1() != null) {
+                    conditions += " '" + businessRule.getValue1().getValue() + "'";
+                }
             }
         }
         conditions += " )";
@@ -149,6 +165,16 @@ public class Generator {
     //TODO implement method
     private String generateVariables(BusinessRule businessRule) {
         String variables = "";
+        if(businessRule.getAttribute1() != null && businessRule.getAttribute2() != null){
+            if(!businessRule.getAttribute1().getTabel().equals(businessRule.getAttribute2().getTabel())
+                    || !businessRule.getAttribute1().getKolom().equals(businessRule.getAttribute2().getKolom())){
+                variables += "v_temp " + businessRule.getAttribute1().getTabel() + "." + businessRule.getAttribute1().getKolom() + "%type;";
+            }
+        }
         return variables;
+    }
+
+    private String getVariable(){
+        return "v_temp";
     }
 }

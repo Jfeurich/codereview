@@ -210,7 +210,7 @@ public class ConnectDBBusinessRule {
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
         try {
-            PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?");
+            PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?)");
             updateStatement.setString(1,BUSINESSRULENAAM);
             updateStatement.setString(2,LANGUAGENAAM);
             updateStatement.setString(3,CODE);
@@ -224,8 +224,8 @@ public class ConnectDBBusinessRule {
     /*Verander de status van de gegenereerde businessrule in de database.*/
     public void changeBusinessRuleStatus(){
         try {
-            String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE" +
-                        "SET STATUS = 'GENERATED' " +
+            String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE \n" +
+                        "SET STATUS = 'GENERATED ' \n" +
                         "WHERE EXISTS (SELECT ONGEGENEREERDE_BUSINESSRULE.STATUS AS STATUS,\n" +
                     "                        ONGEGENEREERDE_BUSINESSRULE.LANGUAGENAAM as LANGUAGENAAM\n" +
                     "                        FROM GEGENEREERDE_BUSINESSRULE,\n" +
