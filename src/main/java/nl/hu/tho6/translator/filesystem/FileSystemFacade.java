@@ -5,9 +5,8 @@ import nl.hu.tho6.translator.dictionary.Translation;
 import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
 import nl.hu.tho6.translator.filesystem.types.FileSystem;
 import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
-import nl.hu.tho6.utils.observer.Observer;
 
-public class FileSystemFacade implements Observer {
+public class FileSystemFacade{
 
     private FileSystem fileSystem;
 
@@ -47,10 +46,4 @@ public class FileSystemFacade implements Observer {
             t.addObserver(dictionary);
         }
     }
-
-    @Override
-    public void update(Object observable) {
-        writeDictionary((Dictionary) observable);
-    }
-
 }

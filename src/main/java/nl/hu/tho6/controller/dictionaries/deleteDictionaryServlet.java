@@ -13,7 +13,7 @@ import java.util.ConcurrentModificationException;
 
 public class deleteDictionaryServlet extends HttpServlet  {
     private String message;
-    FileSystemFacade facade = new FileSystemFacade();
+    private FileSystemFacade facade = new FileSystemFacade();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ConcurrentModificationException {

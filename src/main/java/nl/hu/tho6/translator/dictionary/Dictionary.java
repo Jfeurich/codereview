@@ -1,7 +1,7 @@
 package nl.hu.tho6.translator.dictionary;
 
 import nl.hu.tho6.translator.dictionary.exception.TranslationNotFoundException;
-import nl.hu.tho6.utils.observer.Observable;
+import nl.hu.tho6.translator.filesystem.FileSystemFacade;
 import nl.hu.tho6.utils.observer.Observer;
 
 import javax.xml.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 //TODO plaats vinden om dictionaries te storen
 @XmlRootElement (name = "dictionary")
 @XmlAccessorType (XmlAccessType.FIELD)
-public class Dictionary extends Observable implements Observer {
+public class Dictionary implements Observer {
     @XmlAttribute
     private String            language;
     @XmlElement (name = "translation")
@@ -27,6 +27,7 @@ public class Dictionary extends Observable implements Observer {
     public void setLanguage(String language) {
         //taal van de dictionary setten, alles naar lowercase en alleen de letters over laten
         this.language = language.toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", "");
+        update(this);
     }
 
     public String getLanguage() {
@@ -43,7 +44,7 @@ public class Dictionary extends Observable implements Observer {
                 //translation aan dictionary toevoegen
                 translations.add(translation);
                 //observers notifyen (observer is een notifier)
-                notifyObersvers(this);
+                update(this);
             }
         }
     }
@@ -76,6 +77,8 @@ public class Dictionary extends Observable implements Observer {
 
     @Override
     public void update(Object observable) {
-        notifyObersvers(this);
+        FileSystemFacade facade = new FileSystemFacade();
+        facade.writeDictionary(this);
+        System.out.println("wegschrijven");
     }
 }

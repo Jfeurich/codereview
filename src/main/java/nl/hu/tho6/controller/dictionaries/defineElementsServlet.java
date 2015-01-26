@@ -24,9 +24,9 @@ public class defineElementsServlet extends HttpServlet {
         String language = (String) request.getSession().getAttribute("language");
         ArrayList<String> elements = (ArrayList<String>) request.getSession().getAttribute("elements");
 
-        for (int i = 0; i < elements.size(); i++) {
+        for (String element1 : elements) {
 
-            String element = request.getParameter(elements.get(i));
+            String element = request.getParameter(element1);
             if (element == null || element.equals("")) {
                 message = "Some elements are empty!";
                 noEmptyFields = false;
@@ -41,12 +41,12 @@ public class defineElementsServlet extends HttpServlet {
 
             dictionary.setLanguage(language);
             System.out.println("lanugage: " + dictionary.getLanguage());
-            dictionary.addObserver(facade);
-            for (int i = 0; i < elements.size(); i++) {
+
+            for (String element : elements) {
                 Translation t = new Translation();
                 t.setLanguage(language);
-                t.setElement(elements.get(i));
-                t.setElementTranslation(request.getParameter(elements.get(i)));
+                t.setElement(element);
+                t.setElementTranslation(request.getParameter(element));
                 t.addObserver(dictionary);
                 dictionary.addElementTranslation(t);
             }

@@ -24,8 +24,8 @@ public class changeDictionaryServlet extends HttpServlet {
         FileSystemFacade facade = new FileSystemFacade();
         rd = request.getRequestDispatcher("allDictionaries.jsp");
 
-        for (int i = 0; i < elements.size(); i++) {
-            String element = request.getParameter(elements.get(i).getElement());
+        for (Translation element1 : elements) {
+            String element = request.getParameter(element1.getElement());
             if (element == null || element.equals("")) {
                 message = "Some elements are empty!";
                 noEmptyFields = false;
@@ -40,11 +40,11 @@ public class changeDictionaryServlet extends HttpServlet {
 
             dictionary.setLanguage(language);
 //            System.out.println("lanugage: " + dictionary.getLanguage());
-            dictionary.addObserver(facade);
-            for (int i = 0; i < elements.size(); i++) {
-                elements.get(i).setLanguage(language);
-                System.out.println(request.getParameter(elements.get(i).getElement()));
-                elements.get(i).setElementTranslation(request.getParameter(elements.get(i).getElement()));
+
+            for (Translation element : elements) {
+                element.setLanguage(language);
+                System.out.println(request.getParameter(element.getElement()));
+                element.setElementTranslation(request.getParameter(element.getElement()));
             }
             facade.writeDictionary(dictionary);
 
