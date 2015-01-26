@@ -27,6 +27,15 @@ public class ConnectionFactory {
         }
         return connection;
     }
+    public Connection createConnection(String URL,String USER,String PASS){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USER, PASS);
+        } catch (SQLException e) {
+            System.out.println("ERROR: Unable to Connect to Database.");
+        }
+        return connection;
+    }
 
     public static Connection getConnection() {
         return instance.createConnection();
