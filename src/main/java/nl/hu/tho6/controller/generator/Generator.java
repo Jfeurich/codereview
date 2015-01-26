@@ -4,10 +4,7 @@ import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.utils.stringtemplate.StringTemplate;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Liam on 17-12-2014.
@@ -70,15 +67,15 @@ public class Generator {
             templateForLanguage.setAttribute(command, generateVariables(businessRule));
             commandExecuted = true;
         } else if (command.equals("Conditions")) {
-            templateForLanguage.setAttribute(command, generateConditions(businessRule,language));
+            templateForLanguage.setAttribute(command, generateConditions(businessRule, language));
             commandExecuted = true;
         } else if (command.equals("Error")) {
-            templateForLanguage.setAttribute(command, generateError(businessRule,language));
+            templateForLanguage.setAttribute(command, generateError(businessRule, language));
             commandExecuted = true;
         } else if (command.equals("ErrorMessage")) {
             templateForLanguage.setAttribute(command, getErrorMessage(businessRule));
             commandExecuted = true;
-        } else if (command.equals("Variable")){
+        } else if (command.equals("Variable")) {
             templateForLanguage.setAttribute(command, getVariable());
             commandExecuted = true;
         }
@@ -87,12 +84,12 @@ public class Generator {
     }
 
     private String generateTriggerName(BusinessRule businessRule) {
-        String code = "BRG_TARGET_" + businessRule.getAttribute1().getTabel().substring(0,3) + "_TRIGGER" + businessRule.getRuleID();
+        String code = "BRG_TARGET_" + businessRule.getAttribute1().getTabel().substring(0, 3) + "_TRIGGER" + businessRule.getRuleID();
         return code;
     }
 
     private String generateTimpeOperator(BusinessRule businessRule) {
-        if(businessRule.getBusinessruletype() == 9){
+        if (businessRule.getBusinessruletype() == 9) {
             return "update";
         } else {
             return "insert or update";
@@ -106,43 +103,43 @@ public class Generator {
 
     private String generateError(BusinessRule businessRule, String language) {
         String error = "";
-        if(businessRule.getErrorType().equals("2")){
-            error += translator.getTranslationForElement("ErrorFunction",language);
+        if (businessRule.getErrorType().equals("2")) {
+            error += translator.getTranslationForElement("ErrorFunction", language);
         } else {
-            error += translator.getTranslationForElement("DefaultError",language);
+            error += translator.getTranslationForElement("DefaultError", language);
         }
         return error;
     }
 
-    private String getErrorMessage(BusinessRule businessRule){
+    private String getErrorMessage(BusinessRule businessRule) {
         return businessRule.getError();
     }
 
     //TODO refactor
     private String generateConditions(BusinessRule businessRule, String language) {
         String conditions = "( :new." + businessRule.getAttribute1().getKolom();
-        if(businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")){
-            if(businessRule.getOperator().getNaam().equals("Between")){
-                conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualsTo",language);
+        if (businessRule.getOperator().getNaam().equals("Between") || businessRule.getOperator().getNaam().equals("NotBetween")) {
+            if (businessRule.getOperator().getNaam().equals("Between")) {
+                conditions += " " + translator.getTranslationForElement("GreaterThanOrEqualsTo", language);
             } else {
-                conditions += " " + translator.getTranslationForElement("LesserThan",language);
+                conditions += " " + translator.getTranslationForElement("LesserThan", language);
             }
             conditions += " " + businessRule.getValue1().getValue();
-            if(businessRule.getOperator().getNaam().equals("Between")){
-                conditions += " " + translator.getTranslationForElement("And",language);
+            if (businessRule.getOperator().getNaam().equals("Between")) {
+                conditions += " " + translator.getTranslationForElement("And", language);
             } else {
-                conditions += " " + translator.getTranslationForElement("Or",language);
+                conditions += " " + translator.getTranslationForElement("Or", language);
             }
             conditions += " :new." + businessRule.getAttribute1().getKolom();
-            if(businessRule.getOperator().getNaam().equals("Between")){
-                conditions += " " + translator.getTranslationForElement("LesserThanOrEqualsTo",language);
+            if (businessRule.getOperator().getNaam().equals("Between")) {
+                conditions += " " + translator.getTranslationForElement("LesserThanOrEqualsTo", language);
             } else {
-                conditions += " " + translator.getTranslationForElement("GreaterThan",language);
+                conditions += " " + translator.getTranslationForElement("GreaterThan", language);
             }
             conditions += " " + businessRule.getValue2().getValue();
         } else {
             conditions += " " + translator.getTranslationForElement(businessRule.getOperator().getNaam(), language);
-            if(businessRule.getOperator().getNaam().equals("In") || businessRule.getOperator().getNaam().equals("NotIn")){
+            if (businessRule.getOperator().getNaam().equals("In") || businessRule.getOperator().getNaam().equals("NotIn")) {
                 String[] tags = businessRule.getValue1().getValue().split(":");
                 conditions += " (";
                 conditions += "'" + tags[0] + "'";
@@ -165,16 +162,15 @@ public class Generator {
     //TODO implement method
     private String generateVariables(BusinessRule businessRule) {
         String variables = "";
-        if(businessRule.getAttribute1() != null && businessRule.getAttribute2() != null){
-            if(!businessRule.getAttribute1().getTabel().equals(businessRule.getAttribute2().getTabel())
-                    || !businessRule.getAttribute1().getKolom().equals(businessRule.getAttribute2().getKolom())){
+        if (businessRule.getAttribute1() != null && businessRule.getAttribute2() != null) {
+            if (!businessRule.getAttribute1().getTabel().equals(businessRule.getAttribute2().getTabel()) || !businessRule.getAttribute1().getKolom().equals(businessRule.getAttribute2().getKolom())) {
                 variables += "v_temp " + businessRule.getAttribute1().getTabel() + "." + businessRule.getAttribute1().getKolom() + "%type;";
             }
         }
         return variables;
     }
 
-    private String getVariable(){
+    private String getVariable() {
         return "v_temp";
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dictionary language="plsql">
+    <translation language="plsql" element="Template">
+        <elementTranslation>
+            create or replace trigger [TriggerName]
+                before [TimeOperator]
+                on [TableName]
+                for each row
+            declare
+                [Variables]
+            begin
+                if not [Conditions] then
+                    [Error]
+                end if;
+            end [TriggerName];
+        </elementTranslation>
+    </translation>
+    <translation language="plsql" element="LoadOtherTableIntoVariable">
+        <elementTranslation>
+            create or replace trigger [TriggerName]
+                before [TimeOperator]
+                on [TableName]
+                for each row
+            declare
+                [Variables]
+            begin
+                if not [Conditions] then
+                    [Error]
+                end if;
+            end [TriggerName];
+        </elementTranslation>
+    </translation>
+    <translation language="plsql" element="GreaterThan">
+        <elementTranslation>&gt;</elementTranslation>
+    </translation>
+    <translation language="plsql" element="LesserThan">
+        <elementTranslation>&lt;</elementTranslation>
+    </translation>
+    <translation language="plsql" element="GreaterThanOrEqualsTo">
+        <elementTranslation>&gt;=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="LesserThanOrEqualsTo">
+        <elementTranslation>&lt;=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="EqualsTo">
+        <elementTranslation>=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="NotEqualsTo">
+        <elementTranslation>!=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="IsNot">
+        <elementTranslation>IS NOT</elementTranslation>
+    </translation>
+    <translation language="plsql" element="And">
+        <elementTranslation>AND</elementTranslation>
+    </translation>
+    <translation language="plsql" element="Or">
+        <elementTranslation>OR</elementTranslation>
+    </translation>
+    <translation language="plsql" element="Assign">
+        <elementTranslation>:=</elementTranslation>
+    </translation>
+    <translation language="plsql" element="In">
+        <elementTranslation>IN</elementTranslation>
+    </translation>
+    <translation language="plsql" element="NotIn">
+        <elementTranslation>NOT IN</elementTranslation>
+    </translation>
+    <translation language="plsql" element="DefaultError">
+        <elementTranslation>SIGNAL SQLSTATE = '45000';</elementTranslation>
+    </translation>
+    <translation language="plsql" element="ErrorFunction">
+        <elementTranslation>
+            SIGNAL SQLSTATE = '45000'
+                SET MESSAGE_TEXT '[ErrorMessage]', MYSQL_ERRNO = 1000;
+        </elementTranslation>
+    </translation>
+</dictionary>
