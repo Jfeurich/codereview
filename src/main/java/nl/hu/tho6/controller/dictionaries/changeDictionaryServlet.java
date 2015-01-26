@@ -1,4 +1,4 @@
-package nl.hu.tho6.controller;
+package nl.hu.tho6.controller.dictionaries;
 
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
@@ -6,10 +6,13 @@ import nl.hu.tho6.translator.dictionary.Translation;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
 import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
 public class changeDictionaryServlet extends HttpServlet {
     private String message;

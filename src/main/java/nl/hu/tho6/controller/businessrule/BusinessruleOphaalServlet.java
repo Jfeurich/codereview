@@ -1,14 +1,9 @@
-package nl.hu.tho6.controller;
+package nl.hu.tho6.controller.businessrule;
 
 import nl.hu.tho6.controller.generator.Generator;
 import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.persistence.ConnectDBBusinessRule;
 import nl.hu.tho6.persistence.connection.ConnectionFactory;
-import nl.hu.tho6.translator.Translator;
-import nl.hu.tho6.translator.dictionary.Dictionary;
-import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
-import nl.hu.tho6.translator.filesystem.FileSystemFacade;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
