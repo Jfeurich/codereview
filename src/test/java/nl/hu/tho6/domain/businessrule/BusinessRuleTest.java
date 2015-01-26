@@ -81,7 +81,7 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetOperator() {
-        assertEquals(new Operator("", ""), testBusinessRule.getOperator());
+        assertEquals(testOperator, testBusinessRule.getOperator());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetValue1() {
-        assertEquals(new Value("", "", ""), testBusinessRule.getValue1());
+        assertEquals(testValue, testBusinessRule.getValue1());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetValue2() {
-        assertEquals(new Value("", "", ""), testBusinessRule.getValue2());
+        assertEquals(testValue, testBusinessRule.getValue2());
     }
 
     @Test
@@ -120,7 +120,7 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetAttribute1() {
-        assertEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
+        assertEquals(testAttribute, testBusinessRule.getAttribute1());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class BusinessRuleTest {
 
     @Test
     public void testGetAttribute2() {
-        assertEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute2());
+        assertEquals(testAttribute, testBusinessRule.getAttribute2());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class BusinessRuleTest {
         testAttribute2 = new Attribute("a", "a", "a", "a", 1);
         testBusinessRule.setAttribute2(testAttribute2);
         assertNotEquals(new Attribute("", "", "", "", 0), testBusinessRule.getAttribute1());
-        assertEquals(testAttribute2, testBusinessRule.getAttribute1());
+        assertEquals(testAttribute2, testBusinessRule.getAttribute2());
     }
 
     @Test
