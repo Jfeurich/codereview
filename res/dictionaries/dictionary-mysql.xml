@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<dictionary language="plsql">
-    <translation language="plsql" element="Template">
+<dictionary language="mysql">
+    <translation language="mysql" element="Template">
         <elementTranslation>
             create or replace trigger [TriggerName]
                 before [TimeOperator]
@@ -15,7 +15,7 @@
             end [TriggerName];
         </elementTranslation>
     </translation>
-    <translation language="plsql" element="LoadOtherTableIntoVariable">
+    <translation language="mysql" element="LoadOtherTableIntoVariable">
         <elementTranslation>
             create or replace trigger [TriggerName]
                 before [TimeOperator]
@@ -30,46 +30,46 @@
             end [TriggerName];
         </elementTranslation>
     </translation>
-    <translation language="plsql" element="GreaterThan">
+    <translation language="mysql" element="GreaterThan">
         <elementTranslation>&gt;</elementTranslation>
     </translation>
-    <translation language="plsql" element="LesserThan">
+    <translation language="mysql" element="LesserThan">
         <elementTranslation>&lt;</elementTranslation>
     </translation>
-    <translation language="plsql" element="GreaterThanOrEqualsTo">
+    <translation language="mysql" element="GreaterThanOrEqualsTo">
         <elementTranslation>&gt;=</elementTranslation>
     </translation>
-    <translation language="plsql" element="LesserThanOrEqualsTo">
+    <translation language="mysql" element="LesserThanOrEqualsTo">
         <elementTranslation>&lt;=</elementTranslation>
     </translation>
-    <translation language="plsql" element="EqualsTo">
+    <translation language="mysql" element="EqualsTo">
         <elementTranslation>=</elementTranslation>
     </translation>
-    <translation language="plsql" element="NotEqualsTo">
+    <translation language="mysql" element="NotEqualsTo">
         <elementTranslation>!=</elementTranslation>
     </translation>
-    <translation language="plsql" element="IsNot">
+    <translation language="mysql" element="IsNot">
         <elementTranslation>IS NOT</elementTranslation>
     </translation>
-    <translation language="plsql" element="And">
+    <translation language="mysql" element="And">
         <elementTranslation>AND</elementTranslation>
     </translation>
-    <translation language="plsql" element="Or">
+    <translation language="mysql" element="Or">
         <elementTranslation>OR</elementTranslation>
     </translation>
-    <translation language="plsql" element="Assign">
+    <translation language="mysql" element="Assign">
         <elementTranslation>:=</elementTranslation>
     </translation>
-    <translation language="plsql" element="In">
+    <translation language="mysql" element="In">
         <elementTranslation>IN</elementTranslation>
     </translation>
-    <translation language="plsql" element="NotIn">
+    <translation language="mysql" element="NotIn">
         <elementTranslation>NOT IN</elementTranslation>
     </translation>
-    <translation language="plsql" element="DefaultError">
+    <translation language="mysql" element="DefaultError">
         <elementTranslation>SIGNAL SQLSTATE = '45000';</elementTranslation>
     </translation>
-    <translation language="plsql" element="ErrorFunction">
+    <translation language="mysql" element="ErrorFunction">
         <elementTranslation>
             SIGNAL SQLSTATE = '45000'
                 SET MESSAGE_TEXT '[ErrorMessage]', MYSQL_ERRNO = 1000;

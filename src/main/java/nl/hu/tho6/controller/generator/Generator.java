@@ -51,6 +51,7 @@ public class Generator {
     }
 
     private StringTemplate getTemplateForLanguage(String language) {
+        System.out.println(language);
         return new StringTemplate(translator.getTranslationForElement("Template", language));
     }
 

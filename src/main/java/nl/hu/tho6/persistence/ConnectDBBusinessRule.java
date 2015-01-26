@@ -273,17 +273,57 @@ public class ConnectDBBusinessRule {
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
     public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
         try {
-            PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?)");
-            updateStatement.setString(1,BUSINESSRULENAAM);
-            updateStatement.setString(2,LANGUAGENAAM);
-            updateStatement.setString(3,CODE);
-            updateStatement.executeQuery();
-            updateStatement.close();
+            String sql =    "SELECT *\n" +
+                            "FROM GEGENEREERDE_BUSINESSRULE\n" +
+                            "WHERE GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM = '" + BUSINESSRULENAAM + "'\n" +
+                            "AND GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM = '" + LANGUAGENAAM + "'";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()) {
+                PreparedStatement updateStatement = con.prepareStatement("UPDATE GEGENEREERDE_BUSINESSRULE \n" +
+                        "SET CODE = ? \n" +
+                        "WHERE GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM = ?\n" +
+                        "AND GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM = ?");
+                updateStatement.setString(1, CODE);
+                updateStatement.setString(2, BUSINESSRULENAAM);
+                updateStatement.setString(3, LANGUAGENAAM);
+                updateStatement.executeQuery();
+                updateStatement.close();
+            } else {
+                try {
+                    PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?)");
+                    updateStatement.setString(1, BUSINESSRULENAAM);
+                    updateStatement.setString(2, LANGUAGENAAM);
+                    updateStatement.setString(3, CODE);
+                    updateStatement.executeQuery();
+                    updateStatement.close();
+                } catch (Exception ex) {
+                    System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+                    ex.printStackTrace();
+                }
+            }
+            stmt.close();
         } catch (Exception ex) {
             System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
             ex.printStackTrace();
         }
     }
+
+    public void runCode(String code){
+        try {
+            String URL = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
+            String USER = "tho6_2014_2b_team3_target";
+            String PASSWORD = " tho6_2014_2b_team3_target";
+            Connection tempcon = ConnectionFactory.getTargetConnection(URL,USER,PASSWORD);
+            Statement stmt = tempcon.createStatement();
+            stmt.executeUpdate(code);
+            stmt.close();
+        } catch (Exception ex) {
+            System.out.println("Het lukt niet om de references op te halen" + ex);
+            ex.printStackTrace();
+        }
+    }
+
     /*Verander de status van de gegenereerde businessrule in de database.*/
     public void changeBusinessRuleStatus(int businessruleid, String status){
         try {

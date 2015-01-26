@@ -25,6 +25,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String database = req.getParameter("DATABASE");
         fouten = 0;
         Connection con = ConnectionFactory.getConnection();
         ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
@@ -42,6 +43,10 @@ public class BusinessruleOphaalServlet extends HttpServlet {
                     System.out.println(gegenereerdeBusinessRule);
                     cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
                     cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"GENERATED");
+                    System.out.println(database);
+                    if(database.equals("target")){
+                        cdbbr.runCode(gegenereerdeBusinessRule);
+                    }
                 } catch (NullPointerException ex){
                     cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"ERROR");
                     StringWriter errors = new StringWriter();
