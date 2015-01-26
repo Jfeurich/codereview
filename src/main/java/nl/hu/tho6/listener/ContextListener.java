@@ -4,7 +4,6 @@ import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.exception.DictionaryNotFoundException;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 import nl.hu.tho6.utils.file.PathUtils;
 
 import javax.servlet.ServletContextEvent;
@@ -22,7 +21,7 @@ public class ContextListener implements ServletContextListener {
     }
 
     public void contextInitialized(ServletContextEvent sce) {
-        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        FileSystemFacade facade = new FileSystemFacade();
         try {
             readAllDictionaries(facade);
         } catch (IOException e) {
@@ -31,7 +30,7 @@ public class ContextListener implements ServletContextListener {
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
-        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        FileSystemFacade facade = new FileSystemFacade();
         try {
             writeAllDictionaries(facade);
         } catch (IOException e) {

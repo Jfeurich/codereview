@@ -1,7 +1,6 @@
 package nl.hu.tho6.translator.filesystem;
 
 import nl.hu.tho6.translator.dictionary.Dictionary;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class XMLFileSystemFacadeTest {
 
     @Before
     public void before() throws Exception {
-        facade = new FileSystemFacade(new XMLFileSystem());
+        facade = new FileSystemFacade();
     }
 
     @After

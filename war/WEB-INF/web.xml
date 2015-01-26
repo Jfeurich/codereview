@@ -5,7 +5,7 @@
 
     <servlet>
         <servlet-name>GenerateServlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.BusinessruleOphaalServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.businessrule.BusinessruleOphaalServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>Dictionary Aanmaak Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.addDictionaryServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.dictionaries.addDictionaryServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -25,7 +25,7 @@
 
     <servlet>
         <servlet-name>Define Elements Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.defineElementsServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.dictionaries.defineElementsServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -35,7 +35,7 @@
 
     <servlet>
         <servlet-name>All Dictionaries Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.allDictionariesServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.dictionaries.allDictionariesServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -45,7 +45,7 @@
 
     <servlet>
         <servlet-name>Change Dictionary Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.changeDictionaryServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.dictionaries.changeDictionaryServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>Delete Dictionary Servlet</servlet-name>
-        <servlet-class>nl.hu.tho6.controller.deleteDictionaryServlet</servlet-class>
+        <servlet-class>nl.hu.tho6.controller.dictionaries.deleteDictionaryServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
