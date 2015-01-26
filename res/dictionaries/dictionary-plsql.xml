@@ -9,6 +9,7 @@
             declare
                 [Variables]
             begin
+                [LoadVariables]
                 if not [Conditions] then
                     [Error]
                 end if;
@@ -17,17 +18,10 @@
     </translation>
     <translation language="plsql" element="LoadOtherTableIntoVariable">
         <elementTranslation>
-            create or replace trigger [TriggerName]
-                before [TimeOperator]
-                on [TableName]
-                for each row
-            declare
-                [Variables]
-            begin
-                if not [Conditions] then
-                    [Error]
-                end if;
-            end [TriggerName];
+            SELECT [Table2].[Column2]
+            INTO   [Variable]
+            FROM   [Table2]
+            WHERE  [Table2].[Reference2] = :new.[Reference1];
         </elementTranslation>
     </translation>
     <translation language="plsql" element="GreaterThan">
@@ -68,6 +62,9 @@
     </translation>
     <translation language="plsql" element="DefaultError">
         <elementTranslation>(Een default database error)</elementTranslation>
+    </translation>
+    <translation language="plsql" element="Variable">
+        <elementTranslation>v_temp</elementTranslation>
     </translation>
     <translation language="plsql" element="ErrorFunction">
         <elementTranslation>raise_application_error(-20800, '[ErrorMessage]');</elementTranslation>

@@ -6,6 +6,7 @@ public class Attribute {
     private String tabel;
     private String kolom;
     private int attributeID;
+    private String reference;
 
     public Attribute() {
 
@@ -17,6 +18,14 @@ public class Attribute {
         this.tabel = tabel;
         this.kolom = kolom;
         this.setAttributeID(attributeID);
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getAttributeNaam() {

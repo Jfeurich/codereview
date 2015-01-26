@@ -78,12 +78,66 @@ public class Generator {
         } else if (command.equals("ErrorMessage")) {
             templateForLanguage.setAttribute(command, getErrorMessage(businessRule));
             commandExecuted = true;
-        } else if (command.equals("Variable")){
-            templateForLanguage.setAttribute(command, getVariable());
+        } else if (command.equals("LoadVariables")) {
+            templateForLanguage.setAttribute(command, generateVariableLoading(businessRule,language));
+            commandExecuted = true;
+        } else if (command.equals("Table1")) {
+            templateForLanguage.setAttribute(command, getTable1(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("Table2")) {
+            templateForLanguage.setAttribute(command, getTable2(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("Column1")) {
+            templateForLanguage.setAttribute(command, getColumn1(businessRule));
+            commandExecuted = true;
+        } else if (command.equals("Column2")) {
+            templateForLanguage.setAttribute(command, getColumn2(businessRule));
+            commandExecuted = true;
+        }  else if (command.equals("Reference1")) {
+            templateForLanguage.setAttribute(command, getReference1(businessRule));
+            commandExecuted = true;
+        }  else if (command.equals("Reference2")) {
+            templateForLanguage.setAttribute(command, getReference2(businessRule));
             commandExecuted = true;
         }
 
         return commandExecuted;
+    }
+
+    private String getReference1(BusinessRule businessRule) {
+        return businessRule.getAttribute1().getReference();
+    }
+
+    private String getReference2(BusinessRule businessRule) {
+        return businessRule.getAttribute2().getReference();
+    }
+
+    private String getColumn1(BusinessRule businessRule) {
+        return businessRule.getAttribute1().getKolom();
+    }
+
+    private String getColumn2(BusinessRule businessRule) {
+        return businessRule.getAttribute2().getKolom();
+    }
+
+    private String getTable1(BusinessRule businessRule) {
+        return businessRule.getAttribute1().getTabel();
+    }
+
+    private String getTable2(BusinessRule businessRule) {
+        return businessRule.getAttribute2().getTabel();
+    }
+
+    private String generateVariableLoading(BusinessRule businessRule, String language) {
+        if(businessRule.getAttribute1() != null && businessRule.getAttribute2() != null) {
+            if (!businessRule.getAttribute1().getTabel().equals(businessRule.getAttribute2().getTabel())) {
+                return translator.getTranslationForElement("LoadOtherTableIntoVariable", language);
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
     }
 
     private String generateTriggerName(BusinessRule businessRule) {
@@ -152,7 +206,11 @@ public class Generator {
                 conditions += " )";
             } else {
                 if (businessRule.getAttribute2() != null) {
-                    conditions += " :new." + businessRule.getAttribute2().getKolom();
+                    if (!businessRule.getAttribute1().getTabel().equals(businessRule.getAttribute2().getTabel())) {
+                        conditions += " " + translator.getTranslationForElement("Variable",language);
+                    } else {
+                        conditions += " :new." + businessRule.getAttribute2().getKolom();
+                    }
                 } else if (businessRule.getValue1() != null) {
                     conditions += " '" + businessRule.getValue1().getValue() + "'";
                 }
@@ -172,9 +230,5 @@ public class Generator {
             }
         }
         return variables;
-    }
-
-    private String getVariable(){
-        return "v_temp";
     }
 }
