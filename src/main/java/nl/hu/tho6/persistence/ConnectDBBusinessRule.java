@@ -94,6 +94,11 @@ public class ConnectDBBusinessRule {
                 r.setCode(code);
                 r.setOperator(o);
                 r.setBusinessruletype(ruletype);
+                if(a1 != null && a2 != null){
+                    if(a1.getTabel() != a2.getTabel()){
+                        setReferences(a1,a2);
+                    }
+                }
                 if(nulltest(v1)){
                     r.setValue1(v1);
                 }
@@ -117,6 +122,64 @@ public class ConnectDBBusinessRule {
         }
         return rules;
     }
+
+    public void saveToErrorLog(String error, String businessruleid){
+        try {
+            PreparedStatement updateStatement = con.prepareStatement("INSERT INTO ERROR_LOG (ERRORID,ERRORMESSAGE,DATUM,\"user\",TABLENAME) VALUES (SEQ_ERROR_LOG.NEXTVAL,?,SYSDATE,'JAVA',?)");
+            updateStatement.setString(1,error);
+            updateStatement.setString(2,businessruleid);
+            updateStatement.executeQuery();
+            updateStatement.close();
+        } catch (Exception ex) {
+            System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
+            ex.printStackTrace();
+        }
+    }
+
+    private void setReferences(Attribute a1, Attribute a2) {
+        System.out.println("Getting references for the attributes");
+        try {
+            String URL = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
+            String USER = "tho6_2014_2b_team3_target";
+            String PASSWORD = " tho6_2014_2b_team3_target";
+            Connection tempcon = ConnectionFactory.getTargetConnection(URL,USER,PASSWORD);
+            String sql = "SELECT UCC1.TABLE_NAME||'.'||UCC1.COLUMN_NAME CONSTRAINT_SOURCE,\n" +
+                    "UCC2.TABLE_NAME||'.'||UCC2.COLUMN_NAME REFERENCES_COLUMN\n" +
+                    "FROM USER_CONSTRAINTS uc,\n" +
+                    "USER_CONS_COLUMNS ucc1,\n" +
+                    "USER_CONS_COLUMNS ucc2\n" +
+                    "WHERE UC.CONSTRAINT_NAME = UCC1.CONSTRAINT_NAME\n" +
+                    "AND UC.R_CONSTRAINT_NAME = UCC2.CONSTRAINT_NAME\n" +
+                    "AND UCC1.POSITION = UCC2.POSITION\n" +
+                    "AND UC.CONSTRAINT_TYPE = 'R'\n" +
+                    "AND (UCC1.TABLE_NAME = '" + a1.getTabel() + "' OR UCC2.TABLE_NAME = '" + a1.getTabel() + "')\n" +
+                    "AND (UCC1.TABLE_NAME = '" + a2.getTabel() + "' OR UCC2.TABLE_NAME = '" + a2.getTabel() + "')\n";
+            Statement stmt = tempcon.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String source1 = rs.getString("CONSTRAINT_SOURCE");
+                String source2 = rs.getString("REFERENCES_COLUMN");
+                System.out.println(source1);
+                System.out.println(source2);
+                String[] sourceSplit = source1.split("\\.");
+                String[] sourceSplit2 = source2.split("\\.");
+                if(a1.getTabel().equals(sourceSplit[0])){
+                    a1.setReference(sourceSplit[1]);
+                    a2.setReference(sourceSplit2[1]);
+                } else {
+                    a1.setReference(sourceSplit2[1]);
+                    a2.setReference(sourceSplit[1]);
+                }
+                System.out.println("A1 reference: " + a1.getReference());
+                System.out.println("A2 reference: " + a2.getReference());
+            }
+            stmt.close();
+        } catch (Exception ex) {
+            System.out.println("Het lukt niet om de references op te halen" + ex);
+            ex.printStackTrace();
+        }
+    }
+
     /*Haalt alle attributes behorende bij de businessrule uit de DB*/
     public ArrayList<Attribute> getAttribute(int businessruleID){
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();

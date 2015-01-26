@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
+    private String succeeded;
+    private String failed;
     private Generator generator = Generator.getInstance();
     private int fouten;
 
@@ -40,6 +44,9 @@ public class BusinessruleOphaalServlet extends HttpServlet {
                     cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"GENERATED");
                 } catch (NullPointerException ex){
                     cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"ERROR");
+                    StringWriter errors = new StringWriter();
+                    ex.printStackTrace(new PrintWriter(errors));
+                    cdbbr.saveToErrorLog(errors.toString(),"" + businessRule.getRuleID());
                     ex.printStackTrace();
                     fouten++;
                 }

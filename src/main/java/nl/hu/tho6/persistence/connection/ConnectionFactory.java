@@ -18,7 +18,7 @@ public class ConnectionFactory {
         }
     }
 
-    public Connection createConnection() {
+    private Connection createConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -27,7 +27,7 @@ public class ConnectionFactory {
         }
         return connection;
     }
-    public Connection createConnection(String URL,String USER,String PASS){
+    private Connection createConnection(String URL,String USER,String PASS){
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASS);
@@ -39,5 +39,8 @@ public class ConnectionFactory {
 
     public static Connection getConnection() {
         return instance.createConnection();
+    }
+    public static Connection getTargetConnection(String URL,String USER,String PASS) {
+        return instance.createConnection(URL,USER,PASS);
     }
 }
