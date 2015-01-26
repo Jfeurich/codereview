@@ -7,9 +7,9 @@ import nl.hu.tho6.translator.dictionary.Dictionary;
  */
 public interface FileSystem {
 
-    public abstract void writeToFile(Dictionary dictionary);
+    public void writeToFile(Dictionary dictionary);
 
-    public abstract Dictionary readFromFile(String language);
+    public Dictionary readFromFile(String language);
 
-    public abstract void deleteFile(Dictionary dictionary);
+    public void deleteFile(Dictionary dictionary);
 }

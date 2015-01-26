@@ -2,7 +2,6 @@ package nl.hu.tho6.controller.dictionaries;
 
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +13,7 @@ import java.util.ConcurrentModificationException;
 
 public class deleteDictionaryServlet extends HttpServlet  {
     private String message;
-    FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+    FileSystemFacade facade = new FileSystemFacade();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ConcurrentModificationException {

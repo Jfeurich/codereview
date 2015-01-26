@@ -7,7 +7,6 @@ import nl.hu.tho6.domain.businessrule.Value;
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class GeneratorTest {
     @Before
     public void before() throws Exception {
         //Dictionary inlezen
-        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        FileSystemFacade facade = new FileSystemFacade();
         Dictionary dic = facade.readDictionary("plsql");
         Translator.addDictionary(dic);
 

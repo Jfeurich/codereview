@@ -4,7 +4,6 @@ import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.translator.dictionary.Dictionary;
 import nl.hu.tho6.translator.dictionary.Translation;
 import nl.hu.tho6.translator.filesystem.FileSystemFacade;
-import nl.hu.tho6.translator.filesystem.types.impl.XMLFileSystem;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ public class changeDictionaryServlet extends HttpServlet {
         String language = (String) request.getSession().getAttribute("language");
         ArrayList<Translation> elements = (ArrayList<Translation>) request.getSession().getAttribute("elements");
         RequestDispatcher rd;
-        FileSystemFacade facade = new FileSystemFacade(new XMLFileSystem());
+        FileSystemFacade facade = new FileSystemFacade();
         rd = request.getRequestDispatcher("allDictionaries.jsp");
 
         for (int i = 0; i < elements.size(); i++) {
