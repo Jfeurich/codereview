@@ -61,7 +61,7 @@
         <elementTranslation>NOT IN</elementTranslation>
     </translation>
     <translation language="plsql" element="DefaultError">
-        <elementTranslation>(Een default database error)</elementTranslation>
+        <elementTranslation>raise_application_error(-20800, 'Default error message');</elementTranslation>
     </translation>
     <translation language="plsql" element="Variable">
         <elementTranslation>v_temp</elementTranslation>
