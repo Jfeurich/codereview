@@ -6,8 +6,6 @@
                 before [TimeOperator]
                 on [TableName]
                 for each row
-            declare
-                [Variables]
             begin
                 if not [Conditions] then
                     [Error]
