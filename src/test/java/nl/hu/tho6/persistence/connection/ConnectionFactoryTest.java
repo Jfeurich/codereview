@@ -1,12 +1,10 @@
 package nl.hu.tho6.persistence.connection;
 
-import nl.hu.tho6.persistence.connection.ConnectionFactory;
 import org.junit.Test;
 import org.junit.Before; 
 import org.junit.After;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /** 
 * ConnectionFactory Tester. 
