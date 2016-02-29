@@ -18,8 +18,6 @@ import java.util.ArrayList;
 public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
-    private String succeeded;
-    private String failed;
     private Generator generator = Generator.getInstance();
     private int fouten;
 
@@ -27,47 +25,12 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String database = req.getParameter("DATABASE");
         fouten = 0;
-        Connection con = ConnectionFactory.getConnection();
-        ConnectDBBusinessRule cdbbr = new ConnectDBBusinessRule(con);
-        ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
-        System.out.println("Size: " + ongeGenereerdeBusinessRule.size());
-        if(ongeGenereerdeBusinessRule.size() == 0){
-            returnMessage = "Er zijn geen businessrules te genereren.";
+        ConnectDBBusinessRule cdbbr = getBusinessRuleDataBaseConnection();
+        getOngegenereerdeBusinessRules(cdbbr);
+        if(ongeGenereerdeBusinessRule.isEmpty()){
+            setReturnMessageForNoRules();
         } else {
-
-            for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
-                String gegenereerdeBusinessRule = "";
-                try{
-                    gegenereerdeBusinessRule = generator.generate(businessRule);
-                    System.out.println(businessRule.getRuleNaam() + "\n");
-                    System.out.println(gegenereerdeBusinessRule);
-                    cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
-                    cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"GENERATED");
-                    System.out.println(database);
-                    if(database.equals("target")){
-                        cdbbr.runCode(gegenereerdeBusinessRule);
-                    }
-                } catch (NullPointerException ex){
-                    cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"ERROR");
-                    StringWriter errors = new StringWriter();
-                    ex.printStackTrace(new PrintWriter(errors));
-                    cdbbr.saveToErrorLog(errors.toString(),"" + businessRule.getRuleID());
-                    ex.printStackTrace();
-                    fouten++;
-                }
-            }
-            if((ongeGenereerdeBusinessRule.size() - fouten) == 1){
-                returnMessage = "Er is " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrule gegenereerd.";
-            } else {
-                returnMessage = "Er zijn " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrules gegenereerd.";
-            }
-            if(fouten > 0){
-                if(fouten == 1) {
-                    returnMessage += "\nEn bij 1 businessrule is er een fout opgetreden";
-                } else {
-                    returnMessage += "\nEn bij " + fouten + " businessrules zijn er fouten opgetreden";
-                }
-            }
+            getBusinessRulesFromDatabase(database, cdbbr);
         }
         String session = req.getParameter("SESSION");
         String saveTo = req.getParameter("ITEM");
@@ -76,4 +39,81 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         resp.sendRedirect(url + ":" + page + ":" + session + "::::" + saveTo + ":" + returnMessage);
     }
 
+    private void getOngegenereerdeBusinessRules(ConnectDBBusinessRule cdbbr) {
+        ongeGenereerdeBusinessRule = cdbbr.getOngegenereerdeBusinessRules();
+    }
+
+    private void getBusinessRulesFromDatabase(String database, ConnectDBBusinessRule cdbbr) {
+        for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
+            getBusinessRuleFromDatabase(database, cdbbr, businessRule);
+        }
+        if((ongeGenereerdeBusinessRule.size() - fouten) == 1){
+            setReturnMessageForSingleGeneratedBusinessRule();
+        } else {
+            setReturnMessageForMultipleGeneratedBusinessRules();
+        }
+        if(fouten > 0){
+            if(fouten == 1) {
+                addSingleErrorToReturnMessage();
+            } else {
+                addMultipleErrorsToReturnMessages();
+            }
+        }
+    }
+
+    private void addMultipleErrorsToReturnMessages() {
+        returnMessage += "\nEn bij " + fouten + " businessrules zijn er fouten opgetreden";
+    }
+
+    private void addSingleErrorToReturnMessage() {
+        returnMessage += "\nEn bij 1 businessrule is er een fout opgetreden";
+    }
+
+    private void setReturnMessageForMultipleGeneratedBusinessRules() {
+        returnMessage = "Er zijn " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrules gegenereerd.";
+    }
+
+    private void setReturnMessageForSingleGeneratedBusinessRule() {
+        returnMessage = "Er is " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrule gegenereerd.";
+    }
+
+    private void getBusinessRuleFromDatabase(String database, ConnectDBBusinessRule cdbbr, BusinessRule businessRule) {
+        String gegenereerdeBusinessRule = "";
+        try{
+            gegenereerdeBusinessRule = getGenerator().generate(businessRule);
+            cdbbr.saveBusinessRule(businessRule.getRuleNaam(), businessRule.getLanguage(), gegenereerdeBusinessRule);
+            cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"GENERATED");
+            if("target".equals(database)){
+                cdbbr.runCode(gegenereerdeBusinessRule);
+            }
+        } catch (NullPointerException ex){
+            handleNullPointerException(cdbbr, businessRule, ex);
+        }
+    }
+
+    private void handleNullPointerException(ConnectDBBusinessRule cdbbr, BusinessRule businessRule, NullPointerException ex) {
+        cdbbr.changeBusinessRuleStatus(businessRule.getRuleID(),"ERROR");
+        StringWriter errors = new StringWriter();
+        ex.printStackTrace(new PrintWriter(errors));
+        cdbbr.saveToErrorLog(errors.toString(),"" + businessRule.getRuleID());
+        ex.printStackTrace();
+        fouten++;
+    }
+
+    private ConnectDBBusinessRule getBusinessRuleDataBaseConnection() {
+        Connection con = ConnectionFactory.getConnection();
+        return new ConnectDBBusinessRule(con);
+    }
+
+    private void setReturnMessageForNoRules() {
+        returnMessage = "Er zijn geen businessrules te genereren.";
+    }
+
+    public Generator getGenerator() {
+        return generator;
+    }
+
+    public void setGenerator(Generator generator) {
+        this.generator = generator;
+    }
 }
