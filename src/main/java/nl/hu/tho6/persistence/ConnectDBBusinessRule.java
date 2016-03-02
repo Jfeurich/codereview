@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
-//import java.util.Optional;
 
 /*
  * Deze methode moet bevatten:
@@ -33,9 +32,10 @@ public class ConnectDBBusinessRule {
     /**
      * Haalt alle ongegenereerde businessrules op uit de database.
      */
-    public ArrayList<BusinessRule> getOngegenereerdeBusinessRules() {
+    public List<BusinessRule> getOngegenereerdeBusinessRules() {
+        Statement stmt;
         //Haal de businessrules op uit de ruledatabase
-        ArrayList<BusinessRule> rules = new ArrayList<BusinessRule>();
+        List<BusinessRule> rules = new ArrayList<>();
         try {
             String sql = "select BUSINESSRULE.RULEID as RULEID,\n" +
                     "BUSINESSRULE.RULENAAM as RULENAAM,\n" +
@@ -48,7 +48,7 @@ public class ConnectDBBusinessRule {
                     "BUSINESSRULE \n" +
                     " where   BUSINESSRULE.RULEID=ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID\n" +
                     " and     ONGEGENEREERDE_BUSINESSRULE.STATUS = 'NOT_GENERATED'";
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 BusinessRule r = new BusinessRule();
@@ -57,7 +57,6 @@ public class ConnectDBBusinessRule {
                 String error = rs.getString("ERROR");
                 String errortype = rs.getString("ERRORTYPE");
                 String language = rs.getString("LANGUAGE");
-                int operator = rs.getInt("OPERATOR");
                 int ruletype = rs.getInt("BUSINESSRULETYPE");
                 String code = "";
                 //TODO dit gaat waarschijnlijk nog nullpointer excpetions opleveren
@@ -73,31 +72,26 @@ public class ConnectDBBusinessRule {
                 Attribute a2 = null;
                 Value v1 = null;
                 Value v2 = null;
-                if (attributes.size() > 0) {
+                if (attributes.isEmpty()) {
                     a1 = attributes.get(0);
                     if (attributes.size() > 1) {
                         a2 = attributes.get(1);
                     }
                 }
-                if (values.size() > 0) {
+                if (values.isEmpty()) {
                     v1 = values.get(0);
                     if (values.size() > 1) {
                         v2 = values.get(1);
                     }
                 }
-                String output = "RuleID: " + id + ", " + attributes.size() + " ATT, " + values.size() + " VAL \t"  + rulenaam;
-                System.out.println(output);
-                // r = BusinessRule(rulenaam,error,errortype,code,o,v1,v2,a1,a2)
                 r.setRuleNaam(rulenaam);
                 r.setError(error);
                 r.setErrorType(errortype);
                 r.setCode(code);
                 r.setOperator(o);
                 r.setBusinessruletype(ruletype);
-                if(a1 != null && a2 != null){
-                    if(a1.getTabel() != a2.getTabel()){
-                        setReferences(a1,a2);
-                    }
+                if(a1 != null && a2 != null && a1.getTabel() != a2.getTabel()){
+                    setReferences(a1,a2);
                 }
                 if(nulltest(v1)){
                     r.setValue1(v1);
@@ -117,8 +111,12 @@ public class ConnectDBBusinessRule {
             }
             stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan geen businessrules halen uit de database" + ex);
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
         return rules;
     }
@@ -131,18 +129,17 @@ public class ConnectDBBusinessRule {
             updateStatement.executeQuery();
             updateStatement.close();
         } catch (Exception ex) {
-            System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
             ex.printStackTrace();
         }
     }
 
     private void setReferences(Attribute a1, Attribute a2) {
-        System.out.println("Getting references for the attributes");
+        Statement stmt;
         try {
-            String URL = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
-            String USER = "tho6_2014_2b_team3_target";
-            String PASSWORD = " tho6_2014_2b_team3_target";
-            Connection tempcon = ConnectionFactory.getTargetConnection(URL,USER,PASSWORD);
+            String url = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
+            String user = "tho6_2014_2b_team3_target";
+            String password = " tho6_2014_2b_team3_target";
+            Connection tempcon = ConnectionFactory.getTargetConnection(url,user,password);
             String sql = "SELECT UCC1.TABLE_NAME||'.'||UCC1.COLUMN_NAME CONSTRAINT_SOURCE,\n" +
                     "UCC2.TABLE_NAME||'.'||UCC2.COLUMN_NAME REFERENCES_COLUMN\n" +
                     "FROM USER_CONSTRAINTS uc,\n" +
@@ -154,13 +151,11 @@ public class ConnectDBBusinessRule {
                     "AND UC.CONSTRAINT_TYPE = 'R'\n" +
                     "AND (UCC1.TABLE_NAME = '" + a1.getTabel() + "' OR UCC2.TABLE_NAME = '" + a1.getTabel() + "')\n" +
                     "AND (UCC1.TABLE_NAME = '" + a2.getTabel() + "' OR UCC2.TABLE_NAME = '" + a2.getTabel() + "')\n";
-            Statement stmt = tempcon.createStatement();
+            stmt = tempcon.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 String source1 = rs.getString("CONSTRAINT_SOURCE");
                 String source2 = rs.getString("REFERENCES_COLUMN");
-                System.out.println(source1);
-                System.out.println(source2);
                 String[] sourceSplit = source1.split("\\.");
                 String[] sourceSplit2 = source2.split("\\.");
                 if(a1.getTabel().equals(sourceSplit[0])){
@@ -170,19 +165,21 @@ public class ConnectDBBusinessRule {
                     a1.setReference(sourceSplit2[1]);
                     a2.setReference(sourceSplit[1]);
                 }
-                System.out.println("A1 reference: " + a1.getReference());
-                System.out.println("A2 reference: " + a2.getReference());
             }
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Het lukt niet om de references op te halen" + ex);
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
     }
 
     /*Haalt alle attributes behorende bij de businessrule uit de DB*/
-    public ArrayList<Attribute> getAttribute(int businessruleID){
-        ArrayList<Attribute> attributes = new ArrayList<Attribute>();
+    public List<Attribute> getAttribute(int businessruleID){
+        Statement stmt;
+        List<Attribute> attributes = new ArrayList<>();
         try {
             String sql = "select ATTRIBUTE.ATTRIBUTENAAM as ATTRIBUTENAAM,\n" +
                     " ATTRIBUTE.DBSCHEMA as DBSCHEMA,\n" +
@@ -193,7 +190,7 @@ public class ConnectDBBusinessRule {
                     " ATTRIBUTE ATTRIBUTE \n" +
                     " where   BUSINESSRULE_ATTRIBUTE.BUSINESSRULE="+ businessruleID + "\n" +
                     " and BUSINESSRULE_ATTRIBUTE.ATTRIBUTE=ATTRIBUTE.ATTRIBUTEID";
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int attributeid = rs.getInt("ATTRIBUTEID");
@@ -204,15 +201,20 @@ public class ConnectDBBusinessRule {
                 Attribute a = new Attribute(attributenaam,dbschema,tabel,kolom,attributeid);
                 attributes.add(a);
             }
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan geen attributes halen uit de database" + ex);
+            ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
         return attributes;
     }
     /*haal values uit de database behordende bij de database*/
-    public ArrayList<Value> getValue(int businessruleID){
-        ArrayList<Value> v = new ArrayList<Value>();
+    public List<Value> getValue(int businessruleID){
+        Statement stmt;
+        List<Value> v = new ArrayList<>();
         try {
             String sql = "select VALUE.VALUEID as VALUEID,\n" +
                     " VALUE.WAARDENAAM as WAARDENAAM,\n" +
@@ -221,25 +223,28 @@ public class ConnectDBBusinessRule {
                     " VALUE.BUSINESSRULE as BUSINESSRULE \n" +
                     " from VALUE VALUE \n" +
                     " where   VALUE.BUSINESSRULE = " + businessruleID;
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int valueID = rs.getInt("VALUEID");
                 String waardenaam = rs.getString("WAARDENAAM");
                 String valuetype = rs.getString("VALUETYPE");
                 String value = rs.getString("VALUECONTENT");
                 Value val = new Value(waardenaam,valuetype,value);
                 v.add(val);
             }
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan geen values halen uit de database" + ex);
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
         return v;
     }
     /*Haal de operator behorende bijde businessrule uit de database*/
     public Operator getOperator(int businessruleID){
+        Statement stmt;
         Operator op = null;
         try {
             String sql =    "select OPERATOR.OPERATORNAAM as OPERATORNAAM," +
@@ -248,16 +253,20 @@ public class ConnectDBBusinessRule {
                             "OPERATOR OPERATOR \n" +
                             "where   OPERATOR.OPERATORID=BUSINESSRULE.OPERATOR\n" +
                             "and  BUSINESSRULE.RULEID ="+businessruleID;
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 String naam = rs.getString("OPERATORNAAM");
                 String operatortype = rs.getString("OPERATORTYPE");
                 op = new Operator(naam,operatortype);
             }
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan geen operator halen uit de database" + ex);
+            ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
         return op;
     }
@@ -271,72 +280,83 @@ public class ConnectDBBusinessRule {
 
     /*Sla de gemaakte businessrule op in de oracle database.*/
     // TODO: pas de savebusinessrule aan zodat hij de businessrule als string opslaat in de apex database.
-    public void saveBusinessRule(String BUSINESSRULENAAM,String LANGUAGENAAM, String CODE){
+    public void saveBusinessRule(String businessrulenaam,String languagenaam, String code){
+        Statement stmt;
         try {
             String sql =    "SELECT *\n" +
                             "FROM GEGENEREERDE_BUSINESSRULE\n" +
-                            "WHERE GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM = '" + BUSINESSRULENAAM + "'\n" +
-                            "AND GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM = '" + LANGUAGENAAM + "'";
-            Statement stmt = con.createStatement();
+                            "WHERE GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM = '" + businessrulenaam + "'\n" +
+                            "AND GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM = '" + languagenaam + "'";
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()) {
                 PreparedStatement updateStatement = con.prepareStatement("UPDATE GEGENEREERDE_BUSINESSRULE \n" +
                         "SET CODE = ? \n" +
                         "WHERE GEGENEREERDE_BUSINESSRULE.BUSINESSRULENAAM = ?\n" +
                         "AND GEGENEREERDE_BUSINESSRULE.LANGUAGENAAM = ?");
-                updateStatement.setString(1, CODE);
-                updateStatement.setString(2, BUSINESSRULENAAM);
-                updateStatement.setString(3, LANGUAGENAAM);
+                updateStatement.setString(1, code);
+                updateStatement.setString(2, businessrulenaam);
+                updateStatement.setString(3, languagenaam);
                 updateStatement.executeQuery();
                 updateStatement.close();
             } else {
                 try {
                     PreparedStatement updateStatement = con.prepareStatement("INSERT INTO GEGENEREERDE_BUSINESSRULE (GENID,BUSINESSRULENAAM,LANGUAGENAAM,CODE) VALUES (SEQ_GEGENEREERDE_BUSINESSRULE.NEXTVAL,?,?,?)");
-                    updateStatement.setString(1, BUSINESSRULENAAM);
-                    updateStatement.setString(2, LANGUAGENAAM);
-                    updateStatement.setString(3, CODE);
+                    updateStatement.setString(1, businessrulenaam);
+                    updateStatement.setString(2, languagenaam);
+                    updateStatement.setString(3, code);
                     updateStatement.executeQuery();
                     updateStatement.close();
                 } catch (Exception ex) {
-                    System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
                     ex.printStackTrace();
                 }
             }
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Kan gemaakte businessrule niet opslaan in de database" + ex);
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
     }
 
     public void runCode(String code){
+        Statement stmt;
         try {
-            String URL = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
-            String USER = "tho6_2014_2b_team3_target";
-            String PASSWORD = " tho6_2014_2b_team3_target";
-            Connection tempcon = ConnectionFactory.getTargetConnection(URL,USER,PASSWORD);
-            Statement stmt = tempcon.createStatement();
+            String url = "jdbc:oracle:thin:@//ondora01.hu.nl:8521/cursus01.hu.nl";
+            String user = "tho6_2014_2b_team3_target";
+            String password = " tho6_2014_2b_team3_target";
+            Connection tempcon = ConnectionFactory.getTargetConnection(url,user,password);
+            stmt = tempcon.createStatement();
             stmt.executeUpdate(code);
-            stmt.close();
         } catch (Exception ex) {
-            System.out.println("Het lukt niet om de references op te halen" + ex);
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
     }
 
     /*Verander de status van de gegenereerde businessrule in de database.*/
     public void changeBusinessRuleStatus(int businessruleid, String status){
+        Statement stmt;
         try {
             String sql ="UPDATE ONGEGENEREERDE_BUSINESSRULE \n" +
                         "SET STATUS = '" + status + "' \n" +
                         "WHERE ONGEGENEREERDE_BUSINESSRULE.BUSINESSRULERULEID = " + businessruleid;
-            Statement stmt = con.createStatement();
+            stmt = con.createStatement();
             stmt.executeUpdate(sql);
-            stmt.close();
         }
         catch(Exception ex){
-            System.out.println("Kan de status van de ongegenereerde businessrule niet veranderen");
             ex.printStackTrace();
+        }
+        finally {
+            if(stmt != null) {
+                stmt.close();
+            }
         }
     }
 }
