@@ -22,7 +22,6 @@ public class Generator {
         return ourInstance;
     }
 
-    //TODO refactor
     public String generate(BusinessRule businessRule) {
         String language = businessRule.getLanguage().toLowerCase();
         StringTemplate templateForLanguage = getTemplateForLanguage(language);
