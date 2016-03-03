@@ -4,7 +4,6 @@ import nl.hu.tho6.domain.businessrule.BusinessRule;
 import nl.hu.tho6.translator.Translator;
 import nl.hu.tho6.utils.stringtemplate.StringTemplate;
 
-import java.lang.String;
 import java.util.Map;
 
 /**
@@ -59,7 +58,7 @@ public class Generator {
     }
 
     private boolean isAttributeEmpty(Map.Entry<String, String> attribute) {
-        return attribute.getValue().equals("empty");
+        return "empty".equals(attribute.getValue());
     }
 
     private void setTemplateAttribute(String language, StringTemplate templateForLanguage, Map.Entry<String, String> attribute) {
@@ -159,9 +158,9 @@ public class Generator {
     private String generateError(BusinessRule businessRule, String language) {
         String error = "";
         if("2".equals(businessRule.getErrorType())){
-            error += addMessageToError(language,, "ErrorFunction");
+            error += addMessageToError(language, "ErrorFunction");
         } else {
-            error += addMessageToError(language,, "DefaultError");
+            error += addMessageToError(language, "DefaultError");
         }
         return error;
     }
@@ -222,17 +221,17 @@ public class Generator {
 
     private String handleBetweenOrNotBetweenOperator(BusinessRule businessRule, String language, String conditions) {
         if(checkOperatorName(businessRule, "Between")){
-            conditions += addCondition(language, "GreaterThanOrEqualsTo");
+            addCondition(language, conditions, "GreaterThanOrEqualsTo");
             conditions += " " + businessRule.getValue1().getValue();
-            conditions += addCondition(language, "And");
+            addCondition(language, conditions, "And");
             conditions += " :new." + businessRule.getAttribute1().getKolom();
-            conditions += addCondition(language, "LesserThanOrEqualsTo");
+            addCondition(language, conditions, "LesserThanOrEqualsTo");
         } else {
-            conditions += addCondition(language, "LesserThan");
+            addCondition(language, conditions, "LesserThan");
             conditions += " " + businessRule.getValue1().getValue();
-            conditions += addCondition(language, "Or");
+            addCondition(language, conditions, "Or");
             conditions += " :new." + businessRule.getAttribute1().getKolom();
-            conditions += addCondition(language, "GreaterThan");
+            addCondition(language, conditions, "GreaterThan");
         }
         conditions += " " + businessRule.getValue2().getValue();
         return conditions;
@@ -242,8 +241,8 @@ public class Generator {
         return businessRule.getOperator().getNaam().equals(value);
     }
 
-    private String addCondition(String language, String greaterThanOrEqualsTo) {
-        return " " + translator.getTranslationForElement(greaterThanOrEqualsTo, language);
+    private void addCondition(String language, String conditions, String greaterThanOrEqualsTo) {
+        conditions += " " + translator.getTranslationForElement(greaterThanOrEqualsTo, language);
     }
 
     private boolean isOperatorName(BusinessRule businessRule, String between, String notBetween) {
@@ -253,10 +252,8 @@ public class Generator {
     //TODO implement method
     private String generateVariables(BusinessRule businessRule) {
         String variables = "";
-        if(hasTwoAttributes(businessRule)){
-            if(hasDifferentTablesForAttributes(businessRule) || hasDifferentColumnsForAttributes(businessRule)){
-                variables += "v_temp " + businessRule.getAttribute1().getTabel() + "." + businessRule.getAttribute1().getKolom() + "%type;";
-            }
+        if(hasTwoAttributes(businessRule && (hasDifferentTablesForAttributes(businessRule) || hasDifferentColumnsForAttributes(businessRule)))){
+            variables += "v_temp " + businessRule.getAttribute1().getTabel() + "." + businessRule.getAttribute1().getKolom() + "%type;";
         }
         return variables;
     }
