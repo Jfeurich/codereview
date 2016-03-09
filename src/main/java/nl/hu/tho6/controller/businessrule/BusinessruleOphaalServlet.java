@@ -19,12 +19,12 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     private ArrayList<BusinessRule> ongeGenereerdeBusinessRule = new ArrayList<BusinessRule>();
     private String returnMessage;
     private Generator generator = Generator.getInstance();
-    private int fouten;
+    private int aantalFouten;
 
-
+    //test
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String database = req.getParameter("DATABASE");
-        fouten = 0;
+        aantalFouten = 0;
         ConnectDBBusinessRule cdbbr = getBusinessRuleDataBaseConnection();
         getOngegenereerdeBusinessRules(cdbbr);
         if(ongeGenereerdeBusinessRule.isEmpty()){
@@ -47,13 +47,13 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         for(BusinessRule businessRule : ongeGenereerdeBusinessRule) {
             getBusinessRuleFromDatabase(database, cdbbr, businessRule);
         }
-        if((ongeGenereerdeBusinessRule.size() - fouten) == 1){
+        if((ongeGenereerdeBusinessRule.size() - aantalFouten) == 1){
             setReturnMessageForSingleGeneratedBusinessRule();
         } else {
             setReturnMessageForMultipleGeneratedBusinessRules();
         }
-        if(fouten > 0){
-            if(fouten == 1) {
+        if(aantalFouten > 0){
+            if(aantalFouten == 1) {
                 addSingleErrorToReturnMessage();
             } else {
                 addMultipleErrorsToReturnMessages();
@@ -62,7 +62,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     }
 
     private void addMultipleErrorsToReturnMessages() {
-        returnMessage += "\nEn bij " + fouten + " businessrules zijn er fouten opgetreden";
+        returnMessage += "\nEn bij " + aantalFouten + " businessrules zijn er aantalFouten opgetreden";
     }
 
     private void addSingleErrorToReturnMessage() {
@@ -70,11 +70,11 @@ public class BusinessruleOphaalServlet extends HttpServlet {
     }
 
     private void setReturnMessageForMultipleGeneratedBusinessRules() {
-        returnMessage = "Er zijn " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrules gegenereerd.";
+        returnMessage = "Er zijn " + (ongeGenereerdeBusinessRule.size()- aantalFouten) + " businessrules gegenereerd.";
     }
 
     private void setReturnMessageForSingleGeneratedBusinessRule() {
-        returnMessage = "Er is " + (ongeGenereerdeBusinessRule.size()-fouten) + " businessrule gegenereerd.";
+        returnMessage = "Er is " + (ongeGenereerdeBusinessRule.size()- aantalFouten) + " businessrule gegenereerd.";
     }
 
     private void getBusinessRuleFromDatabase(String database, ConnectDBBusinessRule cdbbr, BusinessRule businessRule) {
@@ -97,7 +97,7 @@ public class BusinessruleOphaalServlet extends HttpServlet {
         ex.printStackTrace(new PrintWriter(errors));
         cdbbr.saveToErrorLog(errors.toString(),"" + businessRule.getRuleID());
         ex.printStackTrace();
-        fouten++;
+        aantalFouten++;
     }
 
     private ConnectDBBusinessRule getBusinessRuleDataBaseConnection() {

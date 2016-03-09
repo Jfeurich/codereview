@@ -144,7 +144,7 @@ public class Generator {
     }
 
     private String generateTimpeOperator(BusinessRule businessRule) {
-        if(businessRule.getBusinessruletype() == 9){
+        if(businessRule.getBusinessruletype() ==  9){
             return "update";
         } else {
             return "insert or update";
